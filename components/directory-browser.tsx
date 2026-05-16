@@ -121,8 +121,8 @@ export function DirectoryBrowser({ listings }: DirectoryBrowserProps) {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr_0.8fr_auto] lg:items-end">
-            <div className="grid gap-2">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr_0.8fr_auto] lg:items-end">
+            <div className="grid gap-2 sm:col-span-2 lg:col-span-1">
               <Label htmlFor="directory-search">Search</Label>
               <span className="relative">
                 <Search className="pointer-events-none absolute left-3 top-3 size-4 text-muted-foreground" aria-hidden="true" />
@@ -201,7 +201,7 @@ export function DirectoryBrowser({ listings }: DirectoryBrowserProps) {
               </Select>
             </div>
 
-            <Button type="button" variant="secondary" onClick={resetFilters}>
+            <Button type="button" variant="secondary" onClick={resetFilters} className="w-full sm:w-auto lg:w-full">
               <RotateCcw size={16} aria-hidden="true" />
               Reset
             </Button>
@@ -213,15 +213,15 @@ export function DirectoryBrowser({ listings }: DirectoryBrowserProps) {
         {filteredListings.map((listing) => (
           <Card key={listing.name} className={listing.priority === "urgent" ? "border-clay/35 bg-clay/8" : "bg-surface"}>
             <CardHeader>
-              <div className="flex items-start justify-between gap-4">
-                <div>
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                <div className="min-w-0">
                   <p className="text-xs font-black uppercase tracking-[0.14em] text-muted-foreground">{listing.type}</p>
                   <CardTitle className="mt-2">{listing.name}</CardTitle>
                 </div>
-                <Badge variant={statusVariant(listing.status)}>{listing.status}</Badge>
+                <Badge variant={statusVariant(listing.status)} className="w-fit">{listing.status}</Badge>
               </div>
-              <p className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
-                <MapPin size={17} aria-hidden="true" />
+              <p className="mt-2 flex items-start gap-2 text-sm text-muted-foreground">
+                <MapPin className="mt-0.5 shrink-0" size={17} aria-hidden="true" />
                 {listing.serviceArea}
               </p>
             </CardHeader>

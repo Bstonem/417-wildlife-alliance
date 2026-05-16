@@ -8,14 +8,14 @@ import { Button } from "@/components/ui/button";
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/92 backdrop-blur">
-      <div className="container-shell flex min-h-16 items-center justify-between gap-5">
-        <Link href="/" className="focus-ring flex items-center gap-3 rounded-md" aria-label="417 Wildlife Alliance home">
-          <span className="flex size-10 items-center justify-center rounded-md bg-primary text-primary-foreground">
+      <div className="container-shell flex min-h-16 items-center justify-between gap-3 py-2">
+        <Link href="/" className="focus-ring flex min-w-0 items-center gap-3 rounded-md" aria-label="417 Wildlife Alliance home">
+          <span className="flex size-10 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground">
             <HeartPulse size={21} aria-hidden="true" />
           </span>
-          <span className="leading-tight">
-            <span className="block text-base font-bold">417 Wildlife Alliance</span>
-            <span className="block text-xs uppercase tracking-[0.16em] text-muted-foreground">Wildlife help fund</span>
+          <span className="min-w-0 leading-tight">
+            <span className="block truncate text-sm font-bold sm:text-base">417 Wildlife Alliance</span>
+            <span className="hidden text-xs uppercase tracking-[0.16em] text-muted-foreground sm:block">Wildlife help fund</span>
           </span>
         </Link>
 
@@ -42,7 +42,7 @@ export function SiteHeader() {
             <X className="hidden group-open:block" size={20} aria-hidden="true" />
             <span className="sr-only">Open navigation</span>
           </summary>
-          <div className="absolute right-0 top-13 w-[min(88vw,340px)] rounded-md border border-border bg-surface p-3 shadow-lg">
+          <div className="absolute right-0 top-13 w-[min(calc(100vw-32px),360px)] rounded-md border border-border bg-surface p-3 shadow-lg">
             <nav className="grid gap-1" aria-label="Mobile navigation">
               {navItems.map((item) => (
                 <Link
@@ -53,8 +53,11 @@ export function SiteHeader() {
                   {item.label}
                 </Link>
               ))}
-              <Button asChild className="mt-2">
+              <Button asChild className="mt-2 w-full">
                 <Link href="/found-animal">Found an animal</Link>
+              </Button>
+              <Button asChild variant="secondary" className="w-full">
+                <Link href="/donate">Donate</Link>
               </Button>
             </nav>
           </div>

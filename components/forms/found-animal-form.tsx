@@ -115,7 +115,7 @@ export function FoundAnimalForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="grid gap-5 rounded-md border border-border bg-surface p-5 shadow-sm md:p-6">
+    <form onSubmit={onSubmit} className="grid gap-5 rounded-md border border-border bg-surface p-4 shadow-sm sm:p-5 md:p-6">
       <FormStatus status={state.status} message={state.message} />
 
       <div className="grid gap-4 md:grid-cols-2">
@@ -193,7 +193,7 @@ export function FoundAnimalForm() {
       </div>
 
       <div className={urgent ? "rounded-md border border-clay/30 bg-clay/10 p-4" : "rounded-md border border-blue/25 bg-blue/10 p-4"}>
-        <div className="flex gap-3">
+        <div className="flex items-start gap-3">
           <span className={urgent ? "mt-0.5 text-clay-strong" : "mt-0.5 text-blue-strong"}>
             {urgent ? <AlertTriangle size={20} aria-hidden="true" /> : <Info size={20} aria-hidden="true" />}
           </span>
@@ -245,7 +245,7 @@ export function FoundAnimalForm() {
       </div>
 
       <div className="grid gap-3 rounded-md border border-border bg-muted/45 p-4 text-sm">
-        <label className="flex gap-3">
+        <label className="flex items-start gap-3">
           <input
             name="currently_contained"
             type="checkbox"
@@ -255,7 +255,7 @@ export function FoundAnimalForm() {
           />
           <span>The animal is currently contained.</span>
         </label>
-        <label className="flex gap-3">
+        <label className="flex items-start gap-3">
           <input
             name="immediate_danger"
             type="checkbox"
@@ -265,7 +265,7 @@ export function FoundAnimalForm() {
           />
           <span>The animal is in immediate danger.</span>
         </label>
-        <label className="flex gap-3">
+        <label className="flex items-start gap-3">
           <input
             name="visible_injury"
             type="checkbox"
@@ -279,13 +279,13 @@ export function FoundAnimalForm() {
 
       <div className="grid gap-2">
         <Label htmlFor="photos">Photos</Label>
-        <span className="flex items-center gap-2 rounded-md border border-dashed border-input bg-white px-3 py-4 font-normal text-muted-foreground">
-          <Camera size={18} aria-hidden="true" />
+        <span className="flex flex-col items-start gap-2 rounded-md border border-dashed border-input bg-white px-3 py-4 font-normal text-muted-foreground sm:flex-row sm:items-center">
+          <Camera className="shrink-0" size={18} aria-hidden="true" />
           <input id="photos" name="photos" type="file" accept="image/*" multiple className="w-full text-sm" />
         </span>
       </div>
 
-      <label className="flex gap-3 text-sm leading-6">
+      <label className="flex items-start gap-3 text-sm leading-6">
         <input name="consent_to_share" type="checkbox" required className="mt-1" />
         <span>I consent to 417 Wildlife Alliance sharing this information with appropriate licensed or permitted wildlife care contacts.</span>
       </label>
@@ -294,6 +294,7 @@ export function FoundAnimalForm() {
         type="submit"
         disabled={state.status === "loading"}
         size="lg"
+        className="w-full sm:w-fit"
       >
         <Send size={18} aria-hidden="true" />
         Send animal details

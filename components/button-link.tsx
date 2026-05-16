@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Route } from "next";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 type ButtonLinkProps = {
   href: Route;
@@ -14,7 +15,7 @@ export function ButtonLink({ href, children, variant = "primary", className }: B
   const buttonVariant = variant === "primary" ? "default" : variant === "ghost" ? "quiet" : variant;
 
   return (
-    <Button asChild variant={buttonVariant} size="lg" className={className}>
+    <Button asChild variant={buttonVariant} size="lg" className={cn("w-full sm:w-auto", className)}>
       <Link href={href}>
         {children}
         <ArrowRight aria-hidden="true" />

@@ -17,7 +17,7 @@ export default function HomePage() {
           backgroundSize: "cover"
         }}
       >
-        <div className="container-shell flex min-h-[78svh] flex-col justify-end py-10 md:py-14">
+        <div className="container-shell flex min-h-[78svh] flex-col justify-end py-9 md:py-14">
           <div className="max-w-5xl">
             <div className="flex flex-wrap gap-2">
               <Badge variant="blue" className="border-white/18 bg-white/12 text-white">417 area first</Badge>
@@ -25,10 +25,10 @@ export default function HomePage() {
               <Badge variant="secondary" className="border-white/18 bg-white/12 text-white">Wildlife help</Badge>
             </div>
             <h1 className="display-title mt-6 font-black">417 Wildlife Alliance</h1>
-            <p className="mt-6 max-w-3xl text-xl leading-8 text-white/82 md:text-2xl md:leading-9">
+            <p className="mt-5 max-w-3xl text-base leading-7 text-white/82 sm:text-xl sm:leading-8 md:mt-6 md:text-2xl md:leading-9">
               Helping southwest Missouri respond wisely when wildlife is injured, orphaned, displaced, or simply in the wrong place at the wrong time.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-7 flex flex-wrap gap-3 md:mt-8">
               <ButtonLink href="/found-animal">Found an animal</ButtonLink>
               <ButtonLink href="/donate" variant="clay">Fund the work</ButtonLink>
               <ButtonLink href="/certified-companies" variant="ghost" className="border border-white/18 bg-white/10 text-white hover:bg-white/16">Compassionate companies</ButtonLink>
@@ -50,8 +50,8 @@ export default function HomePage() {
           ].map((item) => {
             const Icon = item.icon;
             return (
-              <div key={item.label} className="flex items-center gap-3 rounded-md border border-border bg-surface px-4 py-3 shadow-sm">
-                <span className="flex size-10 items-center justify-center rounded-md bg-primary/10 text-primary">
+              <div key={item.label} className="flex items-start gap-3 rounded-md border border-border bg-surface px-4 py-3 shadow-sm">
+                <span className="flex size-10 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
                   <Icon size={20} aria-hidden="true" />
                 </span>
                 <div>
@@ -109,7 +109,7 @@ export default function HomePage() {
           <div className="grid gap-4">
             {intakeSteps.map((step, index) => (
               <Card key={step.title} className="bg-surface">
-                <CardHeader className="grid grid-cols-[auto_1fr] items-start gap-4">
+                <CardHeader className="grid gap-4 sm:grid-cols-[auto_1fr] sm:items-start">
                   <span className="flex size-11 items-center justify-center rounded-md bg-blue/10 text-blue-strong text-sm font-black">
                     {index + 1}
                   </span>
@@ -158,8 +158,8 @@ export default function HomePage() {
             </CardHeader>
             <CardContent className="grid gap-3">
               {["Monthly donors", "Business sponsors", "Supply support", "Impact updates"].map((item) => (
-                <p key={item} className="flex items-center gap-3 text-sm font-semibold">
-                  <CheckCircle2 size={18} aria-hidden="true" />
+                <p key={item} className="flex items-start gap-3 text-sm font-semibold">
+                  <CheckCircle2 className="mt-0.5 shrink-0" size={18} aria-hidden="true" />
                   {item}
                 </p>
               ))}

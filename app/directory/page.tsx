@@ -55,8 +55,8 @@ export default async function DirectoryPage() {
               <p className="section-kicker">Wildlife help</p>
               <h2 className="mt-2 text-4xl font-black">Rehabber directory</h2>
             </div>
-            <div className="flex min-h-12 items-center gap-2 rounded-md border border-border bg-surface px-4 text-sm text-muted-foreground shadow-sm">
-              <Search size={18} aria-hidden="true" />
+            <div className="flex min-h-12 items-start gap-2 rounded-md border border-border bg-surface px-4 py-3 text-sm leading-6 text-muted-foreground shadow-sm md:max-w-md">
+              <Search className="mt-1 shrink-0" size={18} aria-hidden="true" />
               Start with animal type, location, and availability before contacting a rehabber.
             </div>
           </div>

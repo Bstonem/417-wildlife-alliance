@@ -124,7 +124,7 @@ export default function CertifiedCompaniesPage() {
               const Icon = index === 2 ? AlertTriangle : ShieldCheck;
               return (
                 <Card key={item.title} className="bg-surface">
-                  <CardHeader className="grid grid-cols-[auto_1fr] items-start gap-4">
+                  <CardHeader className="grid gap-4 sm:grid-cols-[auto_1fr] sm:items-start">
                     <span className="flex size-11 items-center justify-center rounded-md bg-primary/10 text-primary">
                       <Icon size={21} aria-hidden="true" />
                     </span>

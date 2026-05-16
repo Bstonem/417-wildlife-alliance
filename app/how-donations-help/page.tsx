@@ -130,7 +130,7 @@ export default function HowDonationsHelpPage() {
               const Icon = index === 0 ? ReceiptText : index === 1 ? ClipboardList : HeartHandshake;
               return (
                 <Card key={item.title} className="bg-surface">
-                  <CardHeader className="grid grid-cols-[auto_1fr] items-start gap-4">
+                  <CardHeader className="grid gap-4 sm:grid-cols-[auto_1fr] sm:items-start">
                     <span className="flex size-11 items-center justify-center rounded-md bg-primary/10 text-primary">
                       <Icon size={21} aria-hidden="true" />
                     </span>
