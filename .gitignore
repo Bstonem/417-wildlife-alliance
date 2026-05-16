@@ -1,0 +1,34 @@
+.next/
+node_modules/
+out/
+build/
+dist/
+
+.env
+.env.local
+.env.*.local
+
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+tsconfig.tsbuildinfo
+
+.DS_Store
+Thumbs.db
+
+.vercel/
+.netlify/
+.supabase/
+/tmp/
+
+# Local source-photo drops; optimized copies live in public/assets.
+/matt and squirrel.jpg
+/opossum.jpg
+/squirrel 1.jpg
+/squirrel 2.jpg
+/squirrel 3.jpg
+/squirrel 4.jpg
+/squirrel 6.jpg
+/squirrel 7.jpg
