@@ -27,6 +27,22 @@ export function makeCaseNumber() {
   return `417-${y}${m}${d}-${suffix}`;
 }
 
+export function slugify(value: string) {
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 export function getSiteUrl() {
-  return process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const url =
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    process.env.SITE_URL ||
+    process.env.URL ||
+    process.env.DEPLOY_PRIME_URL ||
+    "http://localhost:3000";
+
+  return url.replace(/\/$/, "");
 }

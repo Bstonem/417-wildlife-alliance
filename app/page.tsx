@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { ArrowDown, CheckCircle2, FileHeart, HeartHandshake, MapPinned, TreePine } from "lucide-react";
 import { AllianceMap } from "@/components/alliance-map";
 import { ButtonLink } from "@/components/button-link";
@@ -5,6 +6,29 @@ import { OperatingLanes } from "@/components/operating-lanes";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { intakeSteps } from "@/lib/demo-data";
+import { createMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = createMetadata({
+  title: "Wildlife Help in Springfield MO and the 417 Area",
+  description:
+    "Find safe next steps for injured, orphaned, or displaced wildlife in Springfield, Greene County, and southwest Missouri while supporting licensed rehabbers.",
+  path: "/",
+  keywords: ["Springfield MO wildlife help", "Greene County wildlife rehabber", "southwest Missouri wildlife rescue"]
+});
+
+const localServiceAreas = [
+  "Springfield and Greene County",
+  "Nixa, Ozark, and Christian County",
+  "Republic, Willard, and Strafford",
+  "Bolivar, Marshfield, Branson, and nearby 417 communities"
+];
+
+const localHelpTopics = [
+  "Baby squirrels displaced by storms or tree work",
+  "Injured opossums, songbirds, and small mammals",
+  "Wildlife near roads, pets, work sites, or structures",
+  "Rehabber support, supplies, transport, and donor funding"
+];
 
 export default function HomePage() {
   return (
@@ -91,6 +115,50 @@ export default function HomePage() {
       <div id="map">
         <AllianceMap />
       </div>
+
+      <section className="section bg-background">
+        <div className="container-shell grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
+          <div>
+            <p className="section-kicker">Southwest Missouri</p>
+            <h2 className="section-title mt-3">Wildlife help for Springfield, Greene County, and the 417 area.</h2>
+            <p className="body-large mt-5">
+              417 Wildlife Alliance is being built as a practical local hub for neighbors who find injured, orphaned, displaced, or at-risk wildlife and need to reach appropriate licensed or permitted help.
+            </p>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            <Card className="bg-surface">
+              <CardHeader>
+                <Badge className="w-fit">Service area</Badge>
+                <CardTitle>Initial regional focus</CardTitle>
+              </CardHeader>
+              <CardContent className="grid gap-3 text-sm leading-6 text-muted-foreground">
+                {localServiceAreas.map((area) => (
+                  <p key={area} className="flex gap-3">
+                    <MapPinned className="mt-0.5 shrink-0 text-primary" size={18} aria-hidden="true" />
+                    {area}
+                  </p>
+                ))}
+              </CardContent>
+            </Card>
+            <Card className="bg-surface">
+              <CardHeader>
+                <Badge variant="blue" className="w-fit">
+                  Common needs
+                </Badge>
+                <CardTitle>What local wildlife calls often involve</CardTitle>
+              </CardHeader>
+              <CardContent className="grid gap-3 text-sm leading-6 text-muted-foreground">
+                {localHelpTopics.map((topic) => (
+                  <p key={topic} className="flex gap-3">
+                    <CheckCircle2 className="mt-0.5 shrink-0 text-primary" size={18} aria-hidden="true" />
+                    {topic}
+                  </p>
+                ))}
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
 
       <section className="section bg-background">
         <div className="container-shell grid gap-9 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">

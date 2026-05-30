@@ -1,8 +1,18 @@
+import type { Metadata } from "next";
 import { AlertTriangle, Building2, HeartHandshake, Mail, MapPinned } from "lucide-react";
 import { ContactForm } from "@/components/forms/contact-form";
 import { PageHero } from "@/components/page-hero";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { createMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = createMetadata({
+  title: "Contact 417 Wildlife Alliance",
+  description:
+    "Contact 417 Wildlife Alliance for wildlife help details, rehabber listing updates, donations, partnerships, and southwest Missouri community education.",
+  path: "/contact",
+  keywords: ["contact 417 Wildlife Alliance", "Springfield MO wildlife help contact", "southwest Missouri wildlife support"]
+});
 
 const contactReasons = [
   {

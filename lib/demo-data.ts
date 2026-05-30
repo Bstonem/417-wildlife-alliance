@@ -1,10 +1,12 @@
 import {
   Building2,
+  BarChart3,
   CircleHelp,
   ClipboardList,
   DollarSign,
   FileHeart,
   HeartHandshake,
+  Inbox,
   MapPinned,
   Newspaper,
   PackageOpen,
@@ -201,7 +203,7 @@ export const rehabberDirectory = [
     serviceArea: "Springfield and nearby communities",
     species: ["Squirrels", "Rabbits", "Opossums", "Small mammals"],
     status: "Accepting calls",
-    contact: "Mock listing for testing. Best for small-mammal questions, baby season triage, and safe handoff guidance.",
+    contact: "Best for small-mammal questions, baby season triage, and safe handoff guidance when public contact details have been approved.",
     url: "/found-animal/baby-squirrel",
     counties: ["Greene", "Christian"],
     kind: "rehabber"
@@ -212,7 +214,7 @@ export const rehabberDirectory = [
     serviceArea: "South Springfield, Nixa, Ozark",
     species: ["Squirrels", "Rabbits", "Opossums"],
     status: "Limited intake",
-    contact: "Mock listing for testing. May be able to advise on young mammals and reunification questions when capacity allows.",
+    contact: "May be able to advise on young mammals and reunification questions when capacity and approved public contact preferences allow.",
     url: "/found-animal/baby-rabbit",
     counties: ["Greene", "Christian"],
     kind: "rehabber"
@@ -223,7 +225,7 @@ export const rehabberDirectory = [
     serviceArea: "Branson, Kimberling City, Table Rock Lake area",
     species: ["Waterfowl", "Songbirds", "Reptiles", "Unknown"],
     status: "Referral only",
-    contact: "Mock listing for testing. Helps find the right contact for lake-area wildlife and public-safety situations.",
+    contact: "Helps find the right contact for lake-area wildlife and public-safety situations when a direct listing is not appropriate.",
     url: "/contact",
     counties: ["Stone", "Taney"],
     kind: "resource"
@@ -234,7 +236,7 @@ export const rehabberDirectory = [
     serviceArea: "Ozark, Sparta, eastern Christian County",
     species: ["Opossums", "Rabbits", "Small mammals"],
     status: "Accepting calls",
-    contact: "Mock listing for testing. Focused on small mammals and young opossums when space is available.",
+    contact: "Focused on small mammals and young opossums when space is available and public contact details have been approved.",
     url: "/found-animal/opossum",
     counties: ["Christian", "Douglas"],
     kind: "rehabber"
@@ -268,7 +270,7 @@ export const rehabberDirectory = [
     serviceArea: "Springfield metro and surrounding counties",
     species: ["Songbirds", "Baby birds"],
     status: "Availability varies",
-    contact: "Mock listing for testing. Use for nestling, fledgling, window strike, and cat-contact questions involving small birds.",
+    contact: "Use for nestling, fledgling, window strike, and cat-contact questions involving small birds when an approved bird-care contact is available.",
     url: "/found-animal/baby-bird",
     counties: ["Greene", "Christian", "Webster"],
     kind: "rehabber"
@@ -313,7 +315,7 @@ export const rehabberDirectory = [
     serviceArea: "Marshfield, Rogersville, Seymour",
     species: ["Rabbits", "Squirrels", "Opossums"],
     status: "Limited intake",
-    contact: "Mock listing for testing. Can help with small-mammal triage when space and transport are available.",
+    contact: "Can help with small-mammal triage when space, transport, and approved public contact preferences are available.",
     url: "/found-animal",
     counties: ["Webster", "Greene"],
     kind: "rehabber"
@@ -335,7 +337,7 @@ export const rehabberDirectory = [
     serviceArea: "Aurora, Mount Vernon, Monett area",
     species: ["Rabbits", "Squirrels", "Unknown", "Small mammals"],
     status: "Availability varies",
-    contact: "Mock listing for testing. Helps direct finders toward the right local contact based on animal type and location.",
+    contact: "Helps direct finders toward the right local contact based on animal type, location, and verified public listing details.",
     url: "/contact",
     counties: ["Lawrence", "Barry"],
     kind: "rehabber"
@@ -399,6 +401,12 @@ export const adminCards = [
     description: "Review found-animal details and coordinate appropriate follow-up."
   },
   {
+    icon: Inbox,
+    label: "Inbox",
+    href: "/admin/inbox",
+    description: "Review contact messages, volunteer interest, and partner applications."
+  },
+  {
     icon: MapPinned,
     label: "Directory",
     href: "/admin/directory",
@@ -415,6 +423,24 @@ export const adminCards = [
     label: "Donations",
     href: "/admin/donations",
     description: "Track donation records, fund preferences, and rehabber support decisions."
+  },
+  {
+    icon: Newspaper,
+    label: "Stories and news",
+    href: "/admin/stories",
+    description: "Create public updates that show donors where support is going."
+  },
+  {
+    icon: PackageOpen,
+    label: "Merch",
+    href: "/admin/merch",
+    description: "Prepare mission gear, pricing, and product visibility."
+  },
+  {
+    icon: BarChart3,
+    label: "Impact loop",
+    href: "/admin/impact",
+    description: "Track routed animals, rehabber follow-up, updates, and outcomes."
   }
 ];
 
@@ -452,6 +478,22 @@ export const faqs = [
   {
     q: "What does certified company mean?",
     a: "It means a company has committed to wildlife-aware education, humane escalation steps, and a safer response when work may affect nests, dens, or displaced animals."
+  },
+  {
+    q: "Who should I call for wildlife help in Springfield, Missouri?",
+    a: "Start with the animal type, exact location, visible injuries, and whether people, pets, traffic, or equipment are involved. Use the found-animal form and directory to look for a licensed rehabilitator, conservation authority, animal control, or other appropriate local resource."
+  },
+  {
+    q: "Does 417 Wildlife Alliance rehabilitate animals directly?",
+    a: "The launch model is to route, fund, educate, and coordinate support for licensed or permitted care. The alliance should not directly possess, treat, or rehabilitate wildlife unless the required state and federal permits and qualified facilities are in place."
+  },
+  {
+    q: "What counties are part of the initial 417 wildlife-help focus?",
+    a: "The initial focus is southwest Missouri and nearby 417-area communities, including Springfield, Greene County, Christian County, Webster County, Polk County, Stone County, Taney County, Dallas County, and Lawrence County."
+  },
+  {
+    q: "Should I call animal control, MDC, or a wildlife rehabilitator?",
+    a: "It depends on the situation. Use emergency services when a person is in danger, local animal control or public-safety resources when wildlife creates an immediate safety risk, conservation authorities for protected species or regulation questions, and licensed rehabilitators for injured or orphaned wildlife that may need care."
   }
 ];
 

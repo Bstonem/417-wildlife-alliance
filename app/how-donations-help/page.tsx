@@ -1,9 +1,20 @@
+import type { Metadata } from "next";
 import type { Route } from "next";
 import { CheckCircle2, ClipboardList, DollarSign, FileHeart, HeartHandshake, ReceiptText } from "lucide-react";
 import { ButtonLink } from "@/components/button-link";
 import { PageHero } from "@/components/page-hero";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { createMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = createMetadata({
+  title: "How Donations Help Wildlife Rehabbers in Southwest Missouri",
+  description:
+    "See how gifts can fund formula, food, transport, safe housing, emergency supplies, and accountable support for licensed wildlife rehabbers.",
+  path: "/how-donations-help",
+  image: "/assets/squirrel-2.jpg",
+  keywords: ["how wildlife rehabilitation donations help", "wildlife rehabber supplies Missouri", "donor support wildlife rescue Springfield MO"]
+});
 
 const fundPriorities = [
   {

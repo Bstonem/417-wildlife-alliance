@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import type { Route } from "next";
 import { ArrowRight } from "lucide-react";
 import { FoundAnimalForm } from "@/components/forms/found-animal-form";
@@ -7,6 +8,16 @@ import { PageHero } from "@/components/page-hero";
 import { wildlifeGuides } from "@/lib/wildlife-guides";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { createMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = createMetadata({
+  title: "Found Injured or Orphaned Wildlife in Southwest Missouri?",
+  description:
+    "Start here for safe wildlife help in Springfield, Greene County, and the 417 area. Share animal details and learn what not to do while finding qualified help.",
+  path: "/found-animal",
+  image: "/assets/opossum.jpg",
+  keywords: ["found injured wildlife Springfield MO", "orphaned wildlife southwest Missouri", "baby animal help 417 area"]
+});
 
 export default function FoundAnimalPage() {
   return (

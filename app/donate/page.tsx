@@ -1,9 +1,20 @@
+import type { Metadata } from "next";
 import type { Route } from "next";
 import { CheckCircle2, HeartHandshake, ShieldCheck } from "lucide-react";
 import { DonationForm } from "@/components/forms/donation-form";
 import { PageHero } from "@/components/page-hero";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { createMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = createMetadata({
+  title: "Donate to Wildlife Rehabilitation Support in Southwest Missouri",
+  description:
+    "Support supplies, formula, transport, emergency needs, and approved care support for licensed or permitted wildlife rehabbers in the 417 area.",
+  path: "/donate",
+  image: "/assets/squirrel-2.jpg",
+  keywords: ["donate wildlife rehabilitation Missouri", "support wildlife rehabbers Springfield MO", "wildlife rescue donations 417 area"]
+});
 
 const giftExamples = [
   {

@@ -112,7 +112,7 @@ export function DirectoryBrowser({ listings }: DirectoryBrowserProps) {
             <div>
               <CardTitle>Filter local wildlife help</CardTitle>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                Try animal type, county, availability, or resource type. These sample records show how a fuller directory will behave.
+                Try animal type, county, availability, or resource type. Public listings should reflect verified contact preferences and current intake details.
               </p>
             </div>
             <Badge variant="blue" className="w-fit">

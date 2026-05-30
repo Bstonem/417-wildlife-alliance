@@ -1,8 +1,19 @@
+import type { Metadata } from "next";
 import { AlertTriangle, Building2, CheckCircle2, ClipboardCheck, ShieldCheck, TreePine } from "lucide-react";
 import { PartnerForm } from "@/components/forms/partner-form";
 import { PageHero } from "@/components/page-hero";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { createMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = createMetadata({
+  title: "Wildlife-Aware Tree Care and Outdoor Crews in Southwest Missouri",
+  description:
+    "A local program for tree care, landscaping, pest control, and outdoor-service teams that want to prevent nest, den, and wildlife displacement emergencies.",
+  path: "/certified-companies",
+  image: "/assets/squirrel-1.jpg",
+  keywords: ["wildlife aware tree care Springfield MO", "nest disturbance help Missouri", "humane tree removal wildlife"]
+});
 
 const companyTypes = [
   "Tree care and removal crews",
