@@ -2,12 +2,16 @@
 
 Website and support platform for 417 Wildlife Alliance, a regional wildlife rehabilitation support network serving people, donors, rehabbers, and community partners.
 
+## Owner handoff
+
+Matt's account-transfer, local setup, Claude, Supabase, Netlify, and verification instructions are in [`docs/OWNER_HANDOFF.md`](docs/OWNER_HANDOFF.md). Claude should read [`CLAUDE.md`](CLAUDE.md) before working in this repository.
+
 ## Local Setup
 
-1. Install dependencies:
+1. Install Node.js 22 and dependencies:
 
 ```bash
-npm install
+npm ci
 ```
 
 2. Create local environment variables:
