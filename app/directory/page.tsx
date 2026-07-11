@@ -1,8 +1,22 @@
+import type { Metadata } from "next";
 import { Search } from "lucide-react";
 import { DirectoryBrowser, type DirectoryListing } from "@/components/directory-browser";
 import { PageHero } from "@/components/page-hero";
 import { rehabberDirectory } from "@/lib/demo-data";
+import { createMetadata } from "@/lib/seo";
 import { getSupabaseAdmin, hasSupabaseAdminConfig } from "@/lib/supabase";
+
+export function generateMetadata(): Metadata {
+  return createMetadata({
+    title: "Wildlife Rehabilitator Directory for Springfield MO and the 417 Area",
+    description:
+      "Search wildlife help by animal type, county, service area, and availability for Springfield, Greene County, and southwest Missouri.",
+    path: "/directory",
+    image: "/assets/squirrel-6.jpg",
+    keywords: ["wildlife rehabilitator directory Springfield MO", "wildlife rehabber near me 417 area", "Greene County wildlife help"],
+    noIndex: !hasSupabaseAdminConfig()
+  });
+}
 
 async function getListings(): Promise<DirectoryListing[]> {
   const supabase = getSupabaseAdmin();

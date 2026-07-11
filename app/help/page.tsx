@@ -1,9 +1,20 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import type { Route } from "next";
 import { helpOptions } from "@/lib/demo-data";
 import { LeadForm } from "@/components/forms/lead-form";
 import { PageHero } from "@/components/page-hero";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { createMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = createMetadata({
+  title: "Help Wildlife and Rehabbers in the 417 Area",
+  description:
+    "Volunteer, donate, partner, or share stories to support wildlife rehabilitation, safe public response, and rehabber care in southwest Missouri.",
+  path: "/help",
+  image: "/assets/squirrel-7.jpg",
+  keywords: ["volunteer wildlife rehabilitation Springfield MO", "help wildlife rehabbers 417 area", "wildlife support southwest Missouri"]
+});
 
 export default function HelpPage() {
   return (

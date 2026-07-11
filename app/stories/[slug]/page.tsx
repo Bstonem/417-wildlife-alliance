@@ -4,8 +4,11 @@ import { notFound } from "next/navigation";
 import { CheckCircle2, HeartHandshake } from "lucide-react";
 import { ButtonLink } from "@/components/button-link";
 import { PageHero } from "@/components/page-hero";
+import { JsonLd } from "@/components/seo/json-ld";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { articleJsonLd, createMetadata } from "@/lib/seo";
+import { getPublishedPost } from "@/lib/public-content";
 import { getStory, stories } from "@/lib/stories";
 
 type StoryPageProps = {
@@ -23,15 +26,32 @@ export async function generateMetadata({ params }: StoryPageProps): Promise<Meta
   const story = getStory(slug);
 
   if (!story) {
-    return {
-      title: "Stories | 417 Wildlife Alliance"
-    };
+    const post = await getPublishedPost(slug);
+
+    if (post) {
+      return createMetadata({
+        title: post.title,
+        description: post.summary,
+        path: `/stories/${post.slug}`,
+        image: post.cover_image_path || "/assets/squirrel-4.jpg",
+        keywords: [post.title, `${post.category} wildlife story`, "southwest Missouri wildlife story"]
+      });
+    }
+
+    return createMetadata({
+      title: "Wildlife Stories",
+      description: "Wildlife rehabilitation and community support stories from 417 Wildlife Alliance.",
+      path: "/stories"
+    });
   }
 
-  return {
-    title: `${story.title} | 417 Wildlife Alliance`,
-    description: story.summary
-  };
+  return createMetadata({
+    title: story.title,
+    description: story.summary,
+    path: `/stories/${story.slug}`,
+    image: story.imageSrc,
+    keywords: [story.title, `${story.category} wildlife story`, "southwest Missouri wildlife story"]
+  });
 }
 
 export default async function StoryDetailPage({ params }: StoryPageProps) {
@@ -39,11 +59,65 @@ export default async function StoryDetailPage({ params }: StoryPageProps) {
   const story = getStory(slug);
 
   if (!story) {
-    notFound();
+    const post = await getPublishedPost(slug);
+
+    if (!post) {
+      notFound();
+    }
+
+    const image = post.cover_image_path || "/assets/squirrel-4.jpg";
+    const body = typeof post.body === "string" ? post.body : "";
+    const paragraphs = body.split(/\n{2,}/).map((paragraph: string) => paragraph.trim()).filter(Boolean);
+
+    return (
+      <>
+        <JsonLd
+          data={articleJsonLd({
+            title: post.title,
+            description: post.summary,
+            path: `/stories/${post.slug}`,
+            image,
+            articleSection: post.category
+          })}
+        />
+        <PageHero
+          eyebrow={post.category}
+          title={post.title}
+          text={post.summary}
+          imageSrc={image}
+          imagePosition="center"
+          primary={{ href: "/donate", label: "Fund the work" }}
+          secondary={{ href: "/help", label: "Get involved" }}
+        />
+
+        <section className="section">
+          <div className="container-shell max-w-4xl">
+            <Card>
+              <CardContent className="grid gap-5 p-6">
+                {paragraphs.map((paragraph) => (
+                  <p key={paragraph} className="text-sm leading-7 text-muted-foreground">
+                    {paragraph}
+                  </p>
+                ))}
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+      </>
+    );
   }
 
   return (
     <>
+      <JsonLd
+        data={articleJsonLd({
+          title: story.title,
+          description: story.summary,
+          path: `/stories/${story.slug}`,
+          image: story.imageSrc,
+          articleSection: story.category
+        })}
+      />
       <PageHero
         eyebrow={story.category}
         title={story.title}

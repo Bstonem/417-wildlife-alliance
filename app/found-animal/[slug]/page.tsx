@@ -4,8 +4,10 @@ import { AlertTriangle, Camera, CheckCircle2, MapPin, XCircle } from "lucide-rea
 import { ButtonLink } from "@/components/button-link";
 import { WildlifeSafetyBand } from "@/components/info-band";
 import { PageHero } from "@/components/page-hero";
+import { JsonLd } from "@/components/seo/json-ld";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { articleJsonLd, createMetadata } from "@/lib/seo";
 import { getWildlifeGuide, wildlifeGuides } from "@/lib/wildlife-guides";
 
 type GuidePageProps = {
@@ -23,15 +25,20 @@ export async function generateMetadata({ params }: GuidePageProps): Promise<Meta
   const guide = getWildlifeGuide(slug);
 
   if (!guide) {
-    return {
-      title: "Wildlife Help | 417 Wildlife Alliance"
-    };
+    return createMetadata({
+      title: "Wildlife Help",
+      description: "Safe first steps for found wildlife in Springfield, southwest Missouri, and the 417 area.",
+      path: "/found-animal"
+    });
   }
 
-  return {
-    title: `${guide.title} | 417 Wildlife Alliance`,
-    description: guide.summary
-  };
+  return createMetadata({
+    title: `${guide.title} Southwest Missouri Wildlife Help`,
+    description: guide.summary,
+    path: `/found-animal/${guide.slug}`,
+    image: guide.imageSrc,
+    keywords: [guide.title, `${guide.eyebrow} help Springfield MO`, "found wildlife 417 area"]
+  });
 }
 
 export default async function WildlifeGuidePage({ params }: GuidePageProps) {
@@ -44,6 +51,15 @@ export default async function WildlifeGuidePage({ params }: GuidePageProps) {
 
   return (
     <>
+      <JsonLd
+        data={articleJsonLd({
+          title: `${guide.title} Southwest Missouri Wildlife Help`,
+          description: guide.summary,
+          path: `/found-animal/${guide.slug}`,
+          image: guide.imageSrc,
+          articleSection: "Wildlife help guide"
+        })}
+      />
       <PageHero
         eyebrow={guide.eyebrow}
         title={guide.title}

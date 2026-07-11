@@ -1,9 +1,20 @@
+import type { Metadata } from "next";
 import type { Route } from "next";
 import { EyeOff, HeartHandshake, MapPinned, PackageCheck, ShieldCheck } from "lucide-react";
 import { LeadForm } from "@/components/forms/lead-form";
 import { PageHero } from "@/components/page-hero";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { createMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = createMetadata({
+  title: "Support for Missouri Wildlife Rehabbers",
+  description:
+    "417 Wildlife Alliance helps licensed and permitted rehabbers in southwest Missouri with public handoffs, directory listings, supplies, privacy, and support.",
+  path: "/rehabbers",
+  image: "/assets/squirrel-6.jpg",
+  keywords: ["Missouri wildlife rehabber support", "licensed wildlife rehabilitators southwest Missouri", "rehabber directory 417 area"]
+});
 
 const rehabberSupport = [
   {
