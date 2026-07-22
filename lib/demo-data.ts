@@ -276,17 +276,6 @@ export const rehabberDirectory = [
     kind: "rehabber"
   },
   {
-    name: "Raptor Response Network",
-    type: "Specialized referral",
-    serviceArea: "Southwest Missouri",
-    species: ["Raptors", "Owls", "Hawks"],
-    status: "Referral only",
-    contact: "Mock listing for testing. Raptor situations need trained handling and should not be approached closely by the public.",
-    url: "/found-animal/injured-adult",
-    counties: ["Greene", "Christian", "Polk", "Dallas", "Stone", "Taney"],
-    kind: "resource"
-  },
-  {
     name: "Route 65 Wildlife Emergency Guidance",
     type: "Roadside guidance",
     serviceArea: "Major roads and highways",
@@ -318,17 +307,6 @@ export const rehabberDirectory = [
     contact: "Can help with small-mammal triage when space, transport, and approved public contact preferences are available.",
     url: "/found-animal",
     counties: ["Webster", "Greene"],
-    kind: "rehabber"
-  },
-  {
-    name: "Polk County Wildlife Care",
-    type: "Licensed rehabber",
-    serviceArea: "Bolivar and northern 417 communities",
-    species: ["Squirrels", "Opossums", "Reptiles"],
-    status: "Accepting calls",
-    contact: "Mock listing for testing. Public contact would be shown only with the rehabber's consent.",
-    url: "/rehabbers",
-    counties: ["Polk", "Dallas"],
     kind: "rehabber"
   },
   {
