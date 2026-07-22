@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { Route } from "next";
-import { CheckCircle2, HeartHandshake, ShieldCheck } from "lucide-react";
+import { CheckCircle2, HeartHandshake, Info, ShieldCheck } from "lucide-react";
 import { DonationForm } from "@/components/forms/donation-form";
 import { PageHero } from "@/components/page-hero";
 import { Badge } from "@/components/ui/badge";
@@ -52,6 +52,20 @@ export default function DonatePage() {
         primary={{ href: "/found-animal", label: "Animal needs help" }}
         secondary={{ href: "/how-donations-help" as Route, label: "How gifts help" }}
       />
+      <section className="border-b border-clay/20 bg-clay/10">
+        <div className="container-shell flex flex-col gap-3 py-5 sm:flex-row sm:items-start">
+          <span className="flex size-9 shrink-0 items-center justify-center rounded-md bg-clay/15 text-clay-strong">
+            <Info size={18} aria-hidden="true" />
+          </span>
+          <p className="text-sm leading-6 text-foreground">
+            <strong>417 Wildlife Alliance is a nonprofit initiative currently in formation.</strong> We have not yet
+            filed for 501(c)(3) status with the IRS and are in the process of securing a fiscal sponsor so gifts can
+            be tax-deductible. Donations made today are <strong>not tax-deductible</strong> and are held for the
+            future benefit of this mission. Please consult your tax advisor. Represent a 501(c)(3) interested in
+            fiscal-sponsoring this work? <a className="underline underline-offset-2" href="/contact">Contact us</a>.
+          </p>
+        </div>
+      </section>
       <section className="section">
         <div className="container-shell grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
           <Card className="self-start border-primary/20">
@@ -67,7 +81,9 @@ export default function DonatePage() {
               <li>Micro-grants or reimbursements for approved licensed or permitted rehabbers.</li>
             </ul>
             <p className="mt-5 text-xs leading-5 text-muted-foreground">
-              Donation receipts and tax details will reflect 417 Wildlife Alliance's current charitable status at the time of the gift.
+              417 Wildlife Alliance has not yet received 501(c)(3) determination from the IRS. Donation receipts will
+              reflect our charitable status at the time of the gift, and will note fiscal-sponsor details once a
+              sponsorship agreement is in place.
             </p>
             </CardContent>
           </Card>
