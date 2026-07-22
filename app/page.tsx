@@ -36,7 +36,7 @@ export default function HomePage() {
       <section
         className="relative isolate overflow-hidden bg-[#15221f] text-white"
         style={{
-          backgroundImage: "linear-gradient(90deg, rgba(13,29,24,0.95), rgba(13,29,24,0.76) 42%, rgba(13,29,24,0.3)), url('/assets/matt-and-squirrel.jpg')",
+          backgroundImage: "linear-gradient(90deg, rgba(13,29,24,0.95), rgba(13,29,24,0.76) 42%, rgba(13,29,24,0.3)), url('/assets/squirrel-hero.jpg')",
           backgroundPosition: "center",
           backgroundSize: "cover"
         }}
