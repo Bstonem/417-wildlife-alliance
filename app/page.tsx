@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { ArrowDown, CheckCircle2, FileHeart, HeartHandshake, MapPinned, TreePine } from "lucide-react";
+import { ArrowDown, CheckCircle2, HeartHandshake, MapPinned } from "lucide-react";
 import { AllianceMap } from "@/components/alliance-map";
 import { ButtonLink } from "@/components/button-link";
+import { EmergencyBanner } from "@/components/emergency-banner";
 import { OperatingLanes } from "@/components/operating-lanes";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -36,7 +37,7 @@ export default function HomePage() {
       <section
         className="relative isolate overflow-hidden bg-[#15221f] text-white"
         style={{
-          backgroundImage: "linear-gradient(90deg, rgba(13,29,24,0.95), rgba(13,29,24,0.76) 42%, rgba(13,29,24,0.3)), url('/assets/squirrel-hero.jpg')",
+          backgroundImage: "linear-gradient(90deg, rgba(13,29,24,0.95), rgba(13,29,24,0.76) 42%, rgba(13,29,24,0.3)), url('/assets/matt-and-squirrel.jpg')",
           backgroundPosition: "center",
           backgroundSize: "cover"
         }}
@@ -65,28 +66,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-b border-border bg-background">
-        <div className="container-shell grid gap-3 py-5 md:grid-cols-3">
-          {[
-            { icon: FileHeart, label: "Animal help", value: "Send details, photos, and urgency" },
-            { icon: MapPinned, label: "Find safe help", value: "Search by species and service area" },
-            { icon: TreePine, label: "Compassionate companies", value: "Help crews prevent displacement" }
-          ].map((item) => {
-            const Icon = item.icon;
-            return (
-              <div key={item.label} className="flex items-start gap-3 rounded-md border border-border bg-surface px-4 py-3 shadow-sm">
-                <span className="flex size-10 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
-                  <Icon size={20} aria-hidden="true" />
-                </span>
-                <div>
-                  <p className="text-sm font-black">{item.label}</p>
-                  <p className="text-xs leading-5 text-muted-foreground">{item.value}</p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
+      <EmergencyBanner />
 
       <section className="section bg-surface">
         <div className="container-shell grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
@@ -100,7 +80,7 @@ export default function HomePage() {
           <div className="grid gap-3 sm:grid-cols-3">
             {[
               { src: "/assets/squirrel-6.jpg", label: "Rehabilitated squirrels in an outdoor enclosure" },
-              { src: "/assets/opossum.jpg", label: "Young opossum in transport to care center" },
+              { src: "/assets/opossum.jpg", label: "Young opossum in safe temporary care" },
               { src: "/assets/squirrel-2.jpg", label: "Squirrel recovery and release preparation" }
             ].map((photo) => (
               <figure key={photo.src} className="overflow-hidden rounded-md border border-border bg-muted shadow-sm">
@@ -211,7 +191,7 @@ export default function HomePage() {
             <p className="section-kicker">Why it matters</p>
             <h2 className="section-title mt-3">Rehabbers carry the hardest part of care.</h2>
             <p className="body-large mt-5">
-              A single small animal may need formula, food, medication, safe housing, transport, and weeks to months of attention. During baby season, those needs multiply fast.
+              A single small animal may need formula, food, medication, safe housing, transport, and weeks of attention. During baby season, those needs multiply fast.
             </p>
           </div>
           <Card className="border-primary/20 bg-primary text-primary-foreground">
