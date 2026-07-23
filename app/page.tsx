@@ -108,7 +108,7 @@ export default function HomePage() {
           <p className="section-kicker">Found wildlife</p>
           <h2 className="section-title mt-3">If you found an animal, start with safety and share the details.</h2>
           <div className="mt-6 flex justify-center">
-            <ButtonLink href="/found-animal">Get animal help</ButtonLink>
+            <ButtonLink href="/found-animal" variant="clay">Get animal help</ButtonLink>
           </div>
         </div>
       </section>
