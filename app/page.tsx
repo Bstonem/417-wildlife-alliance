@@ -119,7 +119,7 @@ export default function HomePage() {
             <p className="section-kicker">Why it matters</p>
             <h2 className="section-title mt-3">Rehabbers carry the hardest part of care.</h2>
             <p className="body-large mt-5">
-              A single small animal may need formula, food, medication, safe housing, transport, and weeks of attention. During baby season, those needs multiply fast.
+              A single small animal may need formula, food, medication, safe housing, transport, and weeks to months of attention. During baby season, those needs multiply fast.
             </p>
           </div>
           <Card className="border-primary/20 bg-primary text-primary-foreground">
