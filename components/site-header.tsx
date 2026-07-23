@@ -32,7 +32,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
-          <ButtonLink href="/found-animal">Get help</ButtonLink>
+          <ButtonLink href="/found-animal" variant="clay">Get help</ButtonLink>
           <ButtonLink href="/donate" variant="secondary">Donate</ButtonLink>
         </div>
 
