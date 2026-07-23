@@ -100,7 +100,7 @@ export default function HomePage() {
           <div className="grid gap-3 sm:grid-cols-3">
             {[
               { src: "/assets/squirrel-6.jpg", label: "Rehabilitated squirrels in an outdoor enclosure" },
-              { src: "/assets/opossum.jpg", label: "Young opossum in safe temporary care" },
+              { src: "/assets/opossum.jpg", label: "Young opossum in transport to care center" },
               { src: "/assets/squirrel-2.jpg", label: "Squirrel recovery and release preparation" }
             ].map((photo) => (
               <figure key={photo.src} className="overflow-hidden rounded-md border border-border bg-muted shadow-sm">
@@ -211,7 +211,7 @@ export default function HomePage() {
             <p className="section-kicker">Why it matters</p>
             <h2 className="section-title mt-3">Rehabbers carry the hardest part of care.</h2>
             <p className="body-large mt-5">
-              A single small animal may need formula, food, medication, safe housing, transport, and weeks of attention. During baby season, those needs multiply fast.
+              A single small animal may need formula, food, medication, safe housing, transport, and weeks to months of attention. During baby season, those needs multiply fast.
             </p>
           </div>
           <Card className="border-primary/20 bg-primary text-primary-foreground">
