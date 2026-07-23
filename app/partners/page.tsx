@@ -21,7 +21,7 @@ export default async function PartnersPage() {
     <>
       <PageHero
         eyebrow="Partners and sponsors"
-        title="Give the wildlife network more hands, more funding, and more reach."
+        title="Give the wildlife caregivers more hands, more funding, and more reach."
         text="Sponsors, clinics, brands, schools, tree crews, and local businesses can all become part of the support system."
         imageSrc="/assets/matt-and-squirrel.jpg"
         imagePosition="center"
@@ -58,7 +58,7 @@ export default async function PartnersPage() {
             <p className="section-kicker">Partnership interest</p>
             <h2 className="section-title mt-3">Start a partnership conversation.</h2>
             <p className="body-large mt-5">
-              Share a few details about your organization, your goals, and the kind of support you want to offer the wildlife network.
+              Share a few details about your organization, your goals, and the kind of support you want to offer the wildlife alliance.
             </p>
           </div>
           <PartnerForm />
