@@ -25,16 +25,14 @@ async function getPartnersData() {
     return null;
   }
 
-  const [partners, applications, certifiedApplications] = await Promise.all([
+  const [partners, applications] = await Promise.all([
     supabase.from("partners").select("*").order("created_at", { ascending: false }),
-    supabase.from("partner_applications").select("*").order("created_at", { ascending: false }).limit(20),
-    supabase.from("certified_company_applications").select("*").order("created_at", { ascending: false }).limit(20)
+    supabase.from("partner_applications").select("*").order("created_at", { ascending: false }).limit(30)
   ]);
 
   return {
     partners: partners.data || [],
-    applications: applications.data || [],
-    certifiedApplications: certifiedApplications.data || []
+    applications: applications.data || []
   };
 }
 
@@ -43,20 +41,23 @@ export default async function AdminPartnersPage() {
   const data = await getPartnersData();
   const partners = data?.partners || [];
   const applications = data?.applications || [];
-  const certifiedApplications = data?.certifiedApplications || [];
 
   return (
     <AdminShell
       email={session.email}
       title="Partners and certifications"
-      description="Turn sponsor interest and Wildlife Compassionate Company applications into public partner listings."
+      description="One place for sponsor interest and Wildlife Compassionate Company applications. Turn approved leads into public partner listings."
     >
       <AdminNotice message={!data ? "Supabase service-role access is not configured, so partner records cannot be loaded yet." : undefined} />
 
       <div className="grid gap-4 md:grid-cols-3">
         <StatCard label="Public partners" value={partners.filter((item) => item.published).length} detail={`${partners.length} total partner records`} />
-        <StatCard label="Partner leads" value={applications.filter((item) => item.status === "new").length} detail="New partnership applications" />
-        <StatCard label="Certification leads" value={certifiedApplications.filter((item) => item.status === "new").length} detail="Wildlife-aware company applicants" />
+        <StatCard label="New applications" value={applications.filter((item) => item.status === "new").length} detail={`${applications.length} total applications`} />
+        <StatCard
+          label="Certification interest"
+          value={applications.filter((item) => item.seeking_certification).length}
+          detail="Applicants who also want Wildlife Compassionate Company status"
+        />
       </div>
 
       <div className="mt-8 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
@@ -109,39 +110,27 @@ export default async function AdminPartnersPage() {
         <div className="grid gap-6">
           <Card>
             <CardHeader>
-              <CardTitle>Recent partner leads</CardTitle>
-              <CardDescription>Messages from the public partner application form.</CardDescription>
+              <CardTitle>Recent applications</CardTitle>
+              <CardDescription>Messages from the public partner application form, including anyone who also asked about Compassionate Company certification.</CardDescription>
             </CardHeader>
             <CardContent className="grid gap-3">
               {applications.map((application) => (
                 <div key={application.id} className="rounded-md border border-border bg-surface p-4 text-sm leading-6">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <strong>{application.company_name}</strong>
-                    <Badge variant={application.status === "new" ? "clay" : "secondary"}>{application.status}</Badge>
+                    <div className="flex gap-2">
+                      {application.seeking_certification ? <Badge variant="blue">Wants CC certification</Badge> : null}
+                      <Badge variant={application.status === "new" ? "clay" : "secondary"}>{application.status}</Badge>
+                    </div>
                   </div>
                   <p className="text-muted-foreground">{application.contact_name} · {application.contact_email}</p>
-                  <p className="text-muted-foreground">{application.partner_type}{application.county ? ` · ${application.county}` : ""}</p>
-                  {application.message ? <p className="mt-2 text-muted-foreground">{application.message}</p> : null}
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Certification leads</CardTitle>
-              <CardDescription>Businesses asking about Wildlife Compassionate Company recognition.</CardDescription>
-            </CardHeader>
-            <CardContent className="grid gap-3">
-              {certifiedApplications.map((application) => (
-                <div key={application.id} className="rounded-md border border-border bg-surface p-4 text-sm leading-6">
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <strong>{application.company_name}</strong>
-                    <Badge variant={application.status === "new" ? "clay" : "secondary"}>{application.status}</Badge>
-                  </div>
-                  <p className="text-muted-foreground">{application.contact_name} · {application.contact_email}</p>
-                  <p className="text-muted-foreground">{application.company_type}{application.county ? ` · ${application.county}` : ""}</p>
+                  <p className="text-muted-foreground">
+                    {application.partner_type}
+                    {application.company_type ? ` · ${application.company_type}` : ""}
+                    {application.county ? ` · ${application.county}` : ""}
+                  </p>
                   {application.wildlife_scenarios ? <p className="mt-2 text-muted-foreground">{application.wildlife_scenarios}</p> : null}
+                  {application.message ? <p className="mt-2 text-muted-foreground">{application.message}</p> : null}
                 </div>
               ))}
             </CardContent>
