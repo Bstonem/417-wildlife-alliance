@@ -30,9 +30,9 @@ export function SiteFooter() {
           <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#9fc9bb]">Learn</p>
           <div className="mt-3 grid gap-2 text-sm text-white/78">
             <Link href="/about">Who we are</Link>
-            <Link href={"/rehabbers" as Route}>For rehabbers</Link>
-            <Link href="/directory">Directory</Link>
-            <Link href="/certified-companies">Compassionate companies</Link>
+            <Link href="/directory">Find a rehabber</Link>
+            <Link href={"/rehabbers" as Route}>Rehabber sign up</Link>
+            <Link href={"/partners#compassionate-companies" as Route}>Compassionate companies</Link>
             <Link href="/stories">Stories</Link>
             <Link href="/faq">FAQ</Link>
           </div>
