@@ -30,7 +30,7 @@ export async function POST(request: Request) {
 
   await notifyAdmin({
     subject: `New partner application: ${parsed.data.company_name}`,
-    html: `<p>${parsed.data.company_name} applied as ${parsed.data.partner_type}.</p><p>${parsed.data.contact_name} - ${parsed.data.contact_email}</p>`
+    html: `<p>${parsed.data.company_name} applied as ${parsed.data.partner_type}.</p><p>${parsed.data.contact_name} - ${parsed.data.contact_email}</p>${parsed.data.seeking_certification ? "<p><strong>Also interested in Wildlife Compassionate Company certification.</strong></p>" : ""}`
   });
 
   return NextResponse.json({ ok: true, configured: true, message: "Thank you. We'll be in touch." });
