@@ -1,3 +1,4 @@
+[12-PRD.txt](https://github.com/user-attachments/files/30377442/12-PRD.txt)
 # 417 Wildlife Alliance Product Requirements Document
 
 Status: Draft v0.1  
@@ -907,10 +908,11 @@ Longer-term impact metrics:
 
 - Public website.
 - Found-animal form.
+- Automatic rehabber matching by species and county on found-animal submissions, shown to the finder immediately; outbound contact to matched rehabbers stays admin-approved before it sends (originally scoped as Phase 3 "capacity-aware routing," pulled forward into Phase 1 since the basic species/county match was straightforward to build alongside the intake form itself).
 - Admin case inbox.
 - Rehabber directory.
 - Donation page.
-- Partner/sponsor/signup forms.
+- Partner/sponsor/signup forms, combined with Wildlife Compassionate Company certification interest into a single application flow.
 - FAQ/resources.
 - Stories/news.
 - Basic analytics.
@@ -927,7 +929,7 @@ Longer-term impact metrics:
 
 ### Phase 3: Network Expansion
 
-- Capacity-aware routing.
+- Capacity-aware routing (real-time intake status/load weighting; basic species/county matching already shipped in Phase 1).
 - Volunteer transport coordination.
 - SMS alerts.
 - Merch store.
