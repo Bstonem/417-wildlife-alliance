@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Search } from "lucide-react";
+import { Info, Search } from "lucide-react";
 import { DirectoryBrowser, type DirectoryListing } from "@/components/directory-browser";
 import { PageHero } from "@/components/page-hero";
 import { rehabberDirectory } from "@/lib/demo-data";
@@ -18,11 +18,11 @@ export function generateMetadata(): Metadata {
   });
 }
 
-async function getListings(): Promise<DirectoryListing[]> {
+async function getListings(): Promise<{ listings: DirectoryListing[]; isDemo: boolean }> {
   const supabase = getSupabaseAdmin();
 
   if (!hasSupabaseAdminConfig() || !supabase) {
-    return rehabberDirectory as DirectoryListing[];
+    return { listings: rehabberDirectory as DirectoryListing[], isDemo: true };
   }
 
   const { data, error } = await supabase
@@ -32,24 +32,27 @@ async function getListings(): Promise<DirectoryListing[]> {
     .order("display_name");
 
   if (error || !data?.length) {
-    return rehabberDirectory as DirectoryListing[];
+    return { listings: rehabberDirectory as DirectoryListing[], isDemo: true };
   }
 
-  return data.map((item) => ({
-    name: item.display_name,
-    type: item.organization_name || "Rehabber",
-    serviceArea: item.service_area_text,
-    species: item.species_groups || [],
-    status: item.intake_status,
-    contact: item.notes_public || "Contact details are shared when the rehabber has approved public listing information.",
-    url: item.website_url || `/directory/${item.public_slug}`,
-    counties: item.service_area_text ? [item.service_area_text] : [],
-    kind: "rehabber" as const
-  }));
+  return {
+    listings: data.map((item) => ({
+      name: item.display_name,
+      type: item.organization_name || "Rehabber",
+      serviceArea: item.service_area_text,
+      species: item.species_groups || [],
+      status: item.intake_status,
+      contact: item.notes_public || "Contact details are shared when the rehabber has approved public listing information.",
+      url: item.website_url || `/directory/${item.public_slug}`,
+      counties: item.service_area_text ? [item.service_area_text] : [],
+      kind: "rehabber" as const
+    })),
+    isDemo: false
+  };
 }
 
 export default async function DirectoryPage() {
-  const listings = await getListings();
+  const { listings, isDemo } = await getListings();
 
   return (
     <>
@@ -64,6 +67,17 @@ export default async function DirectoryPage() {
       />
       <section className="section">
         <div className="container-shell">
+          {isDemo ? (
+            <div className="mb-6 flex items-start gap-3 rounded-md border border-clay/30 bg-clay/10 p-4 text-sm leading-6">
+              <Info className="mt-0.5 shrink-0 text-clay-strong" size={19} aria-hidden="true" />
+              <p>
+                <strong>These are example listings for demonstration only.</strong> None of the organizations shown
+                below are real, verified rehabbers yet. Do not contact them for actual animal help. Real, consent-verified
+                listings will replace this demo data once rehabbers are onboarded.
+              </p>
+            </div>
+          ) : null}
+
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
               <p className="section-kicker">Wildlife help</p>
