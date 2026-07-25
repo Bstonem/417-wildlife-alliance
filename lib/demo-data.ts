@@ -1,6 +1,5 @@
 import {
   Building2,
-  BarChart3,
   CircleHelp,
   ClipboardList,
   DollarSign,
@@ -19,9 +18,9 @@ import {
 
 export const navItems = [
   { href: "/found-animal", label: "Found an animal" },
-  { href: "/directory", label: "Rehab directory" },
+  { href: "/directory", label: "Find a Rehabber" },
   { href: "/donate", label: "Donate" },
-  { href: "/rehabbers", label: "Rehabbers" },
+  { href: "/rehabbers", label: "Rehabber Sign Up" },
   { href: "/partners", label: "Partners" },
   { href: "/contact", label: "Contact" }
 ];
@@ -47,7 +46,7 @@ export const allianceMapNodes = [
   },
   {
     key: "directory",
-    title: "Directory of rehabbers",
+    title: "Find a rehabber",
     eyebrow: "Find care",
     text: "Find nearby licensed or permitted help based on species, location, and availability.",
     href: "/directory",
@@ -59,7 +58,7 @@ export const allianceMapNodes = [
     title: "Wildlife compassionate companies",
     eyebrow: "Safer work sites",
     text: "Education and recognition for businesses that want to prevent wildlife displacement.",
-    href: "/certified-companies",
+    href: "/partners#compassionate-companies",
     icon: TreePine,
     tone: "blue"
   },
@@ -407,19 +406,11 @@ export const adminCards = [
     label: "Stories and news",
     href: "/admin/stories",
     description: "Create public updates that show donors where support is going."
-  },
-  {
-    icon: PackageOpen,
-    label: "Merch",
-    href: "/admin/merch",
-    description: "Prepare mission gear, pricing, and product visibility."
-  },
-  {
-    icon: BarChart3,
-    label: "Impact loop",
-    href: "/admin/impact",
-    description: "Track routed animals, rehabber follow-up, updates, and outcomes."
   }
+  // Merch and Impact loop sections are built and still reachable directly at
+  // /admin/merch and /admin/impact, but are hidden from this nav for now since
+  // there's no live merch store or case volume yet to justify the extra surface
+  // area. Add their cards back here once those programs are actually active.
 ];
 
 export const storyCards = [
