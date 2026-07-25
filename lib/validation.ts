@@ -44,13 +44,10 @@ export const partnerApplicationSchema = z.object({
   contact_phone: z.string().optional(),
   website_url: z.string().url().optional().or(z.literal("")),
   county: z.string().optional(),
-  message: z.string().optional()
-});
-
-export const certifiedCompanyApplicationSchema = partnerApplicationSchema.extend({
-  company_type: z.string().min(2),
-  wildlife_scenarios: z.string().optional(),
-  training_interest: z.boolean().default(true)
+  message: z.string().optional(),
+  seeking_certification: z.boolean().default(false),
+  company_type: z.string().optional(),
+  wildlife_scenarios: z.string().optional()
 });
 
 export const contactSchema = z.object({
