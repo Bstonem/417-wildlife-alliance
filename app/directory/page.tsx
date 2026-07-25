@@ -12,7 +12,7 @@ export function generateMetadata(): Metadata {
     description:
       "Search wildlife help by animal type, county, service area, and availability for Springfield, Greene County, and southwest Missouri.",
     path: "/directory",
-    image: "/assets/squirrel-6.jpg",
+    image: "/assets/raccoon-hero.jpg",
     keywords: ["wildlife rehabilitator directory Springfield MO", "wildlife rehabber near me 417 area", "Greene County wildlife help"],
     noIndex: !hasSupabaseAdminConfig()
   });
@@ -60,7 +60,7 @@ export default async function DirectoryPage() {
         eyebrow="Directory"
         title="Find the nearest appropriate wildlife help."
         text="Use species, location, and public contact notes to look for the safest appropriate wildlife resource near you."
-        imageSrc="/assets/squirrel-6.jpg"
+        imageSrc="/assets/raccoon-hero.jpg"
         imagePosition="center"
         primary={{ href: "/found-animal", label: "Get help with an animal" }}
         secondary={{ href: "/partners", label: "Share rehabber info" }}
