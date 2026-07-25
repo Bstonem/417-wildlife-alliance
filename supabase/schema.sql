@@ -94,24 +94,9 @@ create table if not exists public.partner_applications (
   website_url text,
   county text,
   message text,
-  status text not null default 'new',
-  created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now()
-);
-
-create table if not exists public.certified_company_applications (
-  id uuid primary key default gen_random_uuid(),
-  partner_type text not null,
-  company_type text not null,
-  company_name text not null,
-  contact_name text not null,
-  contact_email text not null,
-  contact_phone text,
-  website_url text,
-  county text,
+  seeking_certification boolean not null default false,
+  company_type text,
   wildlife_scenarios text,
-  training_interest boolean not null default true,
-  message text,
   status text not null default 'new',
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
@@ -241,7 +226,6 @@ alter table public.rehabbers enable row level security;
 alter table public.rehabber_private_details enable row level security;
 alter table public.signups enable row level security;
 alter table public.partner_applications enable row level security;
-alter table public.certified_company_applications enable row level security;
 alter table public.partners enable row level security;
 alter table public.donations enable row level security;
 alter table public.posts enable row level security;
@@ -295,15 +279,6 @@ drop policy if exists "Anyone can submit partner applications" on public.partner
 drop policy if exists "No public access to partner applications" on public.partner_applications;
 create policy "No public access to partner applications"
 on public.partner_applications
-for all
-to anon, authenticated
-using (false)
-with check (false);
-
-drop policy if exists "Anyone can submit certified company applications" on public.certified_company_applications;
-drop policy if exists "No public access to certified company applications" on public.certified_company_applications;
-create policy "No public access to certified company applications"
-on public.certified_company_applications
 for all
 to anon, authenticated
 using (false)
