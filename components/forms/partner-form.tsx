@@ -9,13 +9,10 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 
-type PartnerFormProps = {
-  certified?: boolean;
-};
-
-export function PartnerForm({ certified = false }: PartnerFormProps) {
+export function PartnerForm() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState<string>();
+  const [seekingCertification, setSeekingCertification] = useState(false);
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -24,22 +21,21 @@ export function PartnerForm({ certified = false }: PartnerFormProps) {
 
     const form = event.currentTarget;
     const formData = new FormData(form);
-    const endpoint = certified ? "/api/certified-companies/apply" : "/api/partners/apply";
     const payload = {
       partner_type: formData.get("partner_type"),
-      company_type: formData.get("company_type"),
       company_name: formData.get("company_name"),
       contact_name: formData.get("contact_name"),
       contact_email: formData.get("contact_email"),
       contact_phone: formData.get("contact_phone"),
       website_url: formData.get("website_url"),
       county: formData.get("county"),
-      wildlife_scenarios: formData.get("wildlife_scenarios"),
-      training_interest: true,
+      seeking_certification: seekingCertification,
+      company_type: seekingCertification ? formData.get("company_type") : undefined,
+      wildlife_scenarios: seekingCertification ? formData.get("wildlife_scenarios") : undefined,
       message: formData.get("message")
     };
 
-    const response = await fetch(endpoint, {
+    const response = await fetch("/api/partners/apply", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
@@ -53,6 +49,7 @@ export function PartnerForm({ certified = false }: PartnerFormProps) {
     }
 
     form.reset();
+    setSeekingCertification(false);
     setStatus("success");
     setMessage(result.message || "Thank you. We'll be in touch.");
   }
@@ -89,7 +86,7 @@ export function PartnerForm({ certified = false }: PartnerFormProps) {
 
       <div className="grid gap-2">
         <Label htmlFor="partner_type">Partner type</Label>
-        <Select name="partner_type" defaultValue={certified ? "tree_care" : "corporate"}>
+        <Select name="partner_type" defaultValue="corporate">
           <SelectTrigger id="partner_type">
             <SelectValue />
           </SelectTrigger>
@@ -105,7 +102,22 @@ export function PartnerForm({ certified = false }: PartnerFormProps) {
         </Select>
       </div>
 
-      {certified ? (
+      <label className="flex items-start gap-3 rounded-md border border-blue/25 bg-blue/8 p-4 text-sm leading-6">
+        <input
+          type="checkbox"
+          name="seeking_certification"
+          className="mt-1"
+          checked={seekingCertification}
+          onChange={(event) => setSeekingCertification(event.target.checked)}
+        />
+        <span>
+          <span className="font-bold">I'm also interested in Wildlife Compassionate Company certification.</span>
+          <br />
+          For tree care, landscaping, pest control, and other outdoor-service teams that want wildlife-aware training and public recognition.
+        </span>
+      </label>
+
+      {seekingCertification ? (
         <>
           <div className="grid gap-2">
             <Label htmlFor="company_type">Company type</Label>
