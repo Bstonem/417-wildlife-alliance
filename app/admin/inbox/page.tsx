@@ -20,16 +20,14 @@ async function getInboxData() {
     return null;
   }
 
-  const [signups, partnerApplications, certifiedApplications] = await Promise.all([
+  const [signups, partnerApplications] = await Promise.all([
     supabase.from("signups").select("*").order("created_at", { ascending: false }).limit(40),
-    supabase.from("partner_applications").select("*").order("created_at", { ascending: false }).limit(25),
-    supabase.from("certified_company_applications").select("*").order("created_at", { ascending: false }).limit(25)
+    supabase.from("partner_applications").select("*").order("created_at", { ascending: false }).limit(25)
   ]);
 
   return {
     signups: signups.data || [],
-    partnerApplications: partnerApplications.data || [],
-    certifiedApplications: certifiedApplications.data || []
+    partnerApplications: partnerApplications.data || []
   };
 }
 
@@ -38,23 +36,21 @@ export default async function AdminInboxPage() {
   const data = await getInboxData();
   const signups = data?.signups || [];
   const partnerApplications = data?.partnerApplications || [];
-  const certifiedApplications = data?.certifiedApplications || [];
 
   return (
     <AdminShell
       email={session.email}
       title="Inbox"
-      description="Review contact messages, volunteer interest, partner leads, and certified company inquiries from one protected place."
+      description="Review contact messages, volunteer interest, and partner/certification leads from one protected place. Full partner detail lives in Partners."
     >
       <AdminNotice message={!data ? "Supabase service-role access is not configured, so inbox records cannot be loaded yet." : undefined} />
 
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2">
         <StatCard label="Messages" value={signups.length} detail={`${signups.filter((item) => item.status === "new").length} new`} />
         <StatCard label="Partner leads" value={partnerApplications.length} detail={`${partnerApplications.filter((item) => item.status === "new").length} new`} />
-        <StatCard label="Certification leads" value={certifiedApplications.length} detail={`${certifiedApplications.filter((item) => item.status === "new").length} new`} />
       </div>
 
-      <div className="mt-8 grid gap-6 lg:grid-cols-3">
+      <div className="mt-8 grid gap-6 lg:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle>Messages and signups</CardTitle>
@@ -77,39 +73,24 @@ export default async function AdminInboxPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Partner applications</CardTitle>
-            <CardDescription>Sponsors and organizations asking to support the network.</CardDescription>
+            <CardTitle>Partner and certification applications</CardTitle>
+            <CardDescription>
+              Sponsors, businesses, and Wildlife Compassionate Company applicants. Manage these in full under Partners.
+            </CardDescription>
           </CardHeader>
           <CardContent className="grid gap-3">
             {partnerApplications.map((application) => (
               <div key={application.id} className="rounded-md border border-border bg-surface p-4 text-sm leading-6">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <strong>{application.company_name}</strong>
-                  <Badge variant={application.status === "new" ? "clay" : "secondary"}>{application.status}</Badge>
+                  <div className="flex gap-2">
+                    {application.seeking_certification ? <Badge variant="blue">Wants CC</Badge> : null}
+                    <Badge variant={application.status === "new" ? "clay" : "secondary"}>{application.status}</Badge>
+                  </div>
                 </div>
                 <p className="text-muted-foreground">{application.contact_name} · {application.contact_email}</p>
                 <p className="text-muted-foreground">{application.partner_type}</p>
                 {application.message ? <p className="mt-2 text-muted-foreground">{application.message}</p> : null}
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Certified company inquiries</CardTitle>
-            <CardDescription>Tree care, landscaping, and field-service teams interested in training.</CardDescription>
-          </CardHeader>
-          <CardContent className="grid gap-3">
-            {certifiedApplications.map((application) => (
-              <div key={application.id} className="rounded-md border border-border bg-surface p-4 text-sm leading-6">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <strong>{application.company_name}</strong>
-                  <Badge variant={application.status === "new" ? "clay" : "secondary"}>{application.status}</Badge>
-                </div>
-                <p className="text-muted-foreground">{application.contact_name} · {application.contact_email}</p>
-                <p className="text-muted-foreground">{application.company_type}</p>
-                {application.wildlife_scenarios ? <p className="mt-2 text-muted-foreground">{application.wildlife_scenarios}</p> : null}
               </div>
             ))}
           </CardContent>
