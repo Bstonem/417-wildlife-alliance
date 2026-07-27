@@ -111,7 +111,7 @@ export function PartnerForm() {
           onChange={(event) => setSeekingCertification(event.target.checked)}
         />
         <span>
-          <span className="font-bold">I'm also interested in Wildlife Compassionate Company certification.</span>
+          <span className="font-bold">I&apos;m also interested in Wildlife Compassionate Company certification.</span>
           <br />
           For tree care, landscaping, pest control, and other outdoor-service teams that want wildlife-aware training and public recognition.
         </span>

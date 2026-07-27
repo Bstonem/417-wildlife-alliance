@@ -177,7 +177,7 @@ export default async function PartnersPage() {
             <p className="section-kicker">Apply</p>
             <h2 className="section-title mt-3">Start a partnership conversation.</h2>
             <p className="body-large mt-5">
-              Share a few details about your organization, your goals, and the kind of support you want to offer. Check the box below if you'd also like Wildlife Compassionate Company certification.
+              Share a few details about your organization, your goals, and the kind of support you want to offer. Check the box below if you&apos;d also like Wildlife Compassionate Company certification.
             </p>
           </div>
           <PartnerForm />

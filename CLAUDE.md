@@ -8,7 +8,7 @@ This repository is the Next.js website and lightweight operations platform for 4
 2. Run `git status --short --branch` before changing files. Preserve unrelated work.
 3. Use Node 22, then run `npm ci` and `npm run dev`.
 4. Copy `.env.example` to `.env.local` and have Matt enter values from accounts he owns. Never print, commit, or paste secret values into chat, issues, logs, or documentation.
-5. Before committing, run `npm run typecheck` and `npm run build`.
+5. Before committing, run `npm run typecheck`, `npm run lint`, and `npm run build`.
 
 ## Architecture
 
@@ -39,10 +39,11 @@ npm ci
 npm run dev
 # make and review changes
 npm run typecheck
+npm run lint
 npm run build
 git status --short
 ```
 
-There is no lint or test script configured yet — `typecheck` and `build` are the only automated gates.
+There is no test script configured yet — `typecheck`, `lint`, and `build` are the automated gates.
 
 The authoritative ownership/setup checklist is `docs/OWNER_HANDOFF.md` (note: its GitHub-transfer step is already complete; remaining steps concern Netlify, Supabase, and the domain). Product direction is in `docs/PRD.md`; business context is in `docs/BUSINESS_PLAN.md`. `docs/GRANT_AND_PARTNER_RESEARCH.md` and `docs/SEO_AUDIT.md` hold supporting research.
