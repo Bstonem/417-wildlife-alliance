@@ -43,4 +43,6 @@ npm run build
 git status --short
 ```
 
-The authoritative ownership/setup checklist is `docs/OWNER_HANDOFF.md`. Product direction is in `docs/PRD.md`; business context is in `docs/BUSINESS_PLAN.md`.
+There is no lint or test script configured yet — `typecheck` and `build` are the only automated gates.
+
+The authoritative ownership/setup checklist is `docs/OWNER_HANDOFF.md` (note: its GitHub-transfer step is already complete; remaining steps concern Netlify, Supabase, and the domain). Product direction is in `docs/PRD.md`; business context is in `docs/BUSINESS_PLAN.md`. `docs/GRANT_AND_PARTNER_RESEARCH.md` and `docs/SEO_AUDIT.md` hold supporting research.

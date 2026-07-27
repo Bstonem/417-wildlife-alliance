@@ -42,8 +42,8 @@ New Supabase projects may not expose new tables to the Data API automatically. I
 
 ## Features
 
-- Public pages for found animal help, rehabber directory, donations, partners, certified companies, about, stories, FAQ, and merch.
-- Validated API endpoints for animal cases, signups, partner applications, certified company applications, contact, donation checkout, and Stripe webhooks.
+- Public pages for found animal help, rehabber directory, donations, partners, about, stories, FAQ, and merch.
+- Validated API endpoints for animal cases, signups, partner applications, contact, donation checkout, and Stripe webhooks.
 - Supabase admin client helper that stays server-only.
 - Local demo mode when credentials are missing.
 - Protected admin login and operational views for cases, inbox, directory, partners, donations, stories, merch, and impact follow-up.

@@ -4,9 +4,9 @@ This guide moves 417 Wildlife Alliance off Ryan's accounts and computer and into
 
 ## What exists today
 
-As of July 11, 2026:
+As of July 27, 2026:
 
-- Source repository: `https://github.com/LtdConsulting/417-wildlife-alliance` (private).
+- Source repository: `https://github.com/Bstonem/417-wildlife-alliance` — GitHub ownership has already transferred to Matt's account (`origin` confirmed via `git remote -v`).
 - Production preview: `https://417-wildlife-alliance.netlify.app`.
 - The Netlify project is in Ryan's team, was deployed manually, is not connected to GitHub, and has no custom domain.
 - Netlify currently has only `NEXT_PUBLIC_SITE_URL`; database, email, and payment integrations are not enabled there.
@@ -20,7 +20,7 @@ Matt should own each production account. Ryan can remain a temporary collaborato
 
 | Asset | Recommended owner action |
 | --- | --- |
-| GitHub | Transfer the private repository to Matt's GitHub account or organization. A collaborator invite alone still leaves Ryan as the owner. |
+| GitHub | Done — the repository already lives at `Bstonem/417-wildlife-alliance`. |
 | Netlify | Transfer the `417-wildlife-alliance` project to Matt's Netlify team, or import the transferred GitHub repository into a new Matt-owned Netlify project. |
 | Supabase | Create a new Matt-owned project and apply `supabase/schema.sql`. |
 | Domain/DNS | Buy or transfer the final domain into an account Matt controls, then attach it to Matt's Netlify project. No custom domain is attached today. |
@@ -29,20 +29,15 @@ Matt should own each production account. Ryan can remain a temporary collaborato
 
 ## Ryan's transfer checklist
 
-Matt must first provide his GitHub username, preferred admin email, and either his Netlify team name or an invitation to that team.
+Matt must first provide his preferred admin email and either his Netlify team name or an invitation to that team.
 
-1. In GitHub, transfer `LtdConsulting/417-wildlife-alliance` to Matt. Confirm the new repository URL and that Matt has Admin access.
+1. ~~In GitHub, transfer the private repository to Matt.~~ Done — the repository is now `Bstonem/417-wildlife-alliance`.
 2. In Netlify, open the `417-wildlife-alliance` project and transfer it to Matt's team. If transfer is unavailable, Matt should create a new project by importing the transferred GitHub repository.
 3. Do not copy the obsolete values from Ryan's `.env.local`. Matt should create fresh Supabase credentials.
 4. After Matt's site is live and verified, remove Ryan's Netlify and Supabase access and delete Ryan's local `.env.local` copy.
 5. If any secret was ever shared outside an account's encrypted environment-variable manager, rotate it.
 
-GitHub transfer changes the repository owner but normally preserves Git history. After transfer, every local clone must update `origin`:
-
-```bash
-git remote set-url origin https://github.com/MATTS_GITHUB_USERNAME/417-wildlife-alliance.git
-git remote -v
-```
+Git history was preserved through the GitHub transfer; `origin` already points at `Bstonem/417-wildlife-alliance`.
 
 ## Matt's first local setup
 
