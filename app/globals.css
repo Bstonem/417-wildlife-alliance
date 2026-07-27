@@ -59,16 +59,18 @@ body {
     sans-serif;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+@layer base {
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 
-button,
-input,
-select,
-textarea {
-  font: inherit;
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
 }
 
 .container-shell {

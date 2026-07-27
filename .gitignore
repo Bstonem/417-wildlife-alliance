@@ -22,6 +22,7 @@ Thumbs.db
 .netlify/
 .supabase/
 /tmp/
+.playwright-mcp/
 
 # Local source-photo drops; optimized copies live in public/assets.
 /matt and squirrel.jpg
