@@ -48,7 +48,7 @@ export default function DonatePage() {
         title="Help rehabbers keep saying yes."
         text="Recurring support can cover the daily costs that make wildlife rehabilitation possible: formula, cages, medication, food, transport, and emergency care."
         imageSrc="/assets/donate-banner.jpg"
-        imagePosition="center 48%"
+        imagePosition="75% 48%"
         primary={{ href: "/found-animal", label: "Animal needs help" }}
         secondary={{ href: "/how-donations-help" as Route, label: "How gifts help" }}
       />
