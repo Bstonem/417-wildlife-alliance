@@ -12,7 +12,7 @@ export const metadata: Metadata = createMetadata({
   description:
     "Support supplies, formula, transport, emergency needs, and approved care support for licensed or permitted wildlife rehabbers in the 417 area.",
   path: "/donate",
-  image: "/assets/squirrel-2.jpg",
+  image: "/assets/donate-banner.jpg",
   keywords: ["donate wildlife rehabilitation Missouri", "support wildlife rehabbers Springfield MO", "wildlife rescue donations 417 area"]
 });
 
@@ -47,7 +47,7 @@ export default function DonatePage() {
         eyebrow="Wildlife rehabilitation fund"
         title="Help rehabbers keep saying yes."
         text="Recurring support can cover the daily costs that make wildlife rehabilitation possible: formula, cages, medication, food, transport, and emergency care."
-        imageSrc="/assets/squirrel-2.jpg"
+        imageSrc="/assets/donate-banner.jpg"
         imagePosition="center 48%"
         primary={{ href: "/found-animal", label: "Animal needs help" }}
         secondary={{ href: "/how-donations-help" as Route, label: "How gifts help" }}
