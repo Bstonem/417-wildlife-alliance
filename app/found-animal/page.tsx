@@ -64,10 +64,12 @@ export default function FoundAnimalPage() {
           <p className="body-large mt-5 max-w-2xl">
             These guides cover the animals people most often find in the 417 area. Tap one to see safe first steps, what not to do, and details a licensed wildlife contact will ask for.
           </p>
-          <Badge variant="blue" className="mt-6 w-fit">
-            Do not feed or medicate wildlife
-          </Badge>
-          <div className="mt-10 w-full">
+          <img
+            src="/assets/stop-sign-no-feed-hydrate.svg"
+            alt="Do NOT attempt to FEED or HYDRATE wildlife!"
+            className="mt-8 size-40 sm:size-48"
+          />
+          <div className="mt-20 w-full">
             <QuickGuidesOrbit guides={wildlifeGuides} />
           </div>
         </div>
