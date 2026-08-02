@@ -42,7 +42,7 @@ export const allianceMapNodes = [
     text: "Choose a practical way to support rehabbers, volunteers, education, and community response.",
     href: "/help",
     icon: HeartHandshake,
-    tone: "clay"
+    tone: "green"
   },
   {
     key: "directory",
@@ -51,7 +51,7 @@ export const allianceMapNodes = [
     text: "Find nearby licensed or permitted help based on species, location, and availability.",
     href: "/directory",
     icon: MapPinned,
-    tone: "green"
+    tone: "clay"
   },
   {
     key: "companies",
@@ -60,7 +60,7 @@ export const allianceMapNodes = [
     text: "Education and recognition for businesses that want to prevent wildlife displacement.",
     href: "/partners#compassionate-companies",
     icon: TreePine,
-    tone: "blue"
+    tone: "green"
   },
   {
     key: "found",
@@ -78,7 +78,7 @@ export const allianceMapNodes = [
     text: "See how donor support, rehabber skill, and community action change outcomes for animals.",
     href: "/stories",
     icon: Newspaper,
-    tone: "green"
+    tone: "blue"
   },
   {
     key: "faq",
@@ -103,7 +103,7 @@ export const allianceMapNodes = [
 export const intakeSteps = [
   {
     title: "Give the animal space",
-    text: "Keep people and pets back. Do not feed, bathe, medicate, or try to keep the animal."
+    text: "Keep people and pets back. Do not feed, bathe, medicate, attempt to hydrate, or try to keep the animal."
   },
   {
     title: "Share what you can see",

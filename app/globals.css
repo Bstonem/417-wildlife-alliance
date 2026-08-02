@@ -117,13 +117,6 @@ body {
   line-height: 1.7;
 }
 
-.map-line {
-  background:
-    linear-gradient(90deg, transparent 0 12px, rgba(36, 85, 67, 0.2) 12px 14px, transparent 14px 28px),
-    linear-gradient(180deg, transparent 0 12px, rgba(65, 127, 149, 0.18) 12px 14px, transparent 14px 28px);
-  background-size: 28px 28px;
-}
-
 @media (min-width: 768px) {
   .container-shell {
     width: min(1180px, calc(100% - 48px));

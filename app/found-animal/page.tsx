@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import type { Route } from "next";
 import { ArrowRight } from "lucide-react";
+import { ButtonLink } from "@/components/button-link";
 import { FoundAnimalForm } from "@/components/forms/found-animal-form";
 import { WildlifeSafetyBand } from "@/components/info-band";
 import { PageHero } from "@/components/page-hero";
@@ -51,6 +52,9 @@ export default function FoundAnimalPage() {
                 </CardHeader>
               </Card>
             ))}
+          </div>
+          <div className="mt-8 flex justify-center">
+            <ButtonLink href="/directory">Find licensed help</ButtonLink>
           </div>
         </div>
       </section>

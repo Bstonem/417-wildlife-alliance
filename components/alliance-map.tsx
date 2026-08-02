@@ -34,14 +34,13 @@ export function AllianceMap() {
           </div>
 
           <div className="relative">
-            <div className="absolute inset-4 hidden rounded-md map-line opacity-80 lg:block" aria-hidden="true" />
             <div className="relative grid gap-3 md:grid-cols-2 lg:grid-cols-3">
               {layout.map((node, index) => {
                 if (!node) {
                   return (
                     <div
                       key="center"
-                      className="order-first flex min-h-40 flex-col items-start justify-between rounded-md border-2 border-primary bg-primary p-5 text-primary-foreground shadow-md md:order-none"
+                      className="order-first flex min-h-40 flex-col items-center justify-center gap-3 rounded-md border-2 border-primary bg-primary p-5 text-center text-primary-foreground shadow-md md:order-none"
                     >
                       <span className="flex size-11 items-center justify-center rounded-md bg-white/12">
                         <Network size={22} aria-hidden="true" />
@@ -69,7 +68,7 @@ export function AllianceMap() {
                       index === 8 && "lg:translate-y-2"
                     )}
                   >
-                    <div className="flex h-full flex-col justify-between gap-5">
+                    <div className="flex h-full flex-col gap-5">
                       <div className="flex items-start justify-between gap-3">
                         <span className="flex size-10 items-center justify-center rounded-md bg-white/75">
                           <Icon size={20} aria-hidden="true" />

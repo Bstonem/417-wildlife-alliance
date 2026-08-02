@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ArrowDown, CheckCircle2, HeartHandshake, MapPinned } from "lucide-react";
 import { AllianceMap } from "@/components/alliance-map";
 import { ButtonLink } from "@/components/button-link";
@@ -16,17 +17,17 @@ export const metadata: Metadata = createMetadata({
 });
 
 const localServiceAreas = [
-  "Springfield and Greene County",
-  "Nixa, Ozark, and Christian County",
-  "Republic, Willard, and Strafford",
-  "Bolivar, Marshfield, Branson, and nearby 417 communities"
+  "Greene County, including Springfield, Republic, Willard, and Strafford",
+  "Christian County, including Nixa and Ozark",
+  "Webster, Polk, and Taney Counties, including Marshfield, Bolivar, and Branson",
+  "Surrounding 417 area communities"
 ];
 
 const localHelpTopics = [
-  "Baby squirrels displaced by storms or tree work",
-  "Injured opossums, songbirds, and small mammals",
-  "Wildlife near roads, pets, work sites, or structures",
-  "Rehabber support, supplies, transport, and donor funding"
+  "Emergency care of orphaned and injured wildlife",
+  "Raising baby wildlife to release",
+  "Removing at-risk wildlife from dangerous areas",
+  "Rehabber support with supplies, transport, and funding"
 ];
 
 export default function HomePage() {
@@ -75,7 +76,7 @@ export default function HomePage() {
             <p className="section-kicker">Southwest Missouri</p>
             <h2 className="section-title mt-3">Wildlife help for Springfield, Greene County, and the 417 area.</h2>
             <p className="body-large mt-5">
-              417 Wildlife Alliance is being built as a practical local hub for neighbors who find injured, orphaned, displaced, or at-risk wildlife and need to reach appropriate licensed or permitted help.
+              417 Wildlife Alliance is being built as a practical local hub for neighbors and businesses who find injured, orphaned, displaced, or at-risk wildlife and need to reach appropriate licensed or permitted help.
             </p>
           </div>
           <Card className="bg-surface">
@@ -89,14 +90,28 @@ export default function HomePage() {
                   <MapPinned className="shrink-0 text-primary" size={18} aria-hidden="true" />
                   Service area
                 </p>
-                <p className="mt-2">{localServiceAreas.join(" · ")}</p>
+                <ul className="mt-2 space-y-1.5">
+                  {localServiceAreas.map((area) => (
+                    <li key={area} className="flex gap-2">
+                      <span className="mt-2 size-1 shrink-0 rounded-full bg-muted-foreground" aria-hidden="true" />
+                      {area}
+                    </li>
+                  ))}
+                </ul>
               </div>
               <div>
                 <p className="flex items-center gap-2 font-bold text-foreground">
                   <CheckCircle2 className="shrink-0 text-primary" size={18} aria-hidden="true" />
                   Common needs
                 </p>
-                <p className="mt-2">{localHelpTopics.join(" · ")}</p>
+                <ul className="mt-2 space-y-1.5">
+                  {localHelpTopics.map((topic) => (
+                    <li key={topic} className="flex gap-2">
+                      <span className="mt-2 size-1 shrink-0 rounded-full bg-muted-foreground" aria-hidden="true" />
+                      {topic}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </CardContent>
           </Card>
@@ -122,25 +137,27 @@ export default function HomePage() {
               A single small animal may need formula, food, medication, safe housing, transport, and weeks to months of attention. During baby season, those needs multiply fast.
             </p>
           </div>
-          <Card className="border-primary/20 bg-primary text-primary-foreground">
-            <CardHeader>
-              <span className="flex size-12 items-center justify-center rounded-md bg-white/12">
-                <HeartHandshake size={25} aria-hidden="true" />
-              </span>
-              <CardTitle className="text-3xl">Donor support turns concern into care.</CardTitle>
-              <CardDescription className="text-white/78">
-                Donations, sponsors, grants, business education, and shop proceeds can all help provide transparent support for licensed or permitted rehabbers and wildlife nonprofits.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="grid gap-3">
-              {["Monthly donors", "Business sponsors", "Supply support", "Impact updates"].map((item) => (
-                <p key={item} className="flex items-start gap-3 text-sm font-semibold">
-                  <CheckCircle2 className="mt-0.5 shrink-0" size={18} aria-hidden="true" />
-                  {item}
-                </p>
-              ))}
-            </CardContent>
-          </Card>
+          <Link href="/donate" className="focus-ring block rounded-md">
+            <Card className="border-primary/20 bg-primary text-primary-foreground transition hover:-translate-y-0.5 hover:shadow-md">
+              <CardHeader>
+                <span className="flex size-12 items-center justify-center rounded-md bg-white/12">
+                  <HeartHandshake size={25} aria-hidden="true" />
+                </span>
+                <CardTitle className="text-3xl">Donor support turns concern into care.</CardTitle>
+                <CardDescription className="text-white/78">
+                  Donations, sponsors, grants, business education, and shop proceeds can all help provide transparent support for licensed or permitted rehabbers and wildlife nonprofits.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="grid gap-3">
+                {["Monthly donors", "Business sponsors", "Supply support", "Impact updates"].map((item) => (
+                  <p key={item} className="flex items-start gap-3 text-sm font-semibold">
+                    <CheckCircle2 className="mt-0.5 shrink-0" size={18} aria-hidden="true" />
+                    {item}
+                  </p>
+                ))}
+              </CardContent>
+            </Card>
+          </Link>
         </div>
       </section>
     </>
