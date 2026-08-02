@@ -70,7 +70,8 @@ const animalGuidance: Record<string, { title: string; text: string; href?: strin
   },
   "Reptile/amphibian": {
     title: "Many reptiles and amphibians can be left in place.",
-    text: "Only intervene if the animal is injured, trapped, in traffic, or in immediate danger."
+    text: "Only intervene if the animal is injured, trapped, in traffic, or in immediate danger.",
+    href: "/found-animal/reptile"
   },
   Other: {
     title: "Share what you can observe safely.",

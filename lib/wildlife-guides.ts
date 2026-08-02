@@ -1,6 +1,6 @@
 export type WildlifeGuideVisual =
   | { type: "photo"; src: string; position?: string }
-  | { type: "icon"; icon: "squirrel" | "rabbit" | "opossum" | "bird" | "fox" | "deer" };
+  | { type: "icon"; icon: "squirrel" | "rabbit" | "opossum" | "bird" | "fox" | "deer" | "reptile" };
 
 export type WildlifeGuide = {
   slug: string;
@@ -315,6 +315,42 @@ export const wildlifeGuides: WildlifeGuide[] = [
     ],
     callout:
       "Raccoons can carry diseases that make hands-on help risky without training. Distance and a call to a licensed contact keep both you and the animal safer."
+  },
+  {
+    slug: "reptile",
+    eyebrow: "Reptile",
+    title: "Found a reptile?",
+    summary:
+      "Turtles, snakes, and lizards are often just passing through. Most native reptiles are harmless and can be left alone unless they are injured or in a dangerous spot.",
+    visual: { type: "icon", icon: "reptile" },
+    imageSrc: "/assets/squirrel-6.jpg",
+    imagePosition: "center",
+    urgentTitle: "Contact help if",
+    urgentCues: [
+      "The animal has a cracked or damaged shell, or a visible wound",
+      "It is in a roadway, parking lot, or other dangerous location",
+      "There has been a known vehicle strike or pet interaction",
+      "It appears weak, lethargic, or unable to move normally"
+    ],
+    firstSteps: [
+      "Leave healthy reptiles alone; most are simply moving between habitats.",
+      "If a turtle is crossing a road safely, only move it in the direction it was already heading and only if you can do so safely.",
+      "Take photos from a safe distance, especially for snakes, rather than approaching closely.",
+      "Share the species if known, location, and any visible injuries."
+    ],
+    doNot: [
+      "Do not pick up or handle a snake you cannot positively identify as harmless.",
+      "Do not relocate a turtle far from where it was found.",
+      "Do not offer food or water."
+    ],
+    details: [
+      "Species or best description, including size and color patterns",
+      "Whether it is injured, in the roadway, or in a safe spot",
+      "Any known vehicle or pet contact",
+      "Exact location and photos from a safe distance"
+    ],
+    callout:
+      "Most native reptiles found in the 417 area are harmless and better off left in place. Qualified guidance helps you tell a normal encounter from one that needs help."
   }
 ];
 

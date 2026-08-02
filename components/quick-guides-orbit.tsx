@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Route } from "next";
-import { Bird, PawPrint, Rabbit, Squirrel } from "lucide-react";
+import { Bird, PawPrint, Rabbit, Squirrel, Turtle } from "lucide-react";
 import type { WildlifeGuide } from "@/lib/wildlife-guides";
 import { cn } from "@/lib/utils";
 
@@ -10,19 +10,11 @@ const iconMap = {
   opossum: PawPrint,
   bird: Bird,
   fox: PawPrint,
-  deer: PawPrint
+  deer: PawPrint,
+  reptile: Turtle
 };
 
-const orbitPosition = [
-  "left-1/2 top-[8%] -translate-x-1/2 -translate-y-1/2",
-  "left-[80%] top-[20%] -translate-x-1/2 -translate-y-1/2",
-  "left-[92%] top-1/2 -translate-x-1/2 -translate-y-1/2",
-  "left-[80%] top-[80%] -translate-x-1/2 -translate-y-1/2",
-  "left-1/2 top-[92%] -translate-x-1/2 -translate-y-1/2",
-  "left-[20%] top-[80%] -translate-x-1/2 -translate-y-1/2",
-  "left-[8%] top-1/2 -translate-x-1/2 -translate-y-1/2",
-  "left-[20%] top-[20%] -translate-x-1/2 -translate-y-1/2"
-];
+const ORBIT_RADIUS_PERCENT = 42;
 
 export function QuickGuidesOrbit({ guides }: { guides: WildlifeGuide[] }) {
   return (
@@ -34,12 +26,17 @@ export function QuickGuidesOrbit({ guides }: { guides: WildlifeGuide[] }) {
 
       {guides.map((guide, index) => {
         const Icon = guide.visual.type === "icon" ? iconMap[guide.visual.icon] : null;
+        const angle = -90 + (index * 360) / guides.length;
+        const radians = (angle * Math.PI) / 180;
+        const left = 50 + ORBIT_RADIUS_PERCENT * Math.cos(radians);
+        const top = 50 + ORBIT_RADIUS_PERCENT * Math.sin(radians);
 
         return (
           <Link
             key={guide.slug}
             href={`/found-animal/${guide.slug}` as Route}
-            className={cn("focus-ring group absolute flex w-20 flex-col items-center gap-2 sm:w-32", orbitPosition[index])}
+            className="focus-ring group absolute flex w-20 -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-2 sm:w-32"
+            style={{ left: `${left}%`, top: `${top}%` }}
           >
             <span
               className={cn(
