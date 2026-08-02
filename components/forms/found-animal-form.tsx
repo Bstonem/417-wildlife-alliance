@@ -37,11 +37,23 @@ const animalGuidance: Record<string, { title: string; text: string; href?: strin
   },
   Raccoon: {
     title: "Do not handle raccoons.",
-    text: "Keep people and pets away and contact an appropriate authority or licensed wildlife professional for guidance."
+    text: "Keep people and pets away and contact an appropriate authority or licensed wildlife professional for guidance.",
+    href: "/found-animal/raccoon"
   },
   Fox: {
     title: "Keep distance from adult wildlife.",
-    text: "Do not chase, corner, feed, or attempt to contain a fox. Share location and behavior details from a safe distance."
+    text: "Do not chase, corner, feed, or attempt to contain a fox. Share location and behavior details from a safe distance.",
+    href: "/found-animal/fox"
+  },
+  Skunk: {
+    title: "Give skunks plenty of space.",
+    text: "Daytime activity, disorientation, or pet contact are signs to get guidance. Otherwise, distance is usually all that is needed.",
+    href: "/found-animal/skunk"
+  },
+  Deer: {
+    title: "Most fawns found alone are fine.",
+    text: "A quiet, still fawn is often waiting for its mother to return. Injured or trapped adults need qualified help.",
+    href: "/found-animal/deer"
   },
   Songbird: {
     title: "Some young birds belong on the ground.",

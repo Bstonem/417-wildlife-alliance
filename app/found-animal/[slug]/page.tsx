@@ -1,14 +1,20 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { AlertTriangle, Camera, CheckCircle2, MapPin, XCircle } from "lucide-react";
+import { AlertTriangle, Camera, Car, CheckCircle2, HeartPulse, MapPin, TreeDeciduous, XCircle } from "lucide-react";
 import { ButtonLink } from "@/components/button-link";
 import { WildlifeSafetyBand } from "@/components/info-band";
 import { PageHero } from "@/components/page-hero";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { articleJsonLd, createMetadata } from "@/lib/seo";
-import { getWildlifeGuide, wildlifeGuides } from "@/lib/wildlife-guides";
+import { getWildlifeGuide, situationalGuides, wildlifeGuides } from "@/lib/wildlife-guides";
+
+const situationalIcon = {
+  "injured-adult": HeartPulse,
+  "vehicle-strike": Car,
+  "tree-work": TreeDeciduous
+};
 
 type GuidePageProps = {
   params: Promise<{
@@ -161,6 +167,43 @@ export default async function WildlifeGuidePage({ params }: GuidePageProps) {
                 </div>
               </CardContent>
             </Card>
+          </div>
+        </div>
+      </section>
+
+      <section className="section bg-surface">
+        <div className="container-shell">
+          <p className="section-kicker">Other situations to know</p>
+          <h2 className="section-title mt-3 max-w-2xl">Does anything else apply here?</h2>
+          <p className="body-large mt-5 max-w-2xl">
+            These situations can happen with any animal, including this one. Keep them in mind alongside the guidance above.
+          </p>
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            {situationalGuides.map((situation) => {
+              const Icon = situationalIcon[situation.icon];
+              return (
+                <Card key={situation.slug}>
+                  <CardHeader>
+                    <span className="flex size-11 items-center justify-center rounded-md bg-primary/10 text-primary">
+                      <Icon size={20} aria-hidden="true" />
+                    </span>
+                    <Badge variant="outline" className="w-fit">
+                      {situation.eyebrow}
+                    </Badge>
+                    <CardTitle className="text-lg">{situation.title}</CardTitle>
+                    <CardDescription>{situation.summary}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="grid gap-2 text-sm leading-6 text-muted-foreground">
+                    {situation.cues.map((cue) => (
+                      <p key={cue} className="flex gap-2">
+                        <AlertTriangle className="mt-0.5 shrink-0 text-clay-strong" size={16} aria-hidden="true" />
+                        {cue}
+                      </p>
+                    ))}
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>

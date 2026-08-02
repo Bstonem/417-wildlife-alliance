@@ -1,8 +1,13 @@
+export type WildlifeGuideVisual =
+  | { type: "photo"; src: string; position?: string }
+  | { type: "icon"; icon: "squirrel" | "rabbit" | "opossum" | "bird" | "fox" | "deer" };
+
 export type WildlifeGuide = {
   slug: string;
   eyebrow: string;
   title: string;
   summary: string;
+  visual: WildlifeGuideVisual;
   imageSrc: string;
   imagePosition?: string;
   urgentTitle: string;
@@ -13,13 +18,23 @@ export type WildlifeGuide = {
   callout: string;
 };
 
+export type SituationalGuide = {
+  slug: string;
+  icon: "injured-adult" | "vehicle-strike" | "tree-work";
+  eyebrow: string;
+  title: string;
+  summary: string;
+  cues: string[];
+};
+
 export const wildlifeGuides: WildlifeGuide[] = [
   {
     slug: "baby-squirrel",
-    eyebrow: "Baby squirrel",
-    title: "Found a baby squirrel?",
+    eyebrow: "Squirrel",
+    title: "Found a squirrel?",
     summary:
       "Baby squirrels often fall after storms, tree work, or nest damage. The safest next step depends on injuries, warmth, location, and whether the mother can return.",
+    visual: { type: "photo", src: "/assets/squirrel-2.jpg", position: "center 48%" },
     imageSrc: "/assets/squirrel-2.jpg",
     imagePosition: "center 48%",
     urgentTitle: "Contact help quickly if you see",
@@ -51,10 +66,11 @@ export const wildlifeGuides: WildlifeGuide[] = [
   },
   {
     slug: "baby-rabbit",
-    eyebrow: "Baby rabbit",
-    title: "Found baby rabbits?",
+    eyebrow: "Rabbit",
+    title: "Found a rabbit?",
     summary:
       "Cottontail nests are shallow and easy to miss. A nest can look unattended even when the mother is returning at dawn and dusk.",
+    visual: { type: "icon", icon: "rabbit" },
     imageSrc: "/assets/squirrel-7.jpg",
     imagePosition: "center 42%",
     urgentTitle: "Get guidance if",
@@ -90,6 +106,7 @@ export const wildlifeGuides: WildlifeGuide[] = [
     title: "Found an opossum?",
     summary:
       "Opossums may need help after vehicle strikes, pet interactions, or when small babies are found alone. Distance and clear photos help responders decide what is safe.",
+    visual: { type: "photo", src: "/assets/opossum.jpg", position: "center 62%" },
     imageSrc: "/assets/opossum.jpg",
     imagePosition: "center 62%",
     urgentTitle: "Treat it as urgent if",
@@ -121,10 +138,11 @@ export const wildlifeGuides: WildlifeGuide[] = [
   },
   {
     slug: "baby-bird",
-    eyebrow: "Baby bird",
-    title: "Found a baby bird?",
+    eyebrow: "Bird",
+    title: "Found a bird?",
     summary:
       "Some young birds are supposed to be on the ground while they learn to fly. Others need help because they are injured, cold, bare-skinned, or out of the nest too early.",
+    visual: { type: "icon", icon: "bird" },
     imageSrc: "/assets/squirrel-4.jpg",
     imagePosition: "center",
     urgentTitle: "Contact help if",
@@ -155,109 +173,190 @@ export const wildlifeGuides: WildlifeGuide[] = [
       "A fully feathered fledgling may not need rescue. The safest choice depends on age, injuries, predators, and whether the parents are still caring for it."
   },
   {
-    slug: "injured-adult",
-    eyebrow: "Injured adult wildlife",
-    title: "Found injured adult wildlife?",
+    slug: "skunk",
+    eyebrow: "Skunk",
+    title: "Found a skunk?",
     summary:
-      "Adult wildlife can injure people when scared, even when they look weak. The best first step is distance, safety, photos, and a call to qualified help.",
-    imageSrc: "/assets/matt-and-squirrel.jpg",
-    imagePosition: "center",
-    urgentTitle: "Call for help if",
+      "Skunks are usually shy and only spray when they feel threatened. Give space, and get guidance quickly if one seems sick, injured, or is out unusually during the day.",
+    visual: { type: "photo", src: "/assets/donate-banner.jpg", position: "72% 78%" },
+    imageSrc: "/assets/donate-banner.jpg",
+    imagePosition: "72% 78%",
+    urgentTitle: "Contact help if",
     urgentCues: [
-      "The animal is bleeding, trapped, limping, dragging limbs, or unable to stand",
-      "The animal was caught by a cat, dog, fence, trap, or netting",
-      "The animal is in a roadway, building, chimney, or other unsafe place",
-      "The animal is acting disoriented, circling, or unusually approachable"
+      "The skunk is out and active during full daylight, which can signal illness",
+      "It appears disoriented, wobbly, or is circling repeatedly",
+      "There is a known dog or cat interaction, or a visible injury",
+      "Babies are seen moving alone without an adult nearby"
     ],
     firstSteps: [
-      "Do not attempt to capture adult wildlife unless instructed by a qualified person.",
-      "Keep people and pets away and reduce noise around the animal.",
-      "Take photos or video from a safe distance.",
-      "Share location, species if known, visible injuries, and current danger."
+      "Keep people and pets at a distance and stay calm and quiet.",
+      "Do not corner the skunk or block its escape route.",
+      "Take photos from a safe distance if you can do so without approaching.",
+      "Share the exact location and what the skunk is doing."
     ],
     doNot: [
-      "Do not grab, corner, chase, or throw a towel over adult wildlife without guidance.",
-      "Do not feed, medicate, or offer water.",
-      "Do not transport wildlife in your vehicle unless a qualified contact tells you how to do it safely."
+      "Do not approach, corner, or make sudden movements near a skunk.",
+      "Do not attempt to catch or contain it yourself.",
+      "Do not let pets investigate or engage with the skunk."
     ],
     details: [
-      "Species or best description",
-      "Exact location and whether people, pets, or traffic are nearby",
-      "What happened before you found the animal",
-      "Photos or video from a safe distance"
+      "Time of day and how the skunk is behaving",
+      "Whether it appears injured, disoriented, or unusually tame",
+      "Any pet or vehicle contact",
+      "Exact location and photos from a safe distance"
     ],
     callout:
-      "Safety matters for both you and the animal. Adult wildlife should be handled only with proper training, equipment, and legal authority."
+      "Distance is the best protection for you, your pets, and the skunk. A licensed contact can help you tell normal behavior from a sign that something is wrong."
+  },
+  {
+    slug: "fox",
+    eyebrow: "Fox",
+    title: "Found a fox?",
+    summary:
+      "Foxes are naturally cautious around people. One that looks thin, is limping, or approaches people closely may need help rather than just be curious.",
+    visual: { type: "icon", icon: "fox" },
+    imageSrc: "/assets/squirrel-3.jpg",
+    imagePosition: "center",
+    urgentTitle: "Contact help if",
+    urgentCues: [
+      "The fox is limping, dragging a limb, or has visible wounds or hair loss",
+      "It approaches people or pets instead of avoiding them",
+      "It appears thin, weak, or is circling or stumbling",
+      "There is a known vehicle strike or entanglement in a fence or trap"
+    ],
+    firstSteps: [
+      "Keep people and pets back and give the fox a clear path to leave.",
+      "Do not attempt to feed, herd, or corner the animal.",
+      "Take photos or video from a safe distance if possible.",
+      "Share behavior details, location, and any visible injuries."
+    ],
+    doNot: [
+      "Do not approach or try to touch an adult fox.",
+      "Do not feed a fox to try to help it.",
+      "Do not assume unusual tameness is a good sign; it can mean illness."
+    ],
+    details: [
+      "How the fox is behaving and moving",
+      "Any visible injuries, hair loss, or thinness",
+      "Whether pets or people were approached",
+      "Exact location and time observed"
+    ],
+    callout:
+      "A fox that seems unusually calm around people is often a sign something is wrong, not a friendly encounter. Qualified guidance helps keep everyone safe."
+  },
+  {
+    slug: "deer",
+    eyebrow: "Deer",
+    title: "Found a deer?",
+    summary:
+      "A fawn lying alone and still is often exactly where its mother left it. Adult deer that are injured or trapped need distance and qualified help, not direct assistance.",
+    visual: { type: "icon", icon: "deer" },
+    imageSrc: "/assets/squirrel-1.jpg",
+    imagePosition: "center",
+    urgentTitle: "Contact help if",
+    urgentCues: [
+      "A fawn is crying persistently, wandering, or clearly injured",
+      "An adult deer is down, tangled in fencing, or unable to stand",
+      "There has been a known vehicle strike",
+      "The deer is in an unsafe spot such as a roadway or a fenced yard with no way out"
+    ],
+    firstSteps: [
+      "Leave a quiet, still fawn where it is; the mother is likely nearby.",
+      "Keep people and pets away and avoid repeated visits to check on it.",
+      "For an injured or trapped adult, keep distance and contact qualified help.",
+      "Share the exact location, behavior, and any visible injuries."
+    ],
+    doNot: [
+      "Do not pick up, move, or try to rescue a healthy-looking fawn.",
+      "Do not offer food or water.",
+      "Do not attempt to free a tangled or trapped adult deer yourself."
+    ],
+    details: [
+      "Whether it is a fawn alone or an adult, and its behavior",
+      "Any visible injury, entanglement, or vehicle contact",
+      "Exact location and whether it is near traffic",
+      "How long it has been observed in the same spot"
+    ],
+    callout:
+      "Most fawns found alone do not need help. Give space, watch from a distance, and reach out if something looks clearly wrong rather than acting right away."
+  },
+  {
+    slug: "raccoon",
+    eyebrow: "Raccoon",
+    title: "Found a raccoon?",
+    summary:
+      "Young raccoons may be found after a den disturbance, while adults active during the day or acting strangely may need urgent attention.",
+    visual: { type: "photo", src: "/assets/raccoon-hero.jpg", position: "72% 30%" },
+    imageSrc: "/assets/raccoon-hero.jpg",
+    imagePosition: "72% 30%",
+    urgentTitle: "Contact help if",
+    urgentCues: [
+      "The raccoon is active and disoriented during full daylight",
+      "It is stumbling, circling, or seems unaware of its surroundings",
+      "There are visible wounds or an inability to move normally",
+      "There is a known cat, dog, or vehicle interaction"
+    ],
+    firstSteps: [
+      "Keep people and pets away and reduce noise around the animal.",
+      "Do not attempt to touch, feed, or corner the raccoon.",
+      "Take photos or video from a safe distance if you can.",
+      "Share behavior, location, and whether babies are nearby."
+    ],
+    doNot: [
+      "Do not handle a raccoon, even a baby, without gloves and guidance.",
+      "Do not feed or offer water.",
+      "Do not assume daytime activity alone means something is wrong; get guidance to be sure."
+    ],
+    details: [
+      "Age (baby or adult) and behavior observed",
+      "Any visible injuries or disorientation",
+      "Whether babies are nearby without an adult",
+      "Exact location and photos from a safe distance"
+    ],
+    callout:
+      "Raccoons can carry diseases that make hands-on help risky without training. Distance and a call to a licensed contact keep both you and the animal safer."
+  }
+];
+
+export const situationalGuides: SituationalGuide[] = [
+  {
+    slug: "injured-adult",
+    icon: "injured-adult",
+    eyebrow: "Injured adult wildlife",
+    title: "Found as an injured adult?",
+    summary:
+      "Adult wildlife can injure people when scared, even when they look weak. The best first step is distance, safety, photos, and a call to qualified help.",
+    cues: [
+      "Do not attempt to capture adult wildlife unless instructed by a qualified person.",
+      "Do not grab, corner, chase, or throw a towel over it without guidance.",
+      "Take photos or video from a safe distance and share location, species, and visible injuries."
+    ]
   },
   {
     slug: "vehicle-strike",
+    icon: "vehicle-strike",
     eyebrow: "Vehicle strike",
-    title: "Wildlife hit by a vehicle?",
+    title: "Hit by a vehicle?",
     summary:
       "Vehicle strikes can involve hidden injuries, traffic danger, and babies nearby. Stay safe first, then share exact location and visible details.",
-    imageSrc: "/assets/opossum.jpg",
-    imagePosition: "center 62%",
-    urgentTitle: "Act quickly if",
-    urgentCues: [
-      "The animal is alive, in pain, or in the roadway",
-      "There may be babies nearby or attached to an adult",
-      "Traffic makes it unsafe for a person to approach",
-      "The animal is large, defensive, or difficult to contain"
-    ],
-    firstSteps: [
-      "Do not step into traffic or block a roadway.",
+    cues: [
+      "Do not step into traffic or block a roadway to reach the animal.",
       "Call local emergency services or animal control when people or traffic are at risk.",
-      "Note the exact road, nearest cross street, lane, and direction of travel.",
-      "Send photos only if you can take them from a safe place."
-    ],
-    doNot: [
-      "Do not put yourself in traffic to move an animal.",
-      "Do not assume an animal is dead without qualified help if there are signs of breathing or movement.",
-      "Do not handle injured wildlife without gloves, equipment, and guidance."
-    ],
-    details: [
-      "Road name, cross streets, mile marker, or landmark",
-      "Whether the animal is alive, moving, or in the roadway",
-      "Species or best description",
-      "Whether babies are visible nearby"
-    ],
-    callout:
-      "Your safety comes first. A precise location can be the most helpful thing you provide when the animal is near traffic."
+      "Note the exact road, nearest cross street, and direction of travel."
+    ]
   },
   {
     slug: "tree-work-nest",
+    icon: "tree-work",
     eyebrow: "Tree work or nest disturbed",
     title: "Did tree work disturb a nest or den?",
     summary:
       "Tree trimming, removals, landscaping, and storm cleanup can expose nests or dens. Pausing work and getting guidance can prevent avoidable harm.",
-    imageSrc: "/assets/squirrel-6.jpg",
-    imagePosition: "center",
-    urgentTitle: "Pause and ask for help if",
-    urgentCues: [
-      "Babies fell from a tree, branch, nest, or cavity",
-      "A nest or den was cut, moved, crushed, or exposed",
-      "Adult animals are circling, calling, or trying to return",
-      "Work cannot continue without moving babies or blocking parents"
-    ],
-    firstSteps: [
+    cues: [
       "Stop work in the immediate area if it is safe to do so.",
       "Keep equipment, pets, and foot traffic away from the babies or nest area.",
-      "Take photos of the animal, nest or den, tree, and surrounding work site.",
-      "Share timing, species if known, and whether adult animals are nearby."
-    ],
-    doNot: [
-      "Do not keep cutting or hauling material that may contain a nest or den.",
-      "Do not relocate babies to a random tree, box, or yard without guidance.",
-      "Do not feed, water, or warm animals with improvised methods."
-    ],
-    details: [
-      "Type of work being done and when the nest or den was found",
-      "Photos of the nest, cavity, branch, or den entrance",
-      "Whether adults are nearby",
-      "How many babies or animals are visible"
-    ],
-    callout:
-      "A short pause can make the difference between reunification, safe transfer, or further injury. Companies can also join the Wildlife Compassionate Companies program to prepare crews before these moments happen."
+      "Do not relocate babies to a random tree, box, or yard without guidance."
+    ]
   }
 ];
 

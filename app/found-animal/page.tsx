@@ -1,11 +1,9 @@
-import Link from "next/link";
 import type { Metadata } from "next";
-import type { Route } from "next";
-import { ArrowRight } from "lucide-react";
 import { ButtonLink } from "@/components/button-link";
 import { FoundAnimalForm } from "@/components/forms/found-animal-form";
 import { WildlifeSafetyBand } from "@/components/info-band";
 import { PageHero } from "@/components/page-hero";
+import { QuickGuidesOrbit } from "@/components/quick-guides-orbit";
 import { wildlifeGuides } from "@/lib/wildlife-guides";
 import { intakeSteps } from "@/lib/demo-data";
 import { Badge } from "@/components/ui/badge";
@@ -60,39 +58,17 @@ export default function FoundAnimalPage() {
       </section>
 
       <section className="section bg-background">
-        <div className="container-shell">
-          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-            <div className="max-w-3xl">
-              <p className="section-kicker">Quick guides</p>
-              <h2 className="section-title mt-3">Start with the situation in front of you.</h2>
-              <p className="body-large mt-5">
-                Different animals need different decisions. These guides help you stay safe, avoid common mistakes, and gather the details a licensed wildlife contact will ask for.
-              </p>
-            </div>
-            <Badge variant="blue" className="w-fit">
-              Do not feed or medicate wildlife
-            </Badge>
-          </div>
-
-          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {wildlifeGuides.map((guide) => (
-              <Card key={guide.slug} className="transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md">
-                <Link href={`/found-animal/${guide.slug}` as Route} className="focus-ring block h-full rounded-md">
-                  <CardHeader>
-                    <Badge variant="outline" className="w-fit">
-                      {guide.eyebrow}
-                    </Badge>
-                    <CardTitle>{guide.title}</CardTitle>
-                    <CardDescription>{guide.summary}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <span className="inline-flex items-center gap-2 text-sm font-bold text-primary">
-                      Read the guide <ArrowRight size={16} aria-hidden="true" />
-                    </span>
-                  </CardContent>
-                </Link>
-              </Card>
-            ))}
+        <div className="container-shell flex flex-col items-center text-center">
+          <p className="section-kicker">Quick guides</p>
+          <h2 className="section-title mt-3 max-w-2xl">Start with the animal in front of you.</h2>
+          <p className="body-large mt-5 max-w-2xl">
+            These guides cover the animals people most often find in the 417 area. Tap one to see safe first steps, what not to do, and details a licensed wildlife contact will ask for.
+          </p>
+          <Badge variant="blue" className="mt-6 w-fit">
+            Do not feed or medicate wildlife
+          </Badge>
+          <div className="mt-10 w-full">
+            <QuickGuidesOrbit guides={wildlifeGuides} />
           </div>
         </div>
       </section>

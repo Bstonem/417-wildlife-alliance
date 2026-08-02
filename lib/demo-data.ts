@@ -177,6 +177,8 @@ export const animalTypes = [
   "Opossum",
   "Raccoon",
   "Fox",
+  "Skunk",
+  "Deer",
   "Songbird",
   "Raptor",
   "Waterfowl",
@@ -281,7 +283,7 @@ export const rehabberDirectory = [
     species: ["Opossums", "Deer", "Fox", "Unknown"],
     status: "Urgent guidance",
     contact: "Information card. Use when wildlife is injured near traffic. Do not step into traffic or try to move adult wildlife without guidance.",
-    url: "/found-animal/vehicle-strike",
+    url: "/found-animal",
     counties: ["Greene", "Christian", "Taney", "Dallas"],
     kind: "resource",
     priority: "urgent"
@@ -293,7 +295,7 @@ export const rehabberDirectory = [
     species: ["Squirrels", "Rabbits", "Songbirds", "Small mammals"],
     status: "Guidance available",
     contact: "Information card. Pause work near disturbed nests or dens and gather photos before moving animals or material.",
-    url: "/found-animal/tree-work-nest",
+    url: "/found-animal",
     counties: ["Greene", "Christian", "Webster", "Polk", "Stone", "Taney", "Dallas", "Lawrence"],
     kind: "resource"
   },
