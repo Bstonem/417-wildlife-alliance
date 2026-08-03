@@ -34,7 +34,7 @@ export const wildlifeGuides: WildlifeGuide[] = [
     title: "Found a squirrel?",
     summary:
       "Baby squirrels often fall after storms, tree work, or nest damage. The safest next step depends on injuries, warmth, location, and whether the mother can return.",
-    visual: { type: "photo", src: "/assets/squirrel-2.jpg", position: "center 48%" },
+    visual: { type: "photo", src: "/assets/squirrel-8.jpg", position: "46% 44%" },
     imageSrc: "/assets/squirrel-2.jpg",
     imagePosition: "center 48%",
     urgentTitle: "Contact help quickly if you see",
@@ -70,9 +70,9 @@ export const wildlifeGuides: WildlifeGuide[] = [
     title: "Found a rabbit?",
     summary:
       "Cottontail nests are shallow and easy to miss. A nest can look unattended even when the mother is returning at dawn and dusk.",
-    visual: { type: "icon", icon: "rabbit" },
-    imageSrc: "/assets/squirrel-7.jpg",
-    imagePosition: "center 42%",
+    visual: { type: "photo", src: "/assets/rabbit.jpg", position: "58% 38%" },
+    imageSrc: "/assets/rabbit.jpg",
+    imagePosition: "58% 38%",
     urgentTitle: "Get guidance if",
     urgentCues: [
       "The babies are visibly injured, bleeding, cold, or covered in insects",
@@ -106,7 +106,7 @@ export const wildlifeGuides: WildlifeGuide[] = [
     title: "Found an opossum?",
     summary:
       "Opossums may need help after vehicle strikes, pet interactions, or when small babies are found alone. Distance and clear photos help responders decide what is safe.",
-    visual: { type: "photo", src: "/assets/opossum.jpg", position: "center 62%" },
+    visual: { type: "photo", src: "/assets/opossum-circle.jpg", position: "center" },
     imageSrc: "/assets/opossum.jpg",
     imagePosition: "center 62%",
     urgentTitle: "Treat it as urgent if",
@@ -142,9 +142,9 @@ export const wildlifeGuides: WildlifeGuide[] = [
     title: "Found a bird?",
     summary:
       "Some young birds are supposed to be on the ground while they learn to fly. Others need help because they are injured, cold, bare-skinned, or out of the nest too early.",
-    visual: { type: "icon", icon: "bird" },
-    imageSrc: "/assets/squirrel-4.jpg",
-    imagePosition: "center",
+    visual: { type: "photo", src: "/assets/crow.jpg", position: "58% 25%" },
+    imageSrc: "/assets/crow.jpg",
+    imagePosition: "58% 25%",
     urgentTitle: "Contact help if",
     urgentCues: [
       "The bird is bleeding, weak, cold, or has a drooping wing",
@@ -178,7 +178,7 @@ export const wildlifeGuides: WildlifeGuide[] = [
     title: "Found a skunk?",
     summary:
       "Skunks are usually shy and only spray when they feel threatened. Give space, and get guidance quickly if one seems sick, injured, or is out unusually during the day.",
-    visual: { type: "photo", src: "/assets/donate-banner.jpg", position: "72% 78%" },
+    visual: { type: "photo", src: "/assets/donate-banner.jpg", position: "100% 56%" },
     imageSrc: "/assets/donate-banner.jpg",
     imagePosition: "72% 78%",
     urgentTitle: "Contact help if",
@@ -214,9 +214,9 @@ export const wildlifeGuides: WildlifeGuide[] = [
     title: "Found a fox?",
     summary:
       "Foxes are naturally cautious around people. One that looks thin, is limping, or approaches people closely may need help rather than just be curious.",
-    visual: { type: "icon", icon: "fox" },
-    imageSrc: "/assets/squirrel-3.jpg",
-    imagePosition: "center",
+    visual: { type: "photo", src: "/assets/fox.jpg", position: "53% 25%" },
+    imageSrc: "/assets/fox.jpg",
+    imagePosition: "53% 25%",
     urgentTitle: "Contact help if",
     urgentCues: [
       "The fox is limping, dragging a limb, or has visible wounds or hair loss",
@@ -250,9 +250,9 @@ export const wildlifeGuides: WildlifeGuide[] = [
     title: "Found a deer?",
     summary:
       "A fawn lying alone and still is often exactly where its mother left it. Adult deer that are injured or trapped need distance and qualified help, not direct assistance.",
-    visual: { type: "icon", icon: "deer" },
-    imageSrc: "/assets/squirrel-1.jpg",
-    imagePosition: "center",
+    visual: { type: "photo", src: "/assets/deer-circle.jpg", position: "center" },
+    imageSrc: "/assets/deer-hero.jpg",
+    imagePosition: "center 35%",
     urgentTitle: "Contact help if",
     urgentCues: [
       "A fawn is crying persistently, wandering, or clearly injured",
@@ -286,9 +286,9 @@ export const wildlifeGuides: WildlifeGuide[] = [
     title: "Found a raccoon?",
     summary:
       "Young raccoons may be found after a den disturbance, while adults active during the day or acting strangely may need urgent attention.",
-    visual: { type: "photo", src: "/assets/raccoon-hero.jpg", position: "72% 30%" },
-    imageSrc: "/assets/raccoon-hero.jpg",
-    imagePosition: "72% 30%",
+    visual: { type: "photo", src: "/assets/raccoon-2.jpg", position: "65% 55%" },
+    imageSrc: "/assets/raccoon-2.jpg",
+    imagePosition: "65% 68%",
     urgentTitle: "Contact help if",
     urgentCues: [
       "The raccoon is active and disoriented during full daylight",
@@ -322,9 +322,9 @@ export const wildlifeGuides: WildlifeGuide[] = [
     title: "Found a reptile?",
     summary:
       "Turtles, snakes, and lizards are often just passing through. Most native reptiles are harmless and can be left alone unless they are injured or in a dangerous spot.",
-    visual: { type: "icon", icon: "reptile" },
-    imageSrc: "/assets/squirrel-6.jpg",
-    imagePosition: "center",
+    visual: { type: "photo", src: "/assets/box-turtle.jpg", position: "50% 38%" },
+    imageSrc: "/assets/box-turtle.jpg",
+    imagePosition: "50% 38%",
     urgentTitle: "Contact help if",
     urgentCues: [
       "The animal has a cracked or damaged shell, or a visible wound",

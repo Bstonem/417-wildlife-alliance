@@ -27,7 +27,7 @@ export default function FoundAnimalPage() {
         title="So you found an animal. What next?"
         text="Tell us what you see, where the animal is, and whether there is immediate danger. The right details help qualified wildlife contacts respond more safely."
         imageSrc="/assets/opossum.jpg"
-        imagePosition="center 62%"
+        imagePosition="center 54%"
         primary={{ href: "/directory", label: "Find licensed help" }}
         secondary={{ href: "/faq", label: "Read FAQ" }}
       />
