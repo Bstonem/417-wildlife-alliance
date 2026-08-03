@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Info, Search } from "lucide-react";
-import { DirectoryBrowser, type DirectoryListing } from "@/components/directory-browser";
+import { DirectoryBrowser } from "@/components/directory-browser";
 import { PageHero } from "@/components/page-hero";
-import { rehabberDirectory } from "@/lib/demo-data";
 import { createMetadata } from "@/lib/seo";
-import { getSupabaseAdmin, hasSupabaseAdminConfig } from "@/lib/supabase";
+import { getRehabberListings } from "@/lib/rehabbers";
+import { hasSupabaseAdminConfig } from "@/lib/supabase";
 
 export function generateMetadata(): Metadata {
   return createMetadata({
@@ -18,41 +18,8 @@ export function generateMetadata(): Metadata {
   });
 }
 
-async function getListings(): Promise<{ listings: DirectoryListing[]; isDemo: boolean }> {
-  const supabase = getSupabaseAdmin();
-
-  if (!hasSupabaseAdminConfig() || !supabase) {
-    return { listings: rehabberDirectory as DirectoryListing[], isDemo: true };
-  }
-
-  const { data, error } = await supabase
-    .from("rehabbers")
-    .select("display_name, organization_name, service_area_text, species_groups, intake_status, notes_public, website_url, public_slug")
-    .eq("published", true)
-    .order("display_name");
-
-  if (error || !data?.length) {
-    return { listings: rehabberDirectory as DirectoryListing[], isDemo: true };
-  }
-
-  return {
-    listings: data.map((item) => ({
-      name: item.display_name,
-      type: item.organization_name || "Rehabber",
-      serviceArea: item.service_area_text,
-      species: item.species_groups || [],
-      status: item.intake_status,
-      contact: item.notes_public || "Contact details are shared when the rehabber has approved public listing information.",
-      url: item.website_url || `/directory/${item.public_slug}`,
-      counties: item.service_area_text ? [item.service_area_text] : [],
-      kind: "rehabber" as const
-    })),
-    isDemo: false
-  };
-}
-
 export default async function DirectoryPage() {
-  const { listings, isDemo } = await getListings();
+  const { listings, isDemo } = await getRehabberListings();
 
   return (
     <>

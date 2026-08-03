@@ -8,19 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-
-export type DirectoryListing = {
-  name: string;
-  type: string;
-  serviceArea: string;
-  species: string[];
-  status: string;
-  contact: string;
-  url?: string;
-  counties?: string[];
-  kind?: "rehabber" | "resource";
-  priority?: "normal" | "urgent";
-};
+import type { DirectoryListing } from "@/lib/rehabbers";
 
 type DirectoryBrowserProps = {
   listings: DirectoryListing[];
@@ -30,7 +18,7 @@ function uniqueSorted(values: string[]) {
   return Array.from(new Set(values.filter(Boolean))).sort((a, b) => a.localeCompare(b));
 }
 
-function statusVariant(status: string): "default" | "blue" | "clay" | "secondary" | "outline" {
+export function statusVariant(status: string): "default" | "blue" | "clay" | "secondary" | "outline" {
   const normalized = status.toLowerCase();
   if (normalized.includes("accepting") || normalized.includes("available")) {
     return "default";

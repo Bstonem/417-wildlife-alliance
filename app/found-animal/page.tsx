@@ -99,7 +99,16 @@ export default function FoundAnimalPage() {
               </CardContent>
             </Card>
           </aside>
-          <FoundAnimalForm />
+          <div className="grid gap-5">
+            <div>
+              <Badge variant="blue" className="w-fit">What happens next</Badge>
+              <h2 className="mt-3 text-2xl font-bold leading-tight">This goes to our team, not a live dispatcher.</h2>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                As soon as you submit, you will see rehabbers and resources that may fit the animal type and county you entered, plus a reference number to save for your records. Our team also reviews every submission behind the scenes. If the situation is urgent, do not wait on a reply: contact a licensed rehabber directly or call the appropriate emergency service.
+              </p>
+            </div>
+            <FoundAnimalForm />
+          </div>
         </div>
       </section>
     </>

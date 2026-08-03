@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { notifyAdmin } from "@/lib/email";
+import { getRehabberListings, matchRehabbers } from "@/lib/rehabbers";
 import { getSupabaseAdmin, hasSupabaseAdminConfig } from "@/lib/supabase";
 import { animalCaseSchema } from "@/lib/validation";
 import { asBoolean, asOptionalString, makeCaseNumber } from "@/lib/utils";
@@ -33,13 +34,17 @@ export async function POST(request: Request) {
 
   const caseNumber = makeCaseNumber();
   const supabase = getSupabaseAdmin();
+  const { listings, isDemo: listingsAreDemo } = await getRehabberListings();
+  const matches = matchRehabbers(listings, { animalType: parsed.data.animal_type, county: parsed.data.county });
 
   if (!hasSupabaseAdminConfig() || !supabase) {
     return NextResponse.json({
       ok: true,
       configured: false,
       caseNumber,
-      message: "Thank you for sharing the details. Save this reference number, and contact a licensed wildlife rehabilitator or local authority directly if the situation is urgent."
+      message: "Thank you for sharing the details. Save this reference number, and contact a licensed wildlife rehabilitator or local authority directly if the situation is urgent.",
+      matches,
+      matchesAreDemo: listingsAreDemo
     });
   }
 
@@ -92,6 +97,8 @@ export async function POST(request: Request) {
     ok: true,
     configured: true,
     caseNumber: animalCase.public_case_number,
-    message: "Thank you. The team can now review the details and help connect the animal with appropriate guidance."
+    message: "Thank you. The team can now review the details and help connect the animal with appropriate guidance.",
+    matches,
+    matchesAreDemo: listingsAreDemo
   });
 }

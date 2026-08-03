@@ -1,18 +1,23 @@
 "use client";
 
 import { useState } from "react";
-import { AlertTriangle, BookOpen, Camera, Info, Send } from "lucide-react";
+import { AlertTriangle, BookOpen, Camera, ExternalLink, Info, MapPin, PhoneCall, Send } from "lucide-react";
 import { animalTypes } from "@/lib/demo-data";
 import { FormStatus } from "@/components/forms/form-status";
+import { statusVariant } from "@/components/directory-browser";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import type { DirectoryListing } from "@/lib/rehabbers";
 
 type SubmitState = {
   status: "idle" | "loading" | "success" | "error";
   message?: string;
+  matches?: DirectoryListing[];
+  matchesAreDemo?: boolean;
 };
 
 const animalGuidance: Record<string, { title: string; text: string; href?: string }> = {
@@ -95,9 +100,10 @@ export function FoundAnimalForm() {
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const form = event.currentTarget;
     setState({ status: "loading", message: "Sending details..." });
 
-    const formData = new FormData(event.currentTarget);
+    const formData = new FormData(form);
     const response = await fetch("/api/animal-cases", {
       method: "POST",
       body: formData
@@ -113,7 +119,7 @@ export function FoundAnimalForm() {
       return;
     }
 
-    event.currentTarget.reset();
+    form.reset();
     setAnimalType("Unknown");
     setCondition("unknown");
     setRiskFlags({
@@ -123,13 +129,52 @@ export function FoundAnimalForm() {
     });
     setState({
       status: "success",
-      message: `${result.message} Reference number: ${result.caseNumber}.`
+      message: `${result.message} Reference number: ${result.caseNumber}.`,
+      matches: result.matches,
+      matchesAreDemo: result.matchesAreDemo
     });
   }
 
   return (
     <form onSubmit={onSubmit} className="grid gap-5 rounded-md border border-border bg-surface p-4 shadow-sm sm:p-5 md:p-6">
       <FormStatus status={state.status} message={state.message} />
+
+      {state.status === "success" && state.matches && state.matches.length > 0 ? (
+        <div className="grid gap-3 rounded-md border border-border bg-muted/45 p-4">
+          <div>
+            <p className="text-sm font-bold">Rehabbers and resources that may fit</p>
+            {state.matchesAreDemo ? (
+              <p className="mt-1 text-xs font-semibold uppercase tracking-[0.08em] text-clay-strong">
+                Example listings for demonstration only, not real contacts
+              </p>
+            ) : null}
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {state.matches.map((listing) => (
+              <div key={listing.name} className="rounded-md border border-border bg-white p-3">
+                <div className="flex items-start justify-between gap-2">
+                  <p className="text-sm font-bold">{listing.name}</p>
+                  <Badge variant={statusVariant(listing.status)} className="shrink-0">{listing.status}</Badge>
+                </div>
+                <p className="mt-1 flex items-start gap-1.5 text-xs text-muted-foreground">
+                  <MapPin className="mt-0.5 shrink-0" size={13} aria-hidden="true" />
+                  {listing.serviceArea}
+                </p>
+                <p className="mt-2 text-xs leading-5 text-muted-foreground">{listing.contact}</p>
+                {listing.url ? (
+                  <a href={listing.url} className="focus-ring mt-2 inline-flex items-center gap-1.5 text-xs font-bold text-primary">
+                    {listing.kind === "resource" ? "View guidance" : "Contact or learn more"}
+                    {listing.url.startsWith("http") ? <ExternalLink size={13} aria-hidden="true" /> : <PhoneCall size={13} aria-hidden="true" />}
+                  </a>
+                ) : null}
+              </div>
+            ))}
+          </div>
+          <a href="/directory" className="focus-ring text-sm font-bold text-primary">
+            Browse the full directory
+          </a>
+        </div>
+      ) : null}
 
       <div className="grid gap-4 md:grid-cols-2">
         <div className="grid gap-2">
