@@ -37,7 +37,7 @@ export function PageHero({
       <div className="container-shell flex min-h-[390px] items-end py-10 sm:min-h-[430px] md:min-h-[520px] md:py-16">
         <div className="max-w-4xl text-white">
           {eyebrow ? <p className="text-sm font-black uppercase tracking-[0.16em] text-[#f0b15e]">{eyebrow}</p> : null}
-          <h1 className="mt-4 text-[2.75rem] font-black leading-[1] tracking-normal [text-wrap:balance] sm:text-5xl md:text-7xl">{title}</h1>
+          <h1 className="mt-4 text-[2.75rem] font-black leading-[1.1] tracking-normal [text-wrap:balance] sm:text-5xl sm:leading-[1] md:text-7xl">{title}</h1>
           <p className="mt-5 max-w-2xl text-base leading-7 text-white/82 sm:mt-6 sm:text-lg sm:leading-8">{text}</p>
           {(primary || secondary) ? (
             <div className="mt-7 flex flex-wrap gap-3 sm:mt-8">

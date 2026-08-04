@@ -25,12 +25,12 @@ export default async function DirectoryPage() {
     <>
       <PageHero
         eyebrow="Directory"
-        title="Find the nearest appropriate wildlife help."
+        title="Find the nearest wildlife help."
         text="Use species, location, and public contact notes to look for the safest appropriate wildlife resource near you."
         imageSrc="/assets/raccoon-hero.jpg"
         imagePosition="100% 15%"
         primary={{ href: "/found-animal", label: "Get help with an animal" }}
-        secondary={{ href: "/partners", label: "Share rehabber info" }}
+        secondary={{ href: "/rehabbers", label: "Share rehabber info" }}
       />
       <section className="section">
         <div className="container-shell">

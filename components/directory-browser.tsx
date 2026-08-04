@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import { ExternalLink, Filter, MapPin, PhoneCall, RotateCcw, Search, ShieldAlert } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -88,7 +89,11 @@ export function DirectoryBrowser({ listings }: DirectoryBrowserProps) {
           <div>
             <CardTitle>Not sure who to call?</CardTitle>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">
-              If a person is in danger, call emergency services. If wildlife is near traffic, trapped in a structure, or visibly injured, use the found-animal form and also contact the appropriate licensed rehabber, animal control, conservation authority, or local public-safety resource.
+              If a person is in danger, call emergency services. If wildlife is near traffic, trapped in a structure, or visibly injured, use the{" "}
+              <Link href="/found-animal#form" className="focus-ring font-bold text-primary underline underline-offset-2">
+                found-animal form
+              </Link>{" "}
+              and also contact the appropriate licensed rehabber, animal control, conservation authority, or local public-safety resource.
             </p>
           </div>
         </CardHeader>
