@@ -28,7 +28,7 @@ export default async function DirectoryPage() {
         title="Find the nearest wildlife help."
         text="Use species, location, and public contact notes to look for the safest appropriate wildlife resource near you."
         imageSrc="/assets/raccoon-hero.jpg"
-        imagePosition="100% 15%"
+        imagePosition="75% 15%"
         primary={{ href: "/found-animal", label: "Get help with an animal" }}
         secondary={{ href: "/rehabbers", label: "Share rehabber info" }}
       />
