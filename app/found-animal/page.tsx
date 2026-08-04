@@ -64,11 +64,23 @@ export default function FoundAnimalPage() {
           <p className="body-large mt-5 max-w-2xl">
             These guides cover the animals people most often find in the 417 area. Tap one to see safe first steps, what not to do, and details a licensed wildlife contact will ask for.
           </p>
-          <img
-            src="/assets/stop-sign-no-feed-hydrate.svg"
-            alt="Do NOT attempt to FEED or HYDRATE wildlife!"
-            className="mt-8 size-40 sm:size-48"
-          />
+          <div className="group relative mt-8 inline-block" tabIndex={0}>
+            <img
+              src="/assets/stop-sign-no-feed-hydrate.svg"
+              alt="Do NOT attempt to FEED or HYDRATE wildlife!"
+              className="size-40 sm:size-48"
+            />
+            <div className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-4 w-64 -translate-x-1/2 rounded-md border border-border bg-surface p-4 text-left opacity-0 shadow-lg transition-opacity duration-150 group-hover:opacity-100 group-focus:opacity-100 sm:w-80">
+              <p className="text-sm font-bold text-clay-strong">Why this matters</p>
+              <p className="mt-1.5 text-sm leading-6 text-muted-foreground">
+                As counterintuitive as it may seem, introducing the wrong food or fluids into a wild animal&apos;s sensitive digestive system can cause serious complications that rehabbers then have to treat, or in the worst cases, complications that lead to death.
+              </p>
+              <span
+                className="absolute left-1/2 top-full size-3 -translate-x-1/2 -translate-y-1/2 rotate-45 border-b border-r border-border bg-surface"
+                aria-hidden="true"
+              />
+            </div>
+          </div>
           <div className="mt-20 w-full">
             <QuickGuidesOrbit guides={wildlifeGuides} />
           </div>
