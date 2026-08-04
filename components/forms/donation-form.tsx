@@ -25,7 +25,6 @@ export function DonationForm() {
       body: JSON.stringify({
         amount: formData.get("amount"),
         frequency: formData.get("frequency"),
-        fund_preference: formData.get("fund_preference"),
         donor_email: formData.get("donor_email") || undefined
       })
     });
@@ -66,21 +65,6 @@ export function DonationForm() {
             </SelectContent>
           </Select>
         </div>
-      </div>
-      <div className="grid gap-2">
-        <Label htmlFor="fund_preference">Where would you like your gift to help?</Label>
-        <Select name="fund_preference" defaultValue="General Wildlife Rehab Fund">
-          <SelectTrigger id="fund_preference">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="General Wildlife Rehab Fund">General Wildlife Rehab Fund</SelectItem>
-            <SelectItem value="Formula and Feeding Supplies">Formula and Feeding Supplies</SelectItem>
-            <SelectItem value="Emergency Medical Support">Emergency Medical Support</SelectItem>
-            <SelectItem value="Transport Support">Transport Support</SelectItem>
-            <SelectItem value="Rehabber Micro-Grants">Rehabber Micro-Grants</SelectItem>
-          </SelectContent>
-        </Select>
       </div>
       <div className="grid gap-2">
         <Label htmlFor="donor_email">Email for receipt</Label>

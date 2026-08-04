@@ -79,6 +79,7 @@ export default function DonatePage() {
               <li>Transport support between finders, rehabbers, vets, and release sites.</li>
               <li>Emergency supplies and medical needs.</li>
               <li>Micro-grants or reimbursements for approved licensed or permitted rehabbers.</li>
+              <li>Continued development of capabilities for 417 Wildlife Alliance.</li>
             </ul>
             <p className="mt-5 text-xs leading-5 text-muted-foreground">
               417 Wildlife Alliance has not yet received 501(c)(3) determination from the IRS. Donation receipts will

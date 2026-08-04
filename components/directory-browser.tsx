@@ -40,12 +40,9 @@ export function DirectoryBrowser({ listings }: DirectoryBrowserProps) {
   const [query, setQuery] = useState("");
   const [species, setSpecies] = useState("all");
   const [county, setCounty] = useState("all");
-  const [status, setStatus] = useState("all");
-  const [kind, setKind] = useState("all");
 
   const speciesOptions = useMemo(() => uniqueSorted(listings.flatMap((listing) => listing.species)), [listings]);
   const countyOptions = useMemo(() => uniqueSorted(listings.flatMap((listing) => listing.counties || [])), [listings]);
-  const statusOptions = useMemo(() => uniqueSorted(listings.map((listing) => listing.status)), [listings]);
 
   const filteredListings = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
@@ -64,19 +61,15 @@ export function DirectoryBrowser({ listings }: DirectoryBrowserProps) {
       const matchesQuery = !normalizedQuery || haystack.includes(normalizedQuery);
       const matchesSpecies = species === "all" || listing.species.includes(species) || listing.species.includes("Unknown");
       const matchesCounty = county === "all" || listing.counties?.includes(county);
-      const matchesStatus = status === "all" || listing.status === status;
-      const matchesKind = kind === "all" || (listing.kind || "rehabber") === kind;
 
-      return matchesQuery && matchesSpecies && matchesCounty && matchesStatus && matchesKind;
+      return matchesQuery && matchesSpecies && matchesCounty;
     });
-  }, [county, kind, listings, query, species, status]);
+  }, [county, listings, query, species]);
 
   function resetFilters() {
     setQuery("");
     setSpecies("all");
     setCounty("all");
-    setStatus("all");
-    setKind("all");
   }
 
   return (
@@ -105,7 +98,7 @@ export function DirectoryBrowser({ listings }: DirectoryBrowserProps) {
             <div>
               <CardTitle>Filter local wildlife help</CardTitle>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                Try animal type, county, availability, or resource type. Public listings should reflect verified contact preferences and current intake details.
+                Try animal type or county. Public listings should reflect verified contact preferences and current intake details.
               </p>
             </div>
             <Badge variant="blue" className="w-fit">
@@ -114,7 +107,7 @@ export function DirectoryBrowser({ listings }: DirectoryBrowserProps) {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr_0.8fr_auto] lg:items-end">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-[1.2fr_0.8fr_0.8fr_auto] lg:items-end">
             <div className="grid gap-2 sm:col-span-2 lg:col-span-1">
               <Label htmlFor="directory-search">Search</Label>
               <span className="relative">
@@ -159,37 +152,6 @@ export function DirectoryBrowser({ listings }: DirectoryBrowserProps) {
                       {option}
                     </SelectItem>
                   ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="grid gap-2">
-              <Label>Status</Label>
-              <Select value={status} onValueChange={setStatus}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All statuses</SelectItem>
-                  {statusOptions.map((option) => (
-                    <SelectItem key={option} value={option}>
-                      {option}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="grid gap-2">
-              <Label>Type</Label>
-              <Select value={kind} onValueChange={setKind}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All</SelectItem>
-                  <SelectItem value="rehabber">Rehabbers</SelectItem>
-                  <SelectItem value="resource">Information</SelectItem>
                 </SelectContent>
               </Select>
             </div>

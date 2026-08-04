@@ -30,7 +30,7 @@ export default async function DirectoryPage() {
         imageSrc="/assets/raccoon-hero.jpg"
         imagePosition="75% 15%"
         primary={{ href: "/found-animal", label: "Get help with an animal" }}
-        secondary={{ href: "/rehabbers", label: "Share rehabber info" }}
+        secondary={{ href: "/rehabbers", label: "Get listed in the directory" }}
       />
       <section className="section">
         <div className="container-shell">
