@@ -307,6 +307,33 @@ for select
 to anon, authenticated
 using (published is true);
 
+-- Rehabber self-service account linking
+alter table public.rehabbers
+  add column if not exists user_id uuid unique references auth.users(id) on delete set null,
+  add column if not exists claimed_at timestamptz;
+
+grant update (
+  display_name, organization_name, public_email, public_phone, website_url,
+  service_area_text, public_location_text, species_groups,
+  accepts_public_contact, accepts_texts, accepts_dropoffs, transport_available,
+  intake_status, notes_public, updated_at
+) on public.rehabbers to authenticated;
+
+drop policy if exists "Rehabbers can view their own listing" on public.rehabbers;
+create policy "Rehabbers can view their own listing"
+on public.rehabbers
+for select
+to authenticated
+using (auth.uid() = user_id);
+
+drop policy if exists "Rehabbers can update their own listing" on public.rehabbers;
+create policy "Rehabbers can update their own listing"
+on public.rehabbers
+for update
+to authenticated
+using (auth.uid() = user_id)
+with check (auth.uid() = user_id);
+
 drop policy if exists "Published partners are readable" on public.partners;
 create policy "Published partners are readable"
 on public.partners

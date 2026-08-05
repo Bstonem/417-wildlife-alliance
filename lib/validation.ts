@@ -63,3 +63,20 @@ export const donationCheckoutSchema = z.object({
   fund_preference: z.string().optional(),
   donor_email: z.string().email().optional()
 });
+
+export const rehabberSelfServiceSchema = z.object({
+  display_name: z.string().min(2, "Please include a display name."),
+  organization_name: z.string().optional(),
+  public_email: z.string().email("Please include a valid email.").optional().or(z.literal("")),
+  public_phone: z.string().optional(),
+  website_url: z.string().url().optional().or(z.literal("")),
+  service_area_text: z.string().min(3, "Please describe your service area."),
+  public_location_text: z.string().optional(),
+  species_groups: z.array(z.string()).default([]),
+  accepts_public_contact: z.boolean().default(false),
+  accepts_texts: z.boolean().default(false),
+  accepts_dropoffs: z.boolean().default(false),
+  transport_available: z.boolean().default(false),
+  intake_status: z.string().min(1).default("unknown"),
+  notes_public: z.string().optional()
+});
