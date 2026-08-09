@@ -34,14 +34,12 @@ export default function HomePage() {
   return (
     <>
       <section
-        className="relative isolate overflow-hidden bg-[#15221f] text-white"
+        className="relative isolate overflow-hidden bg-[#15221f] bg-[length:auto_150%] bg-[position:center_68%] text-white lg:bg-cover lg:bg-[position:center_20%]"
         style={{
-          backgroundImage: "linear-gradient(90deg, rgba(13,29,24,0.95), rgba(13,29,24,0.76) 42%, rgba(13,29,24,0.3)), url('/assets/squirrel-hero.jpg')",
-          backgroundPosition: "center",
-          backgroundSize: "cover"
+          backgroundImage: "linear-gradient(90deg, rgba(13,29,24,0.95), rgba(13,29,24,0.76) 42%, rgba(13,29,24,0.3)), url('/assets/squirrel-hero.jpg')"
         }}
       >
-        <div className="container-shell flex min-h-[78svh] flex-col justify-end py-9 md:py-14">
+        <div className="container-shell flex min-h-[560px] flex-col justify-end py-9 sm:min-h-[600px] md:min-h-[640px] md:py-14 lg:min-h-[680px]">
           <div className="max-w-5xl">
             <div className="flex flex-wrap gap-2">
               <Badge variant="blue" className="border-white/18 bg-white/12 text-white">417 area first</Badge>
