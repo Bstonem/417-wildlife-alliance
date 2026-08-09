@@ -56,8 +56,8 @@ export default function RehabbersPage() {
         text="417 Wildlife Alliance is here to help licensed and permitted rehabbers be easier to find, better supported, and less overwhelmed by avoidable confusion."
         imageSrc="/assets/squirrel-6.jpg"
         imagePosition="center"
-        primary={{ href: "/rehabbers/account" as Route, label: "Update a listing" }}
-        secondary={{ href: "/donate", label: "See the fund" }}
+        primary={{ href: "/rehabbers/community" as Route, label: "Join the community" }}
+        secondary={{ href: "/rehabbers/login" as Route, label: "Sign in" }}
       />
 
       <section className="section">
@@ -89,7 +89,7 @@ export default function RehabbersPage() {
         </div>
       </section>
 
-      <section className="section border-y border-border bg-surface">
+      <section id="form" className="section border-y border-border bg-surface">
         <div className="container-shell grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
           <Card className="self-start border-primary/20">
             <CardHeader>

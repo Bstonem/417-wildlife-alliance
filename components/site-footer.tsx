@@ -31,7 +31,7 @@ export function SiteFooter() {
           <div className="mt-3 grid gap-2 text-sm text-white/78">
             <Link href="/about">Who we are</Link>
             <Link href="/directory">Find a rehabber</Link>
-            <Link href={"/rehabbers" as Route}>Rehabber sign up</Link>
+            <Link href={"/rehabbers" as Route}>Rehabber Portal</Link>
             <Link href={"/partners#compassionate-companies" as Route}>Compassionate companies</Link>
             <Link href="/stories">Stories</Link>
             <Link href="/faq">FAQ</Link>

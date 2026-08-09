@@ -20,7 +20,7 @@ export const navItems = [
   { href: "/found-animal", label: "Found an animal" },
   { href: "/directory", label: "Find a Rehabber" },
   { href: "/donate", label: "Donate" },
-  { href: "/rehabbers", label: "Rehabber Sign Up" },
+  { href: "/rehabbers", label: "Rehabber Portal" },
   { href: "/partners", label: "Partners" },
   { href: "/contact", label: "Contact" }
 ];
