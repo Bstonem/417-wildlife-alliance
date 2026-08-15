@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { Route } from "next";
-import { EyeOff, HeartHandshake, MapPinned, PackageCheck, ShieldCheck } from "lucide-react";
+import { HandCoins, MessagesSquare, PackageCheck, Route as RouteIcon, ShieldCheck } from "lucide-react";
 import { LeadForm } from "@/components/forms/lead-form";
 import { PageHero } from "@/components/page-hero";
 import { Badge } from "@/components/ui/badge";
@@ -10,7 +10,7 @@ import { createMetadata } from "@/lib/seo";
 export const metadata: Metadata = createMetadata({
   title: "Support for Missouri Wildlife Rehabbers",
   description:
-    "417 Wildlife Alliance helps licensed and permitted rehabbers in southwest Missouri with public handoffs, directory listings, supplies, privacy, and support.",
+    "417 Wildlife Alliance helps licensed and permitted rehabbers in southwest Missouri with directory listings, supply and grant requests, a rehabber community, and centralized finder handoffs.",
   path: "/rehabbers",
   image: "/assets/squirrel-6.jpg",
   keywords: ["Missouri wildlife rehabber support", "licensed wildlife rehabilitators southwest Missouri", "rehabber directory 417 area"]
@@ -18,24 +18,24 @@ export const metadata: Metadata = createMetadata({
 
 const rehabberSupport = [
   {
-    icon: MapPinned,
-    title: "Directory listings by consent",
-    text: "Share only the public details you want listed: service area, species, intake status, website, and preferred contact information."
-  },
-  {
     icon: PackageCheck,
-    title: "Supply and reimbursement support",
-    text: "As funding grows, the alliance can help direct donated supplies, micro-grants, or reimbursements toward approved care needs."
+    title: "Supply and reimbursement requests",
+    text: "Request funding toward formula, transport, and other approved day-to-day care needs."
   },
   {
-    icon: HeartHandshake,
-    title: "Better community handoffs",
-    text: "Public guides help neighbors gather useful details before they contact a rehabber, reducing preventable confusion."
+    icon: HandCoins,
+    title: "Grants for bigger projects",
+    text: "Apply for support with larger needs like enclosure builds, medical equipment, and training."
   },
   {
-    icon: EyeOff,
-    title: "Private details stay private",
-    text: "Home addresses, permit documents, capacity notes, and private phone numbers should not be published without permission."
+    icon: MessagesSquare,
+    title: "Exclusive community forum",
+    text: "Connect with other licensed rehabbers for peer support and shared resources. This is still being built, not live yet."
+  },
+  {
+    icon: RouteIcon,
+    title: "Centralized finder-to-rehabber routing",
+    text: "The found-animal intake form routes finders to the right rehabber by species and location, cutting down avoidable back-and-forth."
   }
 ];
 
@@ -56,18 +56,24 @@ export default function RehabbersPage() {
         text="417 Wildlife Alliance is here to help licensed and permitted rehabbers be easier to find, better supported, and less overwhelmed by avoidable confusion."
         imageSrc="/assets/squirrel-6.jpg"
         imagePosition="center"
-        primary={{ href: "/rehabbers/community" as Route, label: "Join the community" }}
+        primary={{ href: "/rehabbers#form" as Route, label: "Join the community" }}
         secondary={{ href: "/rehabbers/login" as Route, label: "Sign in" }}
       />
 
       <section className="section">
         <div className="container-shell grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
-            <p className="section-kicker">How we can help</p>
-            <h2 className="section-title mt-3">You should not have to carry this work alone.</h2>
+            <p className="section-kicker">What you get</p>
+            <h2 className="section-title mt-3">Being part of the community means more than a listing.</h2>
             <p className="body-large mt-5">
-              The alliance can help turn public attention, donor support, and business partnerships into practical support for rehabbers while protecting your time and privacy.
+              Community access is tied to having an approved, published directory listing. Sign up below to get listed, and it opens the door to the rest of this.
             </p>
+            <div className="mt-5 flex items-start gap-3 rounded-md border border-primary/25 bg-primary/8 p-4 text-sm leading-6">
+              <ShieldCheck className="mt-0.5 shrink-0 text-primary" size={18} aria-hidden="true" />
+              <p>
+                A published directory listing is required for community access — supply and grant requests, the forum, and finder routing all depend on being a verified, listed rehabber.
+              </p>
+            </div>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
@@ -107,10 +113,10 @@ export default function RehabbersPage() {
           </Card>
 
           <div>
-            <p className="section-kicker">Get connected</p>
-            <h2 className="section-title mt-3">Join the directory or request support.</h2>
+            <p className="section-kicker">Join the community</p>
+            <h2 className="section-title mt-3">Sign up to get listed and join the community.</h2>
             <p className="body-large mt-5">
-              Use this form to introduce yourself, update public listing details, share current needs, or start a conversation about supplies and support.
+              This form starts your directory listing and your community access. Introduce yourself, share your public listing details, and let us know about any current needs.
             </p>
             <div className="mt-6">
               <LeadForm signupType="rehabber" title="Rehabber contact" />
