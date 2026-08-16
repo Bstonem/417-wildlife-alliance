@@ -89,6 +89,29 @@ export async function sendAdminMagicLink(formData: FormData) {
   adminRedirect(`/admin/login?sent=magic&next=${encodeURIComponent(next)}`);
 }
 
+export async function setAdminPassword(formData: FormData) {
+  await requireAdmin("/admin");
+  const password = asOptionalString(formData.get("password")) || "";
+  const confirmPassword = asOptionalString(formData.get("confirm_password")) || "";
+
+  if (password.length < 8) {
+    adminRedirect("/admin?error=Password%20must%20be%20at%20least%208%20characters.");
+  }
+
+  if (password !== confirmPassword) {
+    adminRedirect("/admin?error=Passwords%20do%20not%20match.");
+  }
+
+  const supabase = await createSupabaseServerClient();
+  const { error } = await supabase.auth.updateUser({ password });
+
+  if (error) {
+    adminRedirect(`/admin?error=${encodeURIComponent(error.message)}`);
+  }
+
+  adminRedirect("/admin?password=1");
+}
+
 export async function signOutAdmin() {
   const supabase = await createSupabaseServerClient();
   await supabase.auth.signOut();
@@ -109,6 +132,7 @@ export async function createRehabber(formData: FormData) {
     public_email: asOptionalString(formData.get("public_email")),
     public_phone: asOptionalString(formData.get("public_phone")),
     website_url: asOptionalString(formData.get("website_url")),
+    social_media_url: asOptionalString(formData.get("social_media_url")),
     service_area_text: getRequiredString(formData, "service_area_text"),
     public_location_text: asOptionalString(formData.get("public_location_text")),
     species_groups: cleanList(formData.get("species_groups")),
@@ -129,6 +153,39 @@ export async function createRehabber(formData: FormData) {
   revalidatePath("/admin/directory");
   revalidatePath("/directory");
   adminRedirect("/admin/directory?created=rehabber");
+}
+
+export async function approveRehabberListing(formData: FormData) {
+  await requireAdmin("/admin/directory");
+  const supabase = getAdminClient();
+  const id = getRequiredString(formData, "id");
+
+  const { error: rehabberError } = await supabase
+    .from("rehabbers")
+    .update({
+      published: true,
+      permit_status: asOptionalString(formData.get("permit_status")),
+      updated_at: new Date().toISOString()
+    })
+    .eq("id", id);
+
+  if (rehabberError) {
+    adminRedirect(`/admin/directory?error=${encodeURIComponent(rehabberError.message)}`);
+  }
+
+  const internalNotes = asOptionalString(formData.get("internal_notes"));
+
+  if (internalNotes) {
+    await supabase.from("rehabber_private_details").upsert({
+      rehabber_id: id,
+      internal_notes: internalNotes,
+      updated_at: new Date().toISOString()
+    });
+  }
+
+  revalidatePath("/admin/directory");
+  revalidatePath("/directory");
+  adminRedirect("/admin/directory?updated=rehabber");
 }
 
 export async function updateAnimalCaseStatus(formData: FormData) {

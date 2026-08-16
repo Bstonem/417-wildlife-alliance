@@ -25,7 +25,7 @@ export async function getRehabberListings(): Promise<{ listings: DirectoryListin
 
   const { data, error } = await supabase
     .from("rehabbers")
-    .select("display_name, organization_name, service_area_text, species_groups, intake_status, notes_public, website_url, public_slug")
+    .select("display_name, organization_name, service_area_text, species_groups, intake_status, notes_public, website_url, social_media_url, public_slug")
     .eq("published", true)
     .order("display_name");
 
@@ -41,7 +41,7 @@ export async function getRehabberListings(): Promise<{ listings: DirectoryListin
       species: item.species_groups || [],
       status: item.intake_status,
       contact: item.notes_public || "Contact details are shared when the rehabber has approved public listing information.",
-      url: item.website_url || `/directory/${item.public_slug}`,
+      url: item.website_url || item.social_media_url || `/directory/${item.public_slug}`,
       counties: item.service_area_text ? [item.service_area_text] : [],
       kind: "rehabber" as const
     })),

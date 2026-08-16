@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import type { Route } from "next";
 import { redirect } from "next/navigation";
 import { LockKeyhole } from "lucide-react";
-import { sendRehabberMagicLink } from "@/app/rehabbers/actions";
+import { sendRehabberMagicLink, signInRehabberWithPassword } from "@/app/rehabbers/actions";
 import { getRehabberSession } from "@/lib/rehabber-auth";
 import { hasSupabaseAuthConfig } from "@/lib/supabase-session";
 import { createMetadata } from "@/lib/seo";
@@ -26,6 +26,14 @@ export const metadata: Metadata = createMetadata({
   noIndex: true
 });
 
+function getErrorMessage(error?: string) {
+  if (error === "invalid") {
+    return "That email or password did not work.";
+  }
+
+  return error || null;
+}
+
 export default async function RehabberLoginPage({ searchParams }: LoginPageProps) {
   const params = await searchParams;
   const session = await getRehabberSession();
@@ -36,6 +44,7 @@ export default async function RehabberLoginPage({ searchParams }: LoginPageProps
   }
 
   const configured = hasSupabaseAuthConfig();
+  const errorMessage = getErrorMessage(params.error);
 
   return (
     <section className="section">
@@ -55,9 +64,9 @@ export default async function RehabberLoginPage({ searchParams }: LoginPageProps
               </div>
             ) : null}
 
-            {params.error ? (
+            {errorMessage ? (
               <div className="mb-5 rounded-md border border-clay/25 bg-clay/10 p-4 text-sm font-semibold text-clay-strong">
-                That link didn&apos;t work. Please request a new one.
+                {errorMessage}
               </div>
             ) : null}
 
@@ -67,14 +76,29 @@ export default async function RehabberLoginPage({ searchParams }: LoginPageProps
               </div>
             ) : null}
 
-            <form action={sendRehabberMagicLink} className="grid gap-4">
+            <form action={signInRehabberWithPassword} className="grid gap-4">
               <input type="hidden" name="next" value={safeNext} />
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input id="email" name="email" type="email" autoComplete="email" required />
               </div>
+              <div className="grid gap-2">
+                <Label htmlFor="password">Password</Label>
+                <Input id="password" name="password" type="password" autoComplete="current-password" required />
+              </div>
               <Button type="submit" className="w-full" disabled={!configured}>
-                Send sign-in link
+                Sign in
+              </Button>
+            </form>
+
+            <form action={sendRehabberMagicLink} className="mt-5 grid gap-4 border-t border-border pt-5">
+              <input type="hidden" name="next" value={safeNext} />
+              <div className="grid gap-2">
+                <Label htmlFor="magic-email">Email link</Label>
+                <Input id="magic-email" name="email" type="email" autoComplete="email" required />
+              </div>
+              <Button type="submit" variant="outline" className="w-full" disabled={!configured}>
+                Send magic link
               </Button>
             </form>
           </CardContent>

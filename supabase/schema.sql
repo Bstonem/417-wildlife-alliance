@@ -310,10 +310,11 @@ using (published is true);
 -- Rehabber self-service account linking
 alter table public.rehabbers
   add column if not exists user_id uuid unique references auth.users(id) on delete set null,
-  add column if not exists claimed_at timestamptz;
+  add column if not exists claimed_at timestamptz,
+  add column if not exists social_media_url text;
 
 grant update (
-  display_name, organization_name, public_email, public_phone, website_url,
+  display_name, organization_name, public_email, public_phone, website_url, social_media_url,
   service_area_text, public_location_text, species_groups,
   accepts_public_contact, accepts_texts, accepts_dropoffs, transport_available,
   intake_status, notes_public, updated_at
@@ -393,6 +394,16 @@ create index if not exists animal_case_updates_status_idx on public.animal_case_
 
 insert into storage.buckets (id, name, public)
 values ('animal-case-photos', 'animal-case-photos', false)
+on conflict (id) do nothing;
+
+-- Rehabber self-signup license verification
+alter table public.rehabber_private_details
+  add column if not exists license_storage_path text,
+  add column if not exists license_content_type text,
+  add column if not exists license_uploaded_at timestamptz;
+
+insert into storage.buckets (id, name, public)
+values ('rehabber-license-documents', 'rehabber-license-documents', false)
 on conflict (id) do nothing;
 
 insert into public.rehabbers (

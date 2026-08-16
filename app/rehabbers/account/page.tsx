@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { requireRehabber } from "@/lib/rehabber-auth";
 import { getOrClaimOwnRehabberListing } from "@/lib/rehabber-account";
-import { updateOwnRehabberListing, signOutRehabber } from "@/app/rehabbers/actions";
+import { updateOwnRehabberListing, setRehabberPassword, signOutRehabber } from "@/app/rehabbers/actions";
+import { LicenseReuploadForm } from "@/components/forms/license-reupload-form";
 import { createMetadata } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,6 +15,8 @@ type AccountPageProps = {
   searchParams: Promise<{
     error?: string;
     updated?: string;
+    submitted?: string;
+    password?: string;
   }>;
 };
 
@@ -32,7 +35,7 @@ export default async function RehabberAccountPage({ searchParams }: AccountPageP
   if (result.status !== "linked") {
     const messages: Record<Exclude<typeof result.status, "linked">, string> = {
       not_found:
-        "We couldn't find a directory listing matching your email. If you're new, join the directory below, or contact us for help.",
+        "We couldn't find a directory listing matching your email. If you're new, create your listing below, or contact us for help.",
       ambiguous:
         "We found more than one listing that could match your email. Please contact us so we can connect your account safely.",
       error: result.status === "error" ? result.message : "Something went wrong loading your listing."
@@ -49,7 +52,7 @@ export default async function RehabberAccountPage({ searchParams }: AccountPageP
               <p>{messages[result.status]}</p>
               <div className="flex flex-wrap gap-3">
                 <Button asChild variant="outline">
-                  <a href="/rehabbers">Join the directory</a>
+                  <a href="/rehabbers/signup">Create your listing</a>
                 </Button>
                 <Button asChild variant="outline">
                   <a href="/contact">Contact us</a>
@@ -90,6 +93,21 @@ export default async function RehabberAccountPage({ searchParams }: AccountPageP
             Your listing has been updated.
           </div>
         ) : null}
+        {params.submitted ? (
+          <div className="mb-5 rounded-md border border-primary/25 bg-primary/10 p-4 text-sm font-semibold text-primary">
+            Your listing has been submitted and is awaiting admin review.
+          </div>
+        ) : null}
+        {params.password ? (
+          <div className="mb-5 rounded-md border border-primary/25 bg-primary/10 p-4 text-sm font-semibold text-primary">
+            Your password has been set. You can now sign in with your email and password.
+          </div>
+        ) : null}
+        {!rehabber.published ? (
+          <div className="mb-5 rounded-md border border-clay/25 bg-clay/10 p-4 text-sm leading-6 text-clay-strong">
+            Pending admin review. Your listing is not visible on the public directory yet, but you can still update it below.
+          </div>
+        ) : null}
 
         <Card>
           <CardContent className="p-6">
@@ -120,9 +138,15 @@ export default async function RehabberAccountPage({ searchParams }: AccountPageP
                       <Input id="public_phone" name="public_phone" defaultValue={rehabber.public_phone ?? ""} />
                     </div>
                   </div>
-                  <div className="grid gap-2">
-                    <Label htmlFor="website_url">Website</Label>
-                    <Input id="website_url" name="website_url" type="url" defaultValue={rehabber.website_url ?? ""} />
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <div className="grid gap-2">
+                      <Label htmlFor="website_url">Website (optional)</Label>
+                      <Input id="website_url" name="website_url" type="url" defaultValue={rehabber.website_url ?? ""} />
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="social_media_url">Social media page (optional)</Label>
+                      <Input id="social_media_url" name="social_media_url" type="url" defaultValue={rehabber.social_media_url ?? ""} />
+                    </div>
                   </div>
                 </TabsContent>
 
@@ -203,6 +227,40 @@ export default async function RehabberAccountPage({ searchParams }: AccountPageP
             </form>
           </CardContent>
         </Card>
+
+        <div className="mt-6 grid gap-6 sm:grid-cols-2">
+          <Card>
+            <CardHeader>
+              <CardTitle>License or permit document</CardTitle>
+              <CardDescription>Upload a new file anytime — useful if your first upload was unclear or your permit was renewed.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <LicenseReuploadForm />
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Set a password</CardTitle>
+              <CardDescription>Optional. Once set, you can sign in with a password instead of a fresh email link each time.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form action={setRehabberPassword} className="grid gap-4">
+                <div className="grid gap-2">
+                  <Label htmlFor="password">New password</Label>
+                  <Input id="password" name="password" type="password" autoComplete="new-password" minLength={8} required />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="confirm_password">Confirm password</Label>
+                  <Input id="confirm_password" name="confirm_password" type="password" autoComplete="new-password" minLength={8} required />
+                </div>
+                <Button type="submit" variant="secondary" className="w-fit">
+                  Set password
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </section>
   );

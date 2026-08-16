@@ -4,7 +4,7 @@ import { getSupabaseAdmin } from "@/lib/supabase";
 import { createSupabaseServerClient } from "@/lib/supabase-session";
 
 const OWN_LISTING_FIELDS =
-  "id, display_name, organization_name, public_email, public_phone, website_url, service_area_text, public_location_text, species_groups, accepts_public_contact, accepts_texts, accepts_dropoffs, transport_available, intake_status, notes_public, published";
+  "id, display_name, organization_name, public_email, public_phone, website_url, social_media_url, service_area_text, public_location_text, species_groups, accepts_public_contact, accepts_texts, accepts_dropoffs, transport_available, intake_status, notes_public, published";
 
 export type OwnRehabberListing = {
   id: string;
@@ -13,6 +13,7 @@ export type OwnRehabberListing = {
   public_email: string | null;
   public_phone: string | null;
   website_url: string | null;
+  social_media_url: string | null;
   service_area_text: string;
   public_location_text: string | null;
   species_groups: string[];

@@ -56,7 +56,7 @@ export default function RehabbersPage() {
         text="417 Wildlife Alliance is here to help licensed and permitted rehabbers be easier to find, better supported, and less overwhelmed by avoidable confusion."
         imageSrc="/assets/squirrel-6.jpg"
         imagePosition="center"
-        primary={{ href: "/rehabbers#form" as Route, label: "Join the community" }}
+        primary={{ href: "/rehabbers/login?next=/rehabbers/signup" as Route, label: "Join the community" }}
         secondary={{ href: "/rehabbers/login" as Route, label: "Sign in" }}
       />
 
@@ -99,8 +99,11 @@ export default function RehabbersPage() {
         <div className="container-shell grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
           <Card className="self-start border-primary/20">
             <CardHeader>
-              <Badge className="w-fit">Listing updates</Badge>
-              <CardTitle>Helpful details for a public listing</CardTitle>
+              <Badge className="w-fit">What signing up needs</Badge>
+              <CardTitle>Ready to create your listing?</CardTitle>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                Signing up takes you through creating an account, then a form covering:
+              </p>
             </CardHeader>
             <CardContent className="grid gap-3 text-sm leading-6 text-muted-foreground">
               {listingDetails.map((detail) => (
@@ -109,14 +112,20 @@ export default function RehabbersPage() {
                   {detail}
                 </p>
               ))}
+              <a
+                href="/rehabbers/login?next=/rehabbers/signup"
+                className="focus-ring mt-2 inline-flex w-fit items-center gap-2 rounded-md text-sm font-bold text-primary underline underline-offset-2"
+              >
+                Start your signup
+              </a>
             </CardContent>
           </Card>
 
           <div>
-            <p className="section-kicker">Join the community</p>
-            <h2 className="section-title mt-3">Sign up to get listed and join the community.</h2>
+            <p className="section-kicker">Not ready yet?</p>
+            <h2 className="section-title mt-3">Have a question, or want to talk before signing up?</h2>
             <p className="body-large mt-5">
-              This form starts your directory listing and your community access. Introduce yourself, share your public listing details, and let us know about any current needs.
+              Send a message here instead. This does not create a listing — use &quot;Start your signup&quot; if you are ready to join.
             </p>
             <div className="mt-6">
               <LeadForm signupType="rehabber" title="Rehabber contact" />

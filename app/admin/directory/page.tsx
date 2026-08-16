@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { createRehabber } from "@/app/admin/actions";
+import { approveRehabberListing, createRehabber } from "@/app/admin/actions";
 import { requireAdmin } from "@/lib/admin-auth";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import { AdminNotice, AdminShell, StatCard } from "@/components/admin/admin-shell";
@@ -27,10 +27,37 @@ async function getDirectoryData() {
 
   const { data } = await supabase
     .from("rehabbers")
-    .select("id, display_name, organization_name, service_area_text, species_groups, intake_status, accepts_public_contact, public_email, public_phone, website_url, published, created_at")
+    .select(
+      "id, display_name, organization_name, service_area_text, species_groups, intake_status, accepts_public_contact, public_email, public_phone, website_url, permit_status, published, created_at, rehabber_private_details(license_storage_path, license_content_type, internal_notes)"
+    )
     .order("display_name");
 
-  return data || [];
+  if (!data) {
+    return [];
+  }
+
+  return Promise.all(
+    data.map(async (rehabber) => {
+      const details = Array.isArray(rehabber.rehabber_private_details)
+        ? rehabber.rehabber_private_details[0]
+        : rehabber.rehabber_private_details;
+
+      let licenseUrl: string | null = null;
+
+      if (details?.license_storage_path) {
+        const { data: signed } = await supabase.storage
+          .from("rehabber-license-documents")
+          .createSignedUrl(details.license_storage_path, 300);
+        licenseUrl = signed?.signedUrl || null;
+      }
+
+      return {
+        ...rehabber,
+        internalNotes: details?.internal_notes ?? null,
+        licenseUrl
+      };
+    })
+  );
 }
 
 export default async function AdminDirectoryPage() {
@@ -86,9 +113,15 @@ export default async function AdminDirectoryPage() {
                   <Input id="public_phone" name="public_phone" />
                 </div>
               </div>
-              <div className="grid gap-2">
-                <Label htmlFor="website_url">Website</Label>
-                <Input id="website_url" name="website_url" type="url" />
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div className="grid gap-2">
+                  <Label htmlFor="website_url">Website</Label>
+                  <Input id="website_url" name="website_url" type="url" />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="social_media_url">Social media page</Label>
+                  <Input id="social_media_url" name="social_media_url" type="url" />
+                </div>
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="notes_public">Public notes</Label>
@@ -131,6 +164,45 @@ export default async function AdminDirectoryPage() {
                 <p>{rehabber.species_groups?.length ? rehabber.species_groups.join(", ") : "Species not set"}</p>
                 <p>{rehabber.intake_status}</p>
                 <p>{[rehabber.public_email, rehabber.public_phone, rehabber.website_url].filter(Boolean).join(" · ") || "No public contact details"}</p>
+
+                {!rehabber.published ? (
+                  <form action={approveRehabberListing} className="mt-3 grid gap-3 border-t border-border pt-3">
+                    <input type="hidden" name="id" value={rehabber.id} />
+                    {rehabber.licenseUrl ? (
+                      <a
+                        href={rehabber.licenseUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="focus-ring w-fit text-sm font-bold text-primary underline underline-offset-2"
+                      >
+                        View uploaded license
+                      </a>
+                    ) : (
+                      <p className="text-xs uppercase tracking-[0.1em] text-muted-foreground">No license on file</p>
+                    )}
+                    <div className="grid gap-2">
+                      <Label htmlFor={`permit_status-${rehabber.id}`}>Permit status</Label>
+                      <Input
+                        id={`permit_status-${rehabber.id}`}
+                        name="permit_status"
+                        defaultValue={rehabber.permit_status ?? ""}
+                        placeholder="Missouri Class I permit #, verified"
+                      />
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor={`internal_notes-${rehabber.id}`}>Internal notes</Label>
+                      <Textarea
+                        id={`internal_notes-${rehabber.id}`}
+                        name="internal_notes"
+                        defaultValue={rehabber.internalNotes ?? ""}
+                        rows={2}
+                      />
+                    </div>
+                    <Button type="submit" size="sm" className="w-fit">
+                      Approve &amp; publish
+                    </Button>
+                  </form>
+                ) : null}
               </CardContent>
             </Card>
           ))}

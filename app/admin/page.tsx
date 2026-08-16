@@ -3,11 +3,22 @@ import type { Metadata } from "next";
 import type { Route } from "next";
 import { ArrowRight } from "lucide-react";
 import { requireAdmin } from "@/lib/admin-auth";
+import { setAdminPassword } from "@/app/admin/actions";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import { adminCards } from "@/lib/demo-data";
 import { AdminNotice, AdminShell, StatCard } from "@/components/admin/admin-shell";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { createMetadata } from "@/lib/seo";
+
+type AdminPageProps = {
+  searchParams: Promise<{
+    error?: string;
+    password?: string;
+  }>;
+};
 
 export const metadata: Metadata = createMetadata({
   title: "Admin",
@@ -69,7 +80,8 @@ async function getDashboardData() {
   };
 }
 
-export default async function AdminPage() {
+export default async function AdminPage({ searchParams }: AdminPageProps) {
+  const params = await searchParams;
   const session = await requireAdmin("/admin");
   const data = await getDashboardData();
 
@@ -80,6 +92,17 @@ export default async function AdminPage() {
       description="Triage animal requests, manage public content, keep rehabber support visible, and turn real outcomes into donor-facing updates."
     >
       <AdminNotice message={!data ? "Supabase service-role access is not configured, so private records cannot be loaded yet." : undefined} />
+
+      {params.error ? (
+        <div className="mb-5 rounded-md border border-clay/25 bg-clay/10 p-4 text-sm font-semibold text-clay-strong">
+          {decodeURIComponent(params.error)}
+        </div>
+      ) : null}
+      {params.password ? (
+        <div className="mb-5 rounded-md border border-primary/25 bg-primary/10 p-4 text-sm font-semibold text-primary">
+          Your password has been set. You can now sign in with your email and password.
+        </div>
+      ) : null}
 
       {data ? (
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -135,6 +158,28 @@ export default async function AdminPage() {
           </CardContent>
         </Card>
       ) : null}
+
+      <Card className="mt-8 max-w-xl">
+        <CardHeader>
+          <CardTitle>Set a password</CardTitle>
+          <CardDescription>Optional. Once set, you can sign in with a password instead of a fresh email link each time.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form action={setAdminPassword} className="grid gap-4">
+            <div className="grid gap-2">
+              <Label htmlFor="password">New password</Label>
+              <Input id="password" name="password" type="password" autoComplete="new-password" minLength={8} required />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="confirm_password">Confirm password</Label>
+              <Input id="confirm_password" name="confirm_password" type="password" autoComplete="new-password" minLength={8} required />
+            </div>
+            <Button type="submit" variant="secondary" className="w-fit">
+              Set password
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
     </AdminShell>
   );
 }

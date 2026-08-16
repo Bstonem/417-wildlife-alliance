@@ -48,6 +48,48 @@ export async function sendRehabberMagicLink(formData: FormData) {
   rehabberRedirect(`/rehabbers/login?sent=magic&next=${encodeURIComponent(next)}`);
 }
 
+export async function signInRehabberWithPassword(formData: FormData) {
+  const email = (asOptionalString(formData.get("email")) || "").toLowerCase();
+  const password = asOptionalString(formData.get("password")) || "";
+  const next = safeRehabberNext(formData.get("next"));
+
+  if (!email || !password) {
+    rehabberRedirect(`/rehabbers/login?error=invalid&next=${encodeURIComponent(next)}`);
+  }
+
+  const supabase = await createSupabaseServerClient();
+  const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+  if (error) {
+    rehabberRedirect(`/rehabbers/login?error=invalid&next=${encodeURIComponent(next)}`);
+  }
+
+  rehabberRedirect(next);
+}
+
+export async function setRehabberPassword(formData: FormData) {
+  await requireRehabber("/rehabbers/account");
+  const password = asOptionalString(formData.get("password")) || "";
+  const confirmPassword = asOptionalString(formData.get("confirm_password")) || "";
+
+  if (password.length < 8) {
+    rehabberRedirect("/rehabbers/account?error=Password%20must%20be%20at%20least%208%20characters.");
+  }
+
+  if (password !== confirmPassword) {
+    rehabberRedirect("/rehabbers/account?error=Passwords%20do%20not%20match.");
+  }
+
+  const supabase = await createSupabaseServerClient();
+  const { error } = await supabase.auth.updateUser({ password });
+
+  if (error) {
+    rehabberRedirect(`/rehabbers/account?error=${encodeURIComponent(error.message)}`);
+  }
+
+  rehabberRedirect("/rehabbers/account?password=1");
+}
+
 export async function signOutRehabber() {
   const supabase = await createSupabaseServerClient();
   await supabase.auth.signOut();
@@ -65,6 +107,7 @@ export async function updateOwnRehabberListing(formData: FormData) {
     public_email: asOptionalString(formData.get("public_email")) || "",
     public_phone: asOptionalString(formData.get("public_phone")),
     website_url: asOptionalString(formData.get("website_url")) || "",
+    social_media_url: asOptionalString(formData.get("social_media_url")) || "",
     service_area_text: asOptionalString(formData.get("service_area_text")) || "",
     public_location_text: asOptionalString(formData.get("public_location_text")),
     species_groups: cleanList(formData.get("species_groups")),
@@ -87,6 +130,7 @@ export async function updateOwnRehabberListing(formData: FormData) {
       ...parsed.data,
       public_email: parsed.data.public_email || null,
       website_url: parsed.data.website_url || null,
+      social_media_url: parsed.data.social_media_url || null,
       updated_at: new Date().toISOString()
     })
     .eq("user_id", session.userId)
