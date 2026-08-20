@@ -1,4 +1,5 @@
 import { ButtonLink } from "@/components/button-link";
+import { cn } from "@/lib/utils";
 
 type PageHeroProps = {
   eyebrow?: string;
@@ -6,6 +7,7 @@ type PageHeroProps = {
   text: string;
   imageSrc?: string;
   imagePosition?: string;
+  minHeightClassName?: string;
   primary?: {
     href: Parameters<typeof ButtonLink>[0]["href"];
     label: string;
@@ -22,6 +24,7 @@ export function PageHero({
   text,
   imageSrc = "/assets/matt-and-squirrel.jpg",
   imagePosition = "center",
+  minHeightClassName = "min-h-[390px] sm:min-h-[430px] md:min-h-[520px]",
   primary,
   secondary
 }: PageHeroProps) {
@@ -34,7 +37,7 @@ export function PageHero({
         backgroundPosition: imagePosition
       }}
     >
-      <div className="container-shell flex min-h-[390px] items-end py-10 sm:min-h-[430px] md:min-h-[520px] md:py-16">
+      <div className={cn("container-shell flex items-end py-10 md:py-16", minHeightClassName)}>
         <div className="max-w-4xl text-white">
           {eyebrow ? <p className="text-sm font-black uppercase tracking-[0.16em] text-[#f0b15e]">{eyebrow}</p> : null}
           <h1 className="mt-4 text-[2.75rem] font-black leading-[1.1] tracking-normal [text-wrap:balance] sm:text-5xl sm:leading-[1] md:text-7xl">{title}</h1>

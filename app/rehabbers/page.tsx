@@ -56,6 +56,7 @@ export default function RehabbersPage() {
         text="417 Wildlife Alliance is here to help licensed and permitted rehabbers be easier to find, better supported, and less overwhelmed by avoidable confusion."
         imageSrc="/assets/squirrel-6.jpg"
         imagePosition="center"
+        minHeightClassName="min-h-[390px] sm:min-h-[430px] md:min-h-[520px] lg:min-h-[640px] xl:min-h-[760px]"
         primary={{ href: "/rehabbers/login?next=/rehabbers/signup" as Route, label: "Join the community" }}
         secondary={{ href: "/rehabbers/login" as Route, label: "Sign in" }}
       />
