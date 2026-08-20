@@ -60,7 +60,16 @@ async function getDirectoryData() {
   );
 }
 
-export default async function AdminDirectoryPage() {
+type AdminDirectoryPageProps = {
+  searchParams: Promise<{
+    error?: string;
+    created?: string;
+    updated?: string;
+  }>;
+};
+
+export default async function AdminDirectoryPage({ searchParams }: AdminDirectoryPageProps) {
+  const params = await searchParams;
   const session = await requireAdmin("/admin/directory");
   const rehabbers = await getDirectoryData();
   const listings = rehabbers || [];
@@ -72,6 +81,12 @@ export default async function AdminDirectoryPage() {
       description="Add approved rehabbers manually, review public contact settings, and control which listings appear on the public directory."
     >
       <AdminNotice message={!rehabbers ? "Supabase service-role access is not configured, so directory records cannot be loaded yet." : undefined} />
+
+      {params.error ? (
+        <div className="mb-5 rounded-md border border-clay/25 bg-clay/10 p-4 text-sm font-semibold text-clay-strong">
+          {decodeURIComponent(params.error)}
+        </div>
+      ) : null}
 
       <div className="grid gap-4 md:grid-cols-3">
         <StatCard label="Total records" value={listings.length} detail="Rehabbers and routing resources" />
@@ -111,6 +126,7 @@ export default async function AdminDirectoryPage() {
                 <div className="grid gap-2">
                   <Label htmlFor="public_phone">Public phone</Label>
                   <Input id="public_phone" name="public_phone" />
+                  <p className="text-xs text-muted-foreground">Required if &quot;Public contact approved&quot; is checked below.</p>
                 </div>
               </div>
               <div className="grid gap-3 sm:grid-cols-2">

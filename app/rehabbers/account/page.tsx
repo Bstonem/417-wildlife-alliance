@@ -130,6 +130,7 @@ export default async function RehabberAccountPage({ searchParams }: AccountPageP
                     <div className="grid gap-2">
                       <Label htmlFor="public_phone">Public phone</Label>
                       <Input id="public_phone" name="public_phone" defaultValue={rehabber.public_phone ?? ""} />
+                      <p className="text-xs text-muted-foreground">Required if &quot;Public contact approved&quot; is checked (Availability &amp; Status tab).</p>
                     </div>
                   </div>
                   <div className="grid gap-3 sm:grid-cols-2">

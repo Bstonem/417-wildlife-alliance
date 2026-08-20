@@ -81,6 +81,9 @@ export const rehabberSelfServiceSchema = z.object({
   transport_available: z.boolean().default(false),
   intake_status: z.string().min(1).default("unknown"),
   notes_public: z.string().optional()
+}).refine((data) => !data.accepts_public_contact || Boolean(data.public_phone), {
+  message: "A phone number is required when public contact is approved.",
+  path: ["public_phone"]
 });
 
 export const rehabberSignupSchema = z.object({
@@ -99,4 +102,7 @@ export const rehabberSignupSchema = z.object({
   transport_available: z.boolean().default(false),
   intake_status: z.string().min(1).default("unknown"),
   notes_public: z.string().optional()
+}).refine((data) => !data.accepts_public_contact || Boolean(data.public_phone), {
+  message: "A phone number is required when public contact is approved.",
+  path: ["public_phone"]
 });

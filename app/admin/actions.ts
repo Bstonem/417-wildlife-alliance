@@ -125,6 +125,10 @@ export async function createRehabber(formData: FormData) {
   const displayName = getRequiredString(formData, "display_name");
   const publicSlug = slugify(asOptionalString(formData.get("public_slug")) || displayName);
 
+  if (asBoolean(formData.get("accepts_public_contact")) && !asOptionalString(formData.get("public_phone"))) {
+    adminRedirect("/admin/directory?error=A%20phone%20number%20is%20required%20when%20public%20contact%20is%20approved.");
+  }
+
   const { error } = await supabase.from("rehabbers").insert({
     display_name: displayName,
     public_slug: publicSlug,

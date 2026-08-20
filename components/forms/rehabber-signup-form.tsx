@@ -67,6 +67,7 @@ export function RehabberSignupForm({ defaultEmail }: RehabberSignupFormProps) {
           <div className="grid gap-2">
             <Label htmlFor="public_phone">Public phone</Label>
             <Input id="public_phone" name="public_phone" />
+            <p className="text-xs text-muted-foreground">Required if you check &quot;Public contact approved&quot; below.</p>
           </div>
         </div>
         <div className="grid gap-3 sm:grid-cols-2">
