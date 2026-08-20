@@ -4,14 +4,13 @@ This guide moves 417 Wildlife Alliance off Ryan's accounts and computer and into
 
 ## What exists today
 
-As of July 27, 2026:
+As of August 19, 2026:
 
 - Source repository: `https://github.com/Bstonem/417-wildlife-alliance` — GitHub ownership has already transferred to Matt's account (`origin` confirmed via `git remote -v`).
-- Production preview: `https://417-wildlife-alliance.netlify.app`.
-- The Netlify project is in Ryan's team, was deployed manually, is not connected to GitHub, and has no custom domain.
-- Netlify currently has only `NEXT_PUBLIC_SITE_URL`; database, email, and payment integrations are not enabled there.
-- The old local Supabase project hostname no longer resolves. Plan to create a new Supabase project in Matt's account unless the old project is deliberately restored.
-- Stripe and Resend are optional and are not configured in the current production environment.
+- Netlify: the project is under Matt's own team (`blystonem's team`) and connected to GitHub for auto-deploy from `main`. The team has used up its monthly credits and is now running on a separate "operational credits" reserve, which Netlify explicitly does not allow spending on new production deploys — the already-published site stays live and reachable, but new deploys are blocked until the monthly credit cycle resets or the team plan is upgraded (Netlify → Usage & billing shows the exact reset date and remaining balance). No custom domain is attached yet.
+- Whether Matt's Supabase environment variables (below) have been added to Netlify's own environment-variable settings is still unconfirmed — verify before assuming production has database/admin features working.
+- Supabase: a new project has been created under Matt's account and `supabase/schema.sql` has been applied (including later additions — rehabber self-service accounts, license-upload storage, and the `social_media_url` column). Admin login and the rehabber signup/login flows have been verified working locally against it. The old Ryan-era Supabase project hostname no longer resolves and is not in use.
+- Stripe is optional and not yet configured. Resend is optional; `RESEND_API_KEY`/`ADMIN_NOTIFICATION_EMAIL` are not yet set, so admin notification emails currently degrade safely (no error, just no email sent). Supabase Auth's own emails (magic links, signup confirmation) still use Supabase's shared, rate-limited default mailer — setting up custom SMTP is still pending and needs a domain first.
 - The repository contains a complete fresh-project Supabase schema and works in demo mode without third-party credentials.
 
 ## Recommended ownership model
@@ -21,9 +20,9 @@ Matt should own each production account. Ryan can remain a temporary collaborato
 | Asset | Recommended owner action |
 | --- | --- |
 | GitHub | Done — the repository already lives at `Bstonem/417-wildlife-alliance`. |
-| Netlify | Transfer the `417-wildlife-alliance` project to Matt's Netlify team, or import the transferred GitHub repository into a new Matt-owned Netlify project. |
-| Supabase | Create a new Matt-owned project and apply `supabase/schema.sql`. |
-| Domain/DNS | Buy or transfer the final domain into an account Matt controls, then attach it to Matt's Netlify project. No custom domain is attached today. |
+| Netlify | Done — the project is under Matt's account and connected to GitHub. Currently paused on a free-tier build-minute limit; resumes on reset or upgrade. |
+| Supabase | Done — a Matt-owned project exists and `supabase/schema.sql` has been applied. |
+| Domain/DNS | Not started. Still needed for a production URL and for setting up custom SMTP (Supabase's default email sender is rate-limited). |
 | Stripe | If donations are enabled, use an organization-controlled Stripe account with Matt as owner. |
 | Resend/email | If notifications are enabled, use a Matt-controlled sending domain and account. |
 
@@ -32,9 +31,9 @@ Matt should own each production account. Ryan can remain a temporary collaborato
 Matt must first provide his preferred admin email and either his Netlify team name or an invitation to that team.
 
 1. ~~In GitHub, transfer the private repository to Matt.~~ Done — the repository is now `Bstonem/417-wildlife-alliance`.
-2. In Netlify, open the `417-wildlife-alliance` project and transfer it to Matt's team. If transfer is unavailable, Matt should create a new project by importing the transferred GitHub repository.
-3. Do not copy the obsolete values from Ryan's `.env.local`. Matt should create fresh Supabase credentials.
-4. After Matt's site is live and verified, remove Ryan's Netlify and Supabase access and delete Ryan's local `.env.local` copy.
+2. ~~In Netlify, open the `417-wildlife-alliance` project and transfer it to Matt's team.~~ Done — the project is under Matt's account and connected to GitHub.
+3. ~~Do not copy the obsolete values from Ryan's `.env.local`. Matt should create fresh Supabase credentials.~~ Done — Matt's own Supabase project and credentials are in use.
+4. After Matt's site is verified live in production (once Netlify's build limit resets), remove Ryan's Netlify and Supabase access and delete Ryan's local `.env.local` copy.
 5. If any secret was ever shared outside an account's encrypted environment-variable manager, rotate it.
 
 Git history was preserved through the GitHub transfer; `origin` already points at `Bstonem/417-wildlife-alliance`.
@@ -74,6 +73,8 @@ Claude Desktop can also use a trusted local-files desktop extension. Restrict it
 
 ## Create Matt's Supabase project
 
+**Status: done.** Kept below as reference for rebuilding or auditing the setup.
+
 1. In Matt's Supabase account, create a new project.
 2. Open its SQL Editor and run `supabase/schema.sql` once.
 3. In Authentication URL Configuration, set the Site URL to the production Netlify URL and add these redirect URLs:
@@ -91,6 +92,8 @@ Claude Desktop can also use a trusted local-files desktop extension. Restrict it
 The schema creates the database tables, row-level-security policies, and private `animal-case-photos` bucket. If a new table is unavailable through Supabase's Data API, review Project Settings, Integrations, Data API and expose only the intended `public` schema.
 
 ## Configure Netlify
+
+**Status: connected and deploying from `main`.** Currently paused on a free-tier build-minute limit (resumes on reset or plan upgrade). Whether every environment variable below has actually been entered in Netlify is still unconfirmed — check Netlify's Site/Team settings before assuming production has full database/admin/email functionality.
 
 Connect the Matt-owned Netlify project to the transferred GitHub repository and deploy from `main`. Netlify reads `netlify.toml`, which runs `npm run build` and publishes `.next`.
 
