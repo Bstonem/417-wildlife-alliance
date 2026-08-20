@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import type { Route } from "next";
 import { redirect } from "next/navigation";
 import { LockKeyhole } from "lucide-react";
-import { sendRehabberMagicLink, signInRehabberWithPassword } from "@/app/rehabbers/actions";
+import { sendRehabberMagicLink, signInRehabberWithPassword, signUpRehabberWithPassword } from "@/app/rehabbers/actions";
 import { getRehabberSession } from "@/lib/rehabber-auth";
 import { hasSupabaseAuthConfig } from "@/lib/supabase-session";
 import { createMetadata } from "@/lib/seo";
@@ -48,34 +48,67 @@ export default async function RehabberLoginPage({ searchParams }: LoginPageProps
 
   return (
     <section className="section">
-      <div className="container-shell max-w-xl">
+      <div className="container-shell grid max-w-xl gap-6">
+        {!configured ? (
+          <div className="rounded-md border border-clay/25 bg-clay/10 p-4 text-sm leading-6 text-clay-strong">
+            Sign-in isn&apos;t configured yet. Contact 417 Wildlife Alliance directly to update your listing.
+          </div>
+        ) : null}
+
+        {errorMessage ? (
+          <div className="rounded-md border border-clay/25 bg-clay/10 p-4 text-sm font-semibold text-clay-strong">
+            {errorMessage}
+          </div>
+        ) : null}
+
+        {params.sent === "magic" ? (
+          <div className="rounded-md border border-primary/25 bg-primary/10 p-4 text-sm font-semibold text-primary">
+            Check your email for a secure sign-in link.
+          </div>
+        ) : null}
+
+        {params.sent === "confirm" ? (
+          <div className="rounded-md border border-primary/25 bg-primary/10 p-4 text-sm font-semibold text-primary">
+            Check your email to confirm your new account, then come back and sign in.
+          </div>
+        ) : null}
+
         <Card className="border-primary/20">
           <CardHeader>
             <span className="flex size-12 items-center justify-center rounded-md bg-primary/10 text-primary">
               <LockKeyhole size={24} aria-hidden="true" />
             </span>
-            <p className="section-kicker mt-4">Rehabbers</p>
-            <CardTitle className="text-3xl">Manage your listing</CardTitle>
+            <p className="section-kicker mt-4">New here?</p>
+            <CardTitle className="text-3xl">Create your account</CardTitle>
           </CardHeader>
           <CardContent>
-            {!configured ? (
-              <div className="mb-5 rounded-md border border-clay/25 bg-clay/10 p-4 text-sm leading-6 text-clay-strong">
-                Sign-in isn&apos;t configured yet. Contact 417 Wildlife Alliance directly to update your listing.
+            <form action={signUpRehabberWithPassword} className="grid gap-4">
+              <input type="hidden" name="next" value={safeNext} />
+              <div className="grid gap-2">
+                <Label htmlFor="signup-email">Email</Label>
+                <Input id="signup-email" name="email" type="email" autoComplete="email" required />
               </div>
-            ) : null}
-
-            {errorMessage ? (
-              <div className="mb-5 rounded-md border border-clay/25 bg-clay/10 p-4 text-sm font-semibold text-clay-strong">
-                {errorMessage}
+              <div className="grid gap-2">
+                <Label htmlFor="signup-password">Password</Label>
+                <Input id="signup-password" name="password" type="password" autoComplete="new-password" minLength={8} required />
               </div>
-            ) : null}
-
-            {params.sent === "magic" ? (
-              <div className="mb-5 rounded-md border border-primary/25 bg-primary/10 p-4 text-sm font-semibold text-primary">
-                Check your email for a secure sign-in link.
+              <div className="grid gap-2">
+                <Label htmlFor="signup-confirm-password">Confirm password</Label>
+                <Input id="signup-confirm-password" name="confirm_password" type="password" autoComplete="new-password" minLength={8} required />
               </div>
-            ) : null}
+              <Button type="submit" className="w-full" disabled={!configured}>
+                Create account
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
 
+        <Card>
+          <CardHeader>
+            <p className="section-kicker">Already have an account?</p>
+            <CardTitle className="text-2xl">Sign in</CardTitle>
+          </CardHeader>
+          <CardContent>
             <form action={signInRehabberWithPassword} className="grid gap-4">
               <input type="hidden" name="next" value={safeNext} />
               <div className="grid gap-2">
@@ -86,7 +119,7 @@ export default async function RehabberLoginPage({ searchParams }: LoginPageProps
                 <Label htmlFor="password">Password</Label>
                 <Input id="password" name="password" type="password" autoComplete="current-password" required />
               </div>
-              <Button type="submit" className="w-full" disabled={!configured}>
+              <Button type="submit" className="w-full" variant="secondary" disabled={!configured}>
                 Sign in
               </Button>
             </form>

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { requireRehabber } from "@/lib/rehabber-auth";
 import { getOrClaimOwnRehabberListing } from "@/lib/rehabber-account";
-import { updateOwnRehabberListing, setRehabberPassword, signOutRehabber } from "@/app/rehabbers/actions";
+import { updateOwnRehabberListing, signOutRehabber } from "@/app/rehabbers/actions";
 import { LicenseReuploadForm } from "@/components/forms/license-reupload-form";
 import { createMetadata } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
@@ -16,7 +16,6 @@ type AccountPageProps = {
     error?: string;
     updated?: string;
     submitted?: string;
-    password?: string;
   }>;
 };
 
@@ -96,11 +95,6 @@ export default async function RehabberAccountPage({ searchParams }: AccountPageP
         {params.submitted ? (
           <div className="mb-5 rounded-md border border-primary/25 bg-primary/10 p-4 text-sm font-semibold text-primary">
             Your listing has been submitted and is awaiting admin review.
-          </div>
-        ) : null}
-        {params.password ? (
-          <div className="mb-5 rounded-md border border-primary/25 bg-primary/10 p-4 text-sm font-semibold text-primary">
-            Your password has been set. You can now sign in with your email and password.
           </div>
         ) : null}
         {!rehabber.published ? (
@@ -228,7 +222,7 @@ export default async function RehabberAccountPage({ searchParams }: AccountPageP
           </CardContent>
         </Card>
 
-        <div className="mt-6 grid gap-6 sm:grid-cols-2">
+        <div className="mt-6 max-w-xl">
           <Card>
             <CardHeader>
               <CardTitle>License or permit document</CardTitle>
@@ -236,28 +230,6 @@ export default async function RehabberAccountPage({ searchParams }: AccountPageP
             </CardHeader>
             <CardContent>
               <LicenseReuploadForm />
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Set a password</CardTitle>
-              <CardDescription>Optional. Once set, you can sign in with a password instead of a fresh email link each time.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form action={setRehabberPassword} className="grid gap-4">
-                <div className="grid gap-2">
-                  <Label htmlFor="password">New password</Label>
-                  <Input id="password" name="password" type="password" autoComplete="new-password" minLength={8} required />
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="confirm_password">Confirm password</Label>
-                  <Input id="confirm_password" name="confirm_password" type="password" autoComplete="new-password" minLength={8} required />
-                </div>
-                <Button type="submit" variant="secondary" className="w-fit">
-                  Set password
-                </Button>
-              </form>
             </CardContent>
           </Card>
         </div>

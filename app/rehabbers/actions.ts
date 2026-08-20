@@ -48,6 +48,50 @@ export async function sendRehabberMagicLink(formData: FormData) {
   rehabberRedirect(`/rehabbers/login?sent=magic&next=${encodeURIComponent(next)}`);
 }
 
+export async function signUpRehabberWithPassword(formData: FormData) {
+  const email = (asOptionalString(formData.get("email")) || "").toLowerCase();
+  const password = asOptionalString(formData.get("password")) || "";
+  const confirmPassword = asOptionalString(formData.get("confirm_password")) || "";
+  const next = safeRehabberNext(formData.get("next"));
+
+  if (!email || !hasSupabaseAuthConfig()) {
+    rehabberRedirect(`/rehabbers/login?error=invalid&next=${encodeURIComponent(next)}`);
+  }
+
+  if (password.length < 8) {
+    rehabberRedirect(`/rehabbers/login?error=Password%20must%20be%20at%20least%208%20characters.&next=${encodeURIComponent(next)}`);
+  }
+
+  if (password !== confirmPassword) {
+    rehabberRedirect(`/rehabbers/login?error=Passwords%20do%20not%20match.&next=${encodeURIComponent(next)}`);
+  }
+
+  const supabase = await createSupabaseServerClient();
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      emailRedirectTo: `${getSiteUrl()}/auth/callback?next=${encodeURIComponent(next)}`
+    }
+  });
+
+  if (error) {
+    rehabberRedirect(`/rehabbers/login?error=${encodeURIComponent(error.message)}&next=${encodeURIComponent(next)}`);
+  }
+
+  if (data.user && data.user.identities && data.user.identities.length === 0) {
+    rehabberRedirect(
+      `/rehabbers/login?error=${encodeURIComponent("An account with this email already exists. Try signing in instead.")}&next=${encodeURIComponent(next)}`
+    );
+  }
+
+  if (data.session) {
+    rehabberRedirect(next);
+  }
+
+  rehabberRedirect(`/rehabbers/login?sent=confirm&next=${encodeURIComponent(next)}`);
+}
+
 export async function signInRehabberWithPassword(formData: FormData) {
   const email = (asOptionalString(formData.get("email")) || "").toLowerCase();
   const password = asOptionalString(formData.get("password")) || "";
@@ -65,29 +109,6 @@ export async function signInRehabberWithPassword(formData: FormData) {
   }
 
   rehabberRedirect(next);
-}
-
-export async function setRehabberPassword(formData: FormData) {
-  await requireRehabber("/rehabbers/account");
-  const password = asOptionalString(formData.get("password")) || "";
-  const confirmPassword = asOptionalString(formData.get("confirm_password")) || "";
-
-  if (password.length < 8) {
-    rehabberRedirect("/rehabbers/account?error=Password%20must%20be%20at%20least%208%20characters.");
-  }
-
-  if (password !== confirmPassword) {
-    rehabberRedirect("/rehabbers/account?error=Passwords%20do%20not%20match.");
-  }
-
-  const supabase = await createSupabaseServerClient();
-  const { error } = await supabase.auth.updateUser({ password });
-
-  if (error) {
-    rehabberRedirect(`/rehabbers/account?error=${encodeURIComponent(error.message)}`);
-  }
-
-  rehabberRedirect("/rehabbers/account?password=1");
 }
 
 export async function signOutRehabber() {
