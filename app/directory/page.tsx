@@ -52,7 +52,7 @@ export default async function DirectoryPage() {
             </div>
             <div className="flex min-h-12 items-start gap-2 rounded-md border border-border bg-surface px-4 py-3 text-sm leading-6 text-muted-foreground shadow-sm md:max-w-md">
               <Search className="mt-1 shrink-0" size={18} aria-hidden="true" />
-              Start with animal type, location, and availability before contacting a rehabber.
+              Start with animal type and location before contacting a rehabber.
             </div>
           </div>
 
