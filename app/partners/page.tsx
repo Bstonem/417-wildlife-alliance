@@ -66,8 +66,11 @@ export default async function PartnersPage() {
         eyebrow="Partners and sponsors"
         title="Give the wildlife caregivers more hands, more funding, and more reach."
         text="Sponsors, clinics, brands, schools, tree crews, and local businesses can all become part of the support system."
-        imageSrc="/assets/matt-and-squirrel.jpg"
-        imagePosition="center"
+        imageSrc="/assets/red-shouldered-hawk-banner.jpg"
+        imageSrcMobile="/assets/red-shouldered-hawk-banner-original.jpg"
+        imagePosition="85% center"
+        imagePositionMobile="5% 20%"
+        overlayEnd={0.15}
         primary={{ href: "#compassionate-companies", label: "Compassionate companies" }}
         secondary={{ href: "/donate", label: "Sponsor the fund" }}
       />
