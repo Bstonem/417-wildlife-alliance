@@ -4,7 +4,16 @@ import { PageHero } from "@/components/page-hero";
 import { createMetadata } from "@/lib/seo";
 
 const team = [
-  { name: "Matthew Blystone", title: "Founder" },
+  {
+    name: "Matthew Blystone",
+    title: "Founder",
+    photo: "/assets/matthew-blystone.jpg",
+    bio: [
+      "In August 2025, Matthew was working a long, hot day as an arborist. John was running the tractor, using its grapple to load brush off the trailer, when Matthew heard a sound that stopped him cold — five sharp chirps. He called for John to stop the tractor, then he and his friend Taylor started searching the brush pile. That's when he found Rascal: a small, eyes-closed baby squirrel, his paw crushed when the grapple had come down on the pile. No vet was available, so Matthew treated the wound himself and got Rascal a chance at life.",
+      "That one rescue changed his path. Over the next year he volunteered with licensed rehabbers, returned to school to finish his degree in conservation biology, interned at Dickerson Park Zoo, and made a decision: instead of contributing to habitat loss and orphaned wildlife, he'd spend his life advocating for the overlooked corner of our community that rehabbers serve.",
+      "Matthew is also the founder of Theta Wellness Center in Springfield, MO, where his eye for unmet community needs led him to a new mission — building the support system that the 417 area's rehabbers and wildlife have never had."
+    ]
+  },
   { name: "KJ Hosman", title: "Founder" }
 ];
 
@@ -37,7 +46,14 @@ export default function AboutPage() {
             {team.map((member, index) => {
               const imageFirst = index % 2 === 0;
 
-              const photo = (
+              const photo = member.photo ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={member.photo}
+                  alt={member.name}
+                  className="aspect-[4/3] w-full rounded-md border border-border object-cover"
+                />
+              ) : (
                 <div className="flex aspect-[4/3] items-center justify-center rounded-md border border-border bg-surface text-muted-foreground">
                   <div className="flex flex-col items-center gap-2">
                     <UserRound size={40} aria-hidden="true" />
@@ -50,7 +66,13 @@ export default function AboutPage() {
                 <div>
                   <h2 className="text-2xl font-black">{member.name}</h2>
                   <p className="mt-1 text-sm font-semibold text-primary">{member.title}</p>
-                  <p className="mt-4 text-sm italic leading-6 text-muted-foreground">Bio coming soon.</p>
+                  <div className="mt-4 grid gap-4 text-sm leading-6 text-muted-foreground">
+                    {member.bio ? (
+                      member.bio.map((paragraph, paragraphIndex) => <p key={paragraphIndex}>{paragraph}</p>)
+                    ) : (
+                      <p className="italic">Bio coming soon.</p>
+                    )}
+                  </div>
                 </div>
               );
 
