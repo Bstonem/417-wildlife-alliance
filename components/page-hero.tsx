@@ -10,6 +10,8 @@ type PageHeroProps = {
   imagePosition?: string;
   imagePositionMobile?: string;
   overlayEnd?: number;
+  gradientMidStop?: number;
+  gradientEndStop?: number;
   minHeightClassName?: string;
   primary?: {
     href: Parameters<typeof ButtonLink>[0]["href"];
@@ -30,12 +32,14 @@ export function PageHero({
   imagePosition = "center",
   imagePositionMobile,
   overlayEnd = 0.32,
+  gradientMidStop = 48,
+  gradientEndStop = 100,
   minHeightClassName = "min-h-[390px] sm:min-h-[430px] md:min-h-[520px]",
   primary,
   secondary
 }: PageHeroProps) {
   const gradient = (src: string) =>
-    `linear-gradient(90deg, rgba(15,29,25,0.92), rgba(15,29,25,0.72) 48%, rgba(15,29,25,${overlayEnd})), url('${src}')`;
+    `linear-gradient(90deg, rgba(15,29,25,0.92), rgba(15,29,25,0.72) ${gradientMidStop}%, rgba(15,29,25,${overlayEnd}) ${gradientEndStop}%), url('${src}')`;
 
   return (
     <section className="relative isolate overflow-hidden border-b border-border bg-[#17211f]">

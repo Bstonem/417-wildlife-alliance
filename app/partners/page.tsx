@@ -71,6 +71,8 @@ export default async function PartnersPage() {
         imagePosition="85% center"
         imagePositionMobile="5% 20%"
         overlayEnd={0.15}
+        gradientMidStop={15}
+        gradientEndStop={45}
         primary={{ href: "#compassionate-companies", label: "Compassionate companies" }}
         secondary={{ href: "/donate", label: "Sponsor the fund" }}
       />
