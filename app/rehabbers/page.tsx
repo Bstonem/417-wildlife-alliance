@@ -65,7 +65,7 @@ export default function RehabbersPage() {
         <div className="container-shell grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
             <p className="section-kicker">What you get</p>
-            <h2 className="section-title mt-3">Being part of the community means more than a listing.</h2>
+            <h2 className="section-title mt-3">Being a part of the&nbsp;community means more than a listing.</h2>
             <p className="body-large mt-5">
               Community access is tied to having an approved, published directory listing. Sign up below to get listed, and it opens the door to the rest of this.
             </p>
