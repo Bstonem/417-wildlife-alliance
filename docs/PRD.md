@@ -320,12 +320,7 @@ Donation options:
 - Preset amounts
 - Custom amount
 - Optional dedication
-- Optional fund preference:
-  - General Wildlife Rehab Fund
-  - Formula and Feeding Supplies
-  - Emergency Medical Support
-  - Transport Support
-  - Rehabber Micro-Grants
+- No donor-selectable fund category: the donor-facing fund-preference dropdown (General Wildlife Rehab Fund, Formula and Feeding Supplies, Emergency Medical Support, Transport Support, Rehabber Micro-Grants) was removed from the donation form. Every gift is now recorded with `fund_preference: "General Fund"`. Reintroduce a selector only alongside board-approved accounting controls for restricted funds.
 
 MVP implementation:
 

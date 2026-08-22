@@ -49,7 +49,7 @@ These assumptions should be approved by the founding board:
   - the IRS has issued the 501(c)(3) determination letter, or
   - donations are received through a qualified fiscal sponsor that can issue tax receipts.
 - If the organization publicly solicits donations in Missouri before receiving 501(c)(3), it should register with the Missouri Attorney General before soliciting.
-- Fund categories on the website should be treated as donor preferences unless the board formally accepts legally restricted gifts and has accounting controls for restricted funds.
+- The donate page no longer lets donors pick a fund category; every gift is recorded as a single "General Fund" designation (the donor-selectable fund-preference dropdown was removed from the donation form, though the underlying `fund_preference` database field and admin export still exist for future use). Do not reintroduce donor-selectable fund categories until the board has accounting controls that can actually track and honor restricted funds; until then, any such categories must be treated as informal donor preferences, not binding restrictions.
 
 ## 4. Programs
 
@@ -242,7 +242,7 @@ Add or confirm:
 - Privacy policy.
 - Terms/disclaimer.
 - Fund restriction language.
-- Admin export for donations, fund preferences, donor email, Stripe session ID, and receipt status.
+- Admin export for donations, donor email, Stripe session ID, and receipt status. (The export can still include a fund-preference column, but every row will read "General Fund" until a donor-facing designation option exists again.)
 - Board-approved gift acceptance policy.
 
 ### Donation Page Language
@@ -402,7 +402,7 @@ Bring:
 Set up:
 
 - Separate operating and restricted-fund tracking.
-- Accounting categories for each website fund preference.
+- One accounting category for the general fund (the website currently has no donor-selectable fund categories; set up per-category tracking only if that selector is reintroduced).
 - Receipt storage.
 - Donor records.
 - Monthly reconciliation.
@@ -485,7 +485,6 @@ Processor checklist:
 - Tax status language.
 - Refund policy.
 - Website URL.
-- Donation categories.
 - Monthly donation option.
 - Webhook for successful payments.
 - Receipt email.
@@ -509,7 +508,7 @@ For each donation, store:
 - Donor email.
 - Date.
 - Amount.
-- Fund preference.
+- Fund preference (currently always "General Fund" since donors no longer choose a category).
 - Payment processor ID.
 - Receipt sent date.
 - Goods/services statement.
@@ -658,7 +657,7 @@ Controls:
 
 - Board names and roles.
 - Tax status and EIN.
-- Clear donation use categories.
+- A clear, informational list of what gifts fund (the donate page shows this; donors do not select a specific fund category).
 - Annual impact report.
 - Directory verification dates.
 - Named sponsors.
