@@ -40,6 +40,10 @@ export function absoluteUrl(path = "/") {
   return `${siteConfig.url}${normalizedPath}`;
 }
 
+export function isSiteLaunched() {
+  return process.env.SITE_LAUNCHED === "true";
+}
+
 export function createMetadata({
   title,
   description,
@@ -50,6 +54,7 @@ export function createMetadata({
 }: SeoOptions): Metadata {
   const pageUrl = absoluteUrl(path);
   const imageUrl = absoluteUrl(image);
+  const shouldIndex = !noIndex && isSiteLaunched();
 
   return {
     title,
@@ -78,14 +83,14 @@ export function createMetadata({
       description,
       images: [imageUrl]
     },
-    robots: noIndex
+    robots: shouldIndex
       ? {
-          index: false,
+          index: true,
           follow: true
         }
       : {
-          index: true,
-          follow: true
+          index: false,
+          follow: isSiteLaunched()
         }
   };
 }
