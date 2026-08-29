@@ -41,12 +41,7 @@ export default function HomePage() {
       >
         <div className="container-shell flex min-h-[560px] flex-col justify-end py-9 sm:min-h-[600px] md:min-h-[640px] md:py-14 lg:min-h-[680px]">
           <div className="max-w-5xl">
-            <div className="flex flex-wrap gap-2">
-              <Badge variant="blue" className="border-white/18 bg-white/12 text-white">417 area first</Badge>
-              <Badge variant="clay" className="border-white/18 bg-white/12 text-white">Rehabber fund</Badge>
-              <Badge variant="secondary" className="border-white/18 bg-white/12 text-white">Wildlife help</Badge>
-            </div>
-            <h1 className="display-title mt-6 font-black">417 Wildlife Alliance</h1>
+            <h1 className="display-title font-black">417 Wildlife Alliance</h1>
             <p className="mt-5 max-w-3xl text-base leading-7 text-white/82 sm:text-xl sm:leading-8 md:mt-6 md:text-2xl md:leading-9">
               Helping southwest Missouri respond wisely when wildlife is injured, orphaned, displaced, or simply in the wrong place at the wrong time.
             </p>
