@@ -15,6 +15,7 @@
   --blue: #417f95;
   --blue-strong: #2d6274;
   --gold: #d5a343;
+  --gold-strong: #8a6218;
 }
 
 @theme inline {
@@ -32,6 +33,7 @@
   --color-blue: var(--blue);
   --color-blue-strong: var(--blue-strong);
   --color-gold: var(--gold);
+  --color-gold-strong: var(--gold-strong);
 }
 
 * {

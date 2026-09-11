@@ -8,12 +8,29 @@ import { cn } from "@/lib/utils";
 const toneClass = {
   green: "border-primary/24 bg-primary/8 text-primary",
   blue: "border-blue/24 bg-blue/10 text-blue-strong",
-  clay: "border-clay/24 bg-clay/10 text-clay-strong"
+  clay: "border-clay/24 bg-clay/10 text-clay-strong",
+  gold: "border-gold/24 bg-gold/10 text-gold-strong"
 };
 
 export function AllianceMap() {
   const [who, help, directory, companies, found, stories, faq, merch] = allianceMapNodes;
-  const layout = [who, directory, companies, help, null, faq, found, stories, merch];
+  // Ordered by urgency: immediate action first, informational/commerce last.
+  // Tones cycle through all 4 available colors (not the original per-node
+  // tone) so no two cards touching in either the mobile 2-column stack or
+  // the desktop radial grid share the same color. Three tones can't do this
+  // for 8 cards around a shared center without at least one clash somewhere;
+  // four tones can and do.
+  const layout = [
+    { ...found, tone: "clay" },
+    { ...directory, tone: "blue" },
+    { ...faq, tone: "green" },
+    { ...help, tone: "gold" },
+    null,
+    { ...who, tone: "clay" },
+    { ...companies, tone: "blue" },
+    { ...stories, tone: "green" },
+    { ...merch, tone: "gold" }
+  ];
 
   return (
     <section className="section border-y border-border bg-surface">
