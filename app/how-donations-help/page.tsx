@@ -37,8 +37,7 @@ const fundPriorities = [
 const decisionSteps = [
   "Confirm the request is connected to wildlife rehabilitation, public safety, education, or prevention.",
   "Prioritize licensed or permitted rehabbers, wildlife nonprofits, and approved care partners.",
-  "Use receipts, request notes, and follow-up details to keep support accountable.",
-  "Share public impact updates without exposing private rehabber, finder, or animal-location details."
+  "Use receipts, request notes, and follow-up details to keep support accountable."
 ];
 
 const transparencyItems = [

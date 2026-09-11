@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Info, Search } from "lucide-react";
+import { Info } from "lucide-react";
 import { DirectoryBrowser } from "@/components/directory-browser";
 import { PageHero } from "@/components/page-hero";
 import { createMetadata } from "@/lib/seo";
@@ -45,15 +45,9 @@ export default async function DirectoryPage() {
             </div>
           ) : null}
 
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div>
-              <p className="section-kicker">Wildlife help</p>
-              <h2 className="mt-2 text-4xl font-black">Rehabber directory</h2>
-            </div>
-            <div className="flex min-h-12 items-start gap-2 rounded-md border border-border bg-surface px-4 py-3 text-sm leading-6 text-muted-foreground shadow-sm md:max-w-md">
-              <Search className="mt-1 shrink-0" size={18} aria-hidden="true" />
-              Start with animal type and location before contacting a rehabber.
-            </div>
+          <div>
+            <p className="section-kicker">Wildlife help</p>
+            <h2 className="mt-2 text-4xl font-black">Rehabber directory</h2>
           </div>
 
           <DirectoryBrowser listings={listings} />

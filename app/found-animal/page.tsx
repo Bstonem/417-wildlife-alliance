@@ -7,7 +7,7 @@ import { QuickGuidesOrbit } from "@/components/quick-guides-orbit";
 import { wildlifeGuides } from "@/lib/wildlife-guides";
 import { intakeSteps } from "@/lib/demo-data";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { createMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createMetadata({
@@ -88,29 +88,7 @@ export default function FoundAnimalPage() {
       </section>
 
       <section id="form" className="section">
-        <div className="container-shell grid gap-8 lg:grid-cols-[0.72fr_1.28fr]">
-          <aside className="grid gap-4 self-start">
-            <Card className="border-clay/25 bg-clay/8">
-              <CardHeader>
-                <Badge variant="clay" className="w-fit">Safety first</Badge>
-                <CardTitle>Before you get closer</CardTitle>
-              </CardHeader>
-              <CardContent className="grid gap-4 text-sm leading-6 text-muted-foreground">
-              <p>Keep people and pets away. Observe from a distance unless a qualified person tells you to contain the animal.</p>
-              <p>Do not feed, water, bathe, or medicate wildlife. The wrong help can make the animal harder to save.</p>
-              <p>If a person is in danger, call local emergency services or the appropriate public authority.</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <Badge variant="blue" className="w-fit">What to share</Badge>
-                <CardTitle>Details help more than guesses.</CardTitle>
-              </CardHeader>
-              <CardContent className="text-sm leading-6 text-muted-foreground">
-                Photos, location, visible injuries, and what happened can help a licensed rehabber or local authority decide the safest next step.
-              </CardContent>
-            </Card>
-          </aside>
+        <div className="container-shell max-w-3xl">
           <div className="grid gap-5">
             <div>
               <p className="section-kicker" style={{ fontSize: "1.5rem" }}>Found-animal form</p>

@@ -67,14 +67,8 @@ export default function RehabbersPage() {
             <p className="section-kicker">What you get</p>
             <h2 className="section-title mt-3">Being a part of the&nbsp;community means more than a listing.</h2>
             <p className="body-large mt-5">
-              Community access is tied to having an approved, published directory listing. Sign up below to get listed, and it opens the door to the rest of this.
+              Community access is tied to having an approved, published directory listing — supply and grant requests, the forum, and finder routing all depend on it. Sign up below to get listed, and it opens the door to the rest of this.
             </p>
-            <div className="mt-5 flex items-start gap-3 rounded-md border border-primary/25 bg-primary/8 p-4 text-sm leading-6">
-              <ShieldCheck className="mt-0.5 shrink-0 text-primary" size={18} aria-hidden="true" />
-              <p>
-                A published directory listing is required for community access — supply and grant requests, the forum, and finder routing all depend on being a verified, listed rehabber.
-              </p>
-            </div>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">

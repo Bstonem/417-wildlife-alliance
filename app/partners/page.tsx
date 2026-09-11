@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { AlertTriangle, Building2, CheckCircle2, ClipboardCheck, ShieldCheck, TreePine } from "lucide-react";
+import { AlertTriangle, Building2, CheckCircle2, ShieldCheck } from "lucide-react";
 import { PartnerForm } from "@/components/forms/partner-form";
 import { PageHero } from "@/components/page-hero";
 import { Badge } from "@/components/ui/badge";
@@ -22,24 +22,6 @@ const companyTypes = [
   "Roofers, contractors, and property managers",
   "Parks, campuses, and outdoor maintenance teams",
   "Clinics, schools, and community partners"
-];
-
-const trainingTopics = [
-  {
-    icon: TreePine,
-    title: "Nest and den awareness",
-    text: "Seasonal signs, common hiding places, and moments when crews should slow down before work begins."
-  },
-  {
-    icon: AlertTriangle,
-    title: "Stop-work moments",
-    text: "When to pause, secure the area, protect people and animals, and contact qualified wildlife help."
-  },
-  {
-    icon: ClipboardCheck,
-    title: "Clear escalation steps",
-    text: "Simple internal guidance so field teams know who to call, what details to gather, and what not to do."
-  }
 ];
 
 const badgeMeaning = [
@@ -116,23 +98,6 @@ export default async function PartnersPage() {
                 {type}
               </p>
             ))}
-          </div>
-
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
-            {trainingTopics.map((topic) => {
-              const Icon = topic.icon;
-              return (
-                <Card key={topic.title}>
-                  <CardHeader>
-                    <span className="flex size-11 items-center justify-center rounded-md bg-primary/10 text-primary">
-                      <Icon size={22} aria-hidden="true" />
-                    </span>
-                    <CardTitle>{topic.title}</CardTitle>
-                    <CardDescription>{topic.text}</CardDescription>
-                  </CardHeader>
-                </Card>
-              );
-            })}
           </div>
 
           <div className="mt-10 grid gap-4 lg:grid-cols-3">

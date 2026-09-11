@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { AlertTriangle, Building2, HeartHandshake, Mail, MapPinned } from "lucide-react";
+import { Mail } from "lucide-react";
 import { ContactForm } from "@/components/forms/contact-form";
 import { PageHero } from "@/components/page-hero";
 import { Badge } from "@/components/ui/badge";
@@ -13,29 +13,6 @@ export const metadata: Metadata = createMetadata({
   path: "/contact",
   keywords: ["contact 417 Wildlife Alliance", "Springfield MO wildlife help contact", "southwest Missouri wildlife support"]
 });
-
-const contactReasons = [
-  {
-    icon: AlertTriangle,
-    title: "Found wildlife",
-    text: "Use the found-animal form first when an animal may be injured, orphaned, displaced, or in immediate danger."
-  },
-  {
-    icon: MapPinned,
-    title: "Rehabber listings",
-    text: "Send updates about public contact preferences, species, counties served, and current availability."
-  },
-  {
-    icon: HeartHandshake,
-    title: "Donations",
-    text: "Ask about gifts, receipts, sponsorships, in-kind supplies, and how support can reach rehabbers."
-  },
-  {
-    icon: Building2,
-    title: "Partnerships",
-    text: "Start a conversation about business support, tree care education, events, schools, or community outreach."
-  }
-];
 
 export default function ContactPage() {
   return (
@@ -79,32 +56,6 @@ export default function ContactPage() {
           </aside>
 
           <ContactForm />
-        </div>
-      </section>
-
-      <section className="section border-t border-border bg-surface">
-        <div className="container-shell">
-          <div className="max-w-3xl">
-            <p className="section-kicker">Common reasons to contact us</p>
-            <h2 className="section-title mt-3">Send the right details to the right place.</h2>
-          </div>
-
-          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            {contactReasons.map((reason) => {
-              const Icon = reason.icon;
-              return (
-                <Card key={reason.title}>
-                  <CardHeader>
-                    <span className="flex size-11 items-center justify-center rounded-md bg-primary/10 text-primary">
-                      <Icon size={22} aria-hidden="true" />
-                    </span>
-                    <CardTitle>{reason.title}</CardTitle>
-                    <p className="text-sm leading-6 text-muted-foreground">{reason.text}</p>
-                  </CardHeader>
-                </Card>
-              );
-            })}
-          </div>
         </div>
       </section>
     </>
