@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { notifyAdmin } from "@/lib/email";
+import { notifyAdmin, renderFieldsHtml } from "@/lib/email";
 import { getRehabberListings, matchRehabbers } from "@/lib/rehabbers";
 import { getSupabaseAdmin, hasSupabaseAdminConfig } from "@/lib/supabase";
 import { animalCaseSchema } from "@/lib/validation";
@@ -66,15 +66,17 @@ export async function POST(request: Request) {
   }
 
   const photos = formData.getAll("photos").filter((entry): entry is File => entry instanceof File && entry.size > 0);
+  const emailAttachments: Array<{ filename: string; content: Buffer; contentType?: string }> = [];
 
   for (const photo of photos.slice(0, 5)) {
     const extension = photo.name.split(".").pop() || "jpg";
     const safeExtension = extension.replace(/[^a-z0-9]/gi, "").toLowerCase() || "jpg";
     const storagePath = `${animalCase.id}/${crypto.randomUUID()}.${safeExtension}`;
+    const buffer = Buffer.from(await photo.arrayBuffer());
 
     const upload = await supabase.storage
       .from("animal-case-photos")
-      .upload(storagePath, photo, {
+      .upload(storagePath, buffer, {
         contentType: photo.type || "application/octet-stream",
         upsert: false
       });
@@ -85,12 +87,37 @@ export async function POST(request: Request) {
         storage_path: storagePath,
         content_type: photo.type
       });
+
+      emailAttachments.push({
+        filename: `photo-${emailAttachments.length + 1}.${safeExtension}`,
+        content: buffer,
+        contentType: photo.type || "application/octet-stream"
+      });
     }
   }
 
   await notifyAdmin({
     subject: `New wildlife case ${animalCase.public_case_number}`,
-    html: `<p>A new animal case was submitted.</p><p><strong>Animal:</strong> ${parsed.data.animal_type}</p><p><strong>Location:</strong> ${parsed.data.location_text}</p><p><strong>Description:</strong> ${parsed.data.description}</p>`
+    html: renderFieldsHtml([
+      ["Case number", animalCase.public_case_number],
+      ["Finder name", parsed.data.finder_name],
+      ["Preferred contact", parsed.data.preferred_contact_method],
+      ["Finder phone", parsed.data.finder_phone],
+      ["Finder email", parsed.data.finder_email],
+      ["Animal type", parsed.data.animal_type],
+      ["Approximate age", parsed.data.approximate_age],
+      ["Condition", parsed.data.condition],
+      ["Currently contained", parsed.data.currently_contained],
+      ["Immediate danger", parsed.data.immediate_danger],
+      ["Visible injury", parsed.data.visible_injury],
+      ["What may have displaced the animal", parsed.data.displacement_context],
+      ["Location", parsed.data.location_text],
+      ["County", parsed.data.county],
+      ["Description", parsed.data.description],
+      ["Photos attached", photos.length],
+      ["Consent to share", parsed.data.consent_to_share]
+    ]),
+    attachments: emailAttachments
   });
 
   return NextResponse.json({

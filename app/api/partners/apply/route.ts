@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { notifyAdmin } from "@/lib/email";
+import { notifyAdmin, renderFieldsHtml } from "@/lib/email";
 import { getSupabaseAdmin, hasSupabaseAdminConfig } from "@/lib/supabase";
 import { partnerApplicationSchema } from "@/lib/validation";
 
@@ -30,7 +30,20 @@ export async function POST(request: Request) {
 
   await notifyAdmin({
     subject: `New partner application: ${parsed.data.company_name}`,
-    html: `<p>${parsed.data.company_name} applied as ${parsed.data.partner_type}.</p><p>${parsed.data.contact_name} - ${parsed.data.contact_email}</p>${parsed.data.seeking_certification ? "<p><strong>Also interested in Wildlife Compassionate Company certification.</strong></p>" : ""}`
+    html: renderFieldsHtml([
+      ["Company name", parsed.data.company_name],
+      ["Partner type", parsed.data.partner_type],
+      ["Company type", parsed.data.company_type],
+      ["Contact name", parsed.data.contact_name],
+      ["Contact email", parsed.data.contact_email],
+      ["Contact phone", parsed.data.contact_phone],
+      ["Website", parsed.data.website_url],
+      ["Social media", parsed.data.social_media_url],
+      ["County", parsed.data.county],
+      ["Wildlife scenarios", parsed.data.wildlife_scenarios],
+      ["Seeking Wildlife Compassionate Company certification", parsed.data.seeking_certification],
+      ["Message", parsed.data.message]
+    ])
   });
 
   return NextResponse.json({ ok: true, configured: true, message: "Thank you. We'll be in touch." });

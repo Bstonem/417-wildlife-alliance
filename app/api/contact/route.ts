@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { notifyAdmin } from "@/lib/email";
+import { notifyAdmin, renderFieldsHtml } from "@/lib/email";
 import { getSupabaseAdmin, hasSupabaseAdminConfig } from "@/lib/supabase";
 import { contactSchema } from "@/lib/validation";
 
@@ -25,7 +25,12 @@ export async function POST(request: Request) {
 
   await notifyAdmin({
     subject: `Contact: ${parsed.data.topic}`,
-    html: `<p>${parsed.data.name} wrote:</p><p>${parsed.data.message}</p><p>${parsed.data.email}</p>`
+    html: renderFieldsHtml([
+      ["Name", parsed.data.name],
+      ["Email", parsed.data.email],
+      ["Topic", parsed.data.topic],
+      ["Message", parsed.data.message]
+    ])
   });
 
   return NextResponse.json({ ok: true, message: "Thank you. We'll be in touch." });

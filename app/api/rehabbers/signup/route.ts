@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { notifyAdmin } from "@/lib/email";
+import { notifyAdmin, renderFieldsHtml } from "@/lib/email";
 import { getRehabberSession } from "@/lib/rehabber-auth";
 import { getSupabaseAdmin, hasSupabaseAdminConfig } from "@/lib/supabase";
 import { rehabberSignupSchema } from "@/lib/validation";
@@ -137,7 +137,24 @@ export async function POST(request: Request) {
 
   await notifyAdmin({
     subject: `New rehabber signup pending review: ${rehabber.display_name}`,
-    html: `<p>A new rehabber signup is ready for review.</p><p><strong>Name:</strong> ${rehabber.display_name}</p><p><strong>Service area:</strong> ${parsed.data.service_area_text}</p><p>Review it in the admin directory.</p>`
+    html: renderFieldsHtml([
+      ["Display name", parsed.data.display_name],
+      ["Organization", parsed.data.organization_name],
+      ["Public email", parsed.data.public_email],
+      ["Public phone", parsed.data.public_phone],
+      ["Website", parsed.data.website_url],
+      ["Social media", parsed.data.social_media_url],
+      ["Service area", parsed.data.service_area_text],
+      ["Location", parsed.data.public_location_text],
+      ["Species groups", parsed.data.species_groups],
+      ["Accepts public contact", parsed.data.accepts_public_contact],
+      ["Accepts texts", parsed.data.accepts_texts],
+      ["Accepts dropoffs", parsed.data.accepts_dropoffs],
+      ["Transport available", parsed.data.transport_available],
+      ["Intake status", parsed.data.intake_status],
+      ["Notes", parsed.data.notes_public],
+      ["License document uploaded", !upload.error]
+    ])
   });
 
   return NextResponse.json({

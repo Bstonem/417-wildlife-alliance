@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { notifyAdmin } from "@/lib/email";
+import { notifyAdmin, renderFieldsHtml } from "@/lib/email";
 import { getSupabaseAdmin, hasSupabaseAdminConfig } from "@/lib/supabase";
 import { signupSchema } from "@/lib/validation";
 
@@ -30,7 +30,16 @@ export async function POST(request: Request) {
 
   await notifyAdmin({
     subject: `New ${parsed.data.signup_type} signup`,
-    html: `<p>${parsed.data.name} signed up for ${parsed.data.signup_type}.</p><p>${parsed.data.email}</p><p>${parsed.data.message || ""}</p>`
+    html: renderFieldsHtml([
+      ["Signup type", parsed.data.signup_type],
+      ["Name", parsed.data.name],
+      ["Email", parsed.data.email],
+      ["Phone", parsed.data.phone],
+      ["Organization", parsed.data.organization_name],
+      ["County", parsed.data.county],
+      ["Message", parsed.data.message],
+      ["Consent to contact", parsed.data.consent_to_contact]
+    ])
   });
 
   return NextResponse.json({ ok: true, configured: true, message: "Thank you. We'll be in touch." });
