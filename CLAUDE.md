@@ -17,7 +17,7 @@ This repository is the Next.js website and lightweight operations platform for 4
 - Supabase provides Postgres, Auth, and private file storage. The fresh-project schema is `supabase/schema.sql`.
 - Admin authentication is enforced by `proxy.ts`, `lib/supabase-proxy.ts`, `lib/supabase-session.ts`, and `lib/admin-auth.ts`.
 - `ADMIN_EMAILS` is a comma-separated allowlist. A Supabase Auth user must also exist or use the magic-link bootstrap on `/admin/login`.
-- Stripe donations and Resend notifications are optional. The site must degrade safely when they are absent.
+- Stripe donations and admin-notification emails (sent via Google Workspace SMTP, see `lib/email.ts`) are optional. The site must degrade safely when they are absent.
 - `NEXT_PUBLIC_SITE_URL` controls canonical URLs, Open Graph URLs, `robots.txt`, and `sitemap.xml`.
 - Netlify build settings are in `netlify.toml`.
 
