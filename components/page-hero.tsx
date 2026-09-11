@@ -31,9 +31,9 @@ export function PageHero({
   imageSrcMobile,
   imagePosition = "center",
   imagePositionMobile,
-  overlayEnd = 0.32,
-  gradientMidStop = 48,
-  gradientEndStop = 100,
+  overlayEnd = 0.15,
+  gradientMidStop = 15,
+  gradientEndStop = 45,
   minHeightClassName = "min-h-[390px] sm:min-h-[430px] md:min-h-[520px]",
   primary,
   secondary
