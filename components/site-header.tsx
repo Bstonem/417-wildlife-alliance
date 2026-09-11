@@ -1,11 +1,19 @@
+"use client";
+
 import Link from "next/link";
 import type { Route } from "next";
+import { useRef } from "react";
 import { HeartPulse, Menu, X } from "lucide-react";
 import { navItems } from "@/lib/demo-data";
 import { ButtonLink } from "@/components/button-link";
 import { Button } from "@/components/ui/button";
 
 export function SiteHeader() {
+  const detailsRef = useRef<HTMLDetailsElement>(null);
+  const closeMenu = () => {
+    if (detailsRef.current) detailsRef.current.open = false;
+  };
+
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/92 backdrop-blur">
       <div className="container-shell flex min-h-16 items-center justify-between gap-3 py-2">
@@ -36,7 +44,7 @@ export function SiteHeader() {
           <ButtonLink href="/donate" variant="secondary">Donate</ButtonLink>
         </div>
 
-        <details className="group relative lg:hidden">
+        <details ref={detailsRef} className="group relative lg:hidden">
           <summary className="focus-ring flex size-11 cursor-pointer list-none items-center justify-center rounded-md border border-border bg-surface [&::-webkit-details-marker]:hidden">
             <Menu className="group-open:hidden" size={20} aria-hidden="true" />
             <X className="hidden group-open:block" size={20} aria-hidden="true" />
@@ -48,16 +56,17 @@ export function SiteHeader() {
                 <Link
                   key={item.href}
                   href={item.href as Route}
+                  onClick={closeMenu}
                   className="focus-ring rounded-md px-3 py-3 text-sm font-semibold text-foreground/85 hover:bg-muted"
                 >
                   {item.label}
                 </Link>
               ))}
               <Button asChild className="mt-2 w-full">
-                <Link href="/found-animal">Found an animal</Link>
+                <Link href="/found-animal" onClick={closeMenu}>Found an animal</Link>
               </Button>
               <Button asChild variant="secondary" className="w-full">
-                <Link href="/donate">Donate</Link>
+                <Link href="/donate" onClick={closeMenu}>Donate</Link>
               </Button>
             </nav>
           </div>
