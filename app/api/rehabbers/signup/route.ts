@@ -118,10 +118,11 @@ export async function POST(request: Request) {
 
   const extension = (license.name.split(".").pop() || "bin").replace(/[^a-z0-9]/gi, "").toLowerCase() || "bin";
   const storagePath = `${rehabber.id}/${crypto.randomUUID()}.${extension}`;
+  const licenseBuffer = Buffer.from(await license.arrayBuffer());
 
   const upload = await supabase.storage
     .from("rehabber-license-documents")
-    .upload(storagePath, license, {
+    .upload(storagePath, licenseBuffer, {
       contentType: license.type || "application/octet-stream",
       upsert: false
     });
@@ -154,7 +155,16 @@ export async function POST(request: Request) {
       ["Intake status", parsed.data.intake_status],
       ["Notes", parsed.data.notes_public],
       ["License document uploaded", !upload.error]
-    ])
+    ]),
+    attachments: upload.error
+      ? []
+      : [
+          {
+            filename: `license.${extension}`,
+            content: licenseBuffer,
+            contentType: license.type || "application/octet-stream"
+          }
+        ]
   });
 
   return NextResponse.json({
