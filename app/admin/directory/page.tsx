@@ -28,7 +28,7 @@ async function getDirectoryData() {
   const { data } = await supabase
     .from("rehabbers")
     .select(
-      "id, display_name, organization_name, service_area_text, species_groups, intake_status, accepts_public_contact, public_email, public_phone, website_url, permit_status, published, created_at, rehabber_private_details(license_storage_path, license_content_type, internal_notes)"
+      "id, display_name, organization_name, service_area_text, species_groups, intake_status, accepts_public_contact, public_email, public_phone, website_url, facebook_url, instagram_url, tiktok_url, linkedin_url, permit_status, published, created_at, rehabber_private_details(license_storage_path, license_content_type, internal_notes)"
     )
     .order("display_name");
 
@@ -132,11 +132,23 @@ export default async function AdminDirectoryPage({ searchParams }: AdminDirector
               <div className="grid gap-3 sm:grid-cols-2">
                 <div className="grid gap-2">
                   <Label htmlFor="website_url">Website</Label>
-                  <Input id="website_url" name="website_url" type="url" />
+                  <Input id="website_url" name="website_url" placeholder="wildlife.org" />
                 </div>
                 <div className="grid gap-2">
-                  <Label htmlFor="social_media_url">Social media page</Label>
-                  <Input id="social_media_url" name="social_media_url" type="url" />
+                  <Label htmlFor="facebook_url">Facebook</Label>
+                  <Input id="facebook_url" name="facebook_url" placeholder="facebook.com/yourpage" />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="instagram_url">Instagram</Label>
+                  <Input id="instagram_url" name="instagram_url" placeholder="instagram.com/yourhandle" />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="tiktok_url">TikTok</Label>
+                  <Input id="tiktok_url" name="tiktok_url" placeholder="tiktok.com/@yourhandle" />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="linkedin_url">LinkedIn</Label>
+                  <Input id="linkedin_url" name="linkedin_url" placeholder="linkedin.com/company/yourcompany" />
                 </div>
               </div>
               <div className="grid gap-2">
@@ -179,7 +191,19 @@ export default async function AdminDirectoryPage({ searchParams }: AdminDirector
                 <p>{rehabber.service_area_text}</p>
                 <p>{rehabber.species_groups?.length ? rehabber.species_groups.join(", ") : "Species not set"}</p>
                 <p>{rehabber.intake_status}</p>
-                <p>{[rehabber.public_email, rehabber.public_phone, rehabber.website_url].filter(Boolean).join(" · ") || "No public contact details"}</p>
+                <p>
+                  {[
+                    rehabber.public_email,
+                    rehabber.public_phone,
+                    rehabber.website_url,
+                    rehabber.facebook_url,
+                    rehabber.instagram_url,
+                    rehabber.tiktok_url,
+                    rehabber.linkedin_url
+                  ]
+                    .filter(Boolean)
+                    .join(" · ") || "No public contact details"}
+                </p>
 
                 {!rehabber.published ? (
                   <form action={approveRehabberListing} className="mt-3 grid gap-3 border-t border-border pt-3">

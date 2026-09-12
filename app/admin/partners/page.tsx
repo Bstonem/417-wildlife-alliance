@@ -78,7 +78,7 @@ export default async function AdminPartnersPage() {
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="website_url">Website</Label>
-                <Input id="website_url" name="website_url" type="url" />
+                <Input id="website_url" name="website_url" placeholder="wildlife.org" />
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="public_description">Public description</Label>

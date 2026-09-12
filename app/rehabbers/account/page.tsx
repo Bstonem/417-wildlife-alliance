@@ -136,13 +136,28 @@ export default async function RehabberAccountPage({ searchParams }: AccountPageP
                   <div className="grid gap-3 sm:grid-cols-2">
                     <div className="grid gap-2">
                       <Label htmlFor="website_url">Website (optional)</Label>
-                      <Input id="website_url" name="website_url" type="url" defaultValue={rehabber.website_url ?? ""} />
+                      <Input id="website_url" name="website_url" placeholder="wildlife.org" defaultValue={rehabber.website_url ?? ""} />
                     </div>
                     <div className="grid gap-2">
-                      <Label htmlFor="social_media_url">Social media page (optional)</Label>
-                      <Input id="social_media_url" name="social_media_url" type="url" defaultValue={rehabber.social_media_url ?? ""} />
+                      <Label htmlFor="facebook_url">Facebook (optional)</Label>
+                      <Input id="facebook_url" name="facebook_url" placeholder="facebook.com/yourpage" defaultValue={rehabber.facebook_url ?? ""} />
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="instagram_url">Instagram (optional)</Label>
+                      <Input id="instagram_url" name="instagram_url" placeholder="instagram.com/yourhandle" defaultValue={rehabber.instagram_url ?? ""} />
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="tiktok_url">TikTok (optional)</Label>
+                      <Input id="tiktok_url" name="tiktok_url" placeholder="tiktok.com/@yourhandle" defaultValue={rehabber.tiktok_url ?? ""} />
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="linkedin_url">LinkedIn (optional)</Label>
+                      <Input id="linkedin_url" name="linkedin_url" placeholder="linkedin.com/company/yourcompany" defaultValue={rehabber.linkedin_url ?? ""} />
                     </div>
                   </div>
+                  <p className="text-xs leading-5 text-muted-foreground">
+                    Just type the address, like &quot;wildlife.org&quot; — no need for &quot;https://&quot;.
+                  </p>
                 </TabsContent>
 
                 <TabsContent value="service" forceMount className="grid gap-4 data-[state=inactive]:hidden">

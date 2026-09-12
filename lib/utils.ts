@@ -36,6 +36,16 @@ export function slugify(value: string) {
     .replace(/^-+|-+$/g, "");
 }
 
+export function normalizeUrl(value: string) {
+  const trimmed = value.trim();
+
+  if (!trimmed) {
+    return "";
+  }
+
+  return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+}
+
 export function getSiteUrl() {
   const url =
     process.env.NEXT_PUBLIC_SITE_URL ||

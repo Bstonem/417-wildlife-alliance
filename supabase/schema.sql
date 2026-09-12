@@ -310,11 +310,19 @@ using (published is true);
 -- Rehabber self-service account linking
 alter table public.rehabbers
   add column if not exists user_id uuid unique references auth.users(id) on delete set null,
-  add column if not exists claimed_at timestamptz,
-  add column if not exists social_media_url text;
+  add column if not exists claimed_at timestamptz;
+
+-- Per-platform social links replace the old single social_media_url column
+alter table public.rehabbers
+  add column if not exists facebook_url text,
+  add column if not exists instagram_url text,
+  add column if not exists tiktok_url text,
+  add column if not exists linkedin_url text,
+  drop column if exists social_media_url;
 
 grant update (
-  display_name, organization_name, public_email, public_phone, website_url, social_media_url,
+  display_name, organization_name, public_email, public_phone, website_url,
+  facebook_url, instagram_url, tiktok_url, linkedin_url,
   service_area_text, public_location_text, species_groups,
   accepts_public_contact, accepts_texts, accepts_dropoffs, transport_available,
   intake_status, notes_public, updated_at

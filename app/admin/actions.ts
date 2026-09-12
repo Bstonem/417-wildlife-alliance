@@ -6,7 +6,12 @@ import { redirect } from "next/navigation";
 import { getAllowedAdminEmails, requireAdmin } from "@/lib/admin-auth";
 import { createSupabaseServerClient } from "@/lib/supabase-session";
 import { getSupabaseAdmin } from "@/lib/supabase";
-import { asBoolean, asOptionalString, getSiteUrl, slugify } from "@/lib/utils";
+import { asBoolean, asOptionalString, getSiteUrl, normalizeUrl, slugify } from "@/lib/utils";
+
+function asOptionalUrl(value: FormDataEntryValue | null) {
+  const raw = asOptionalString(value);
+  return raw ? normalizeUrl(raw) : undefined;
+}
 
 function getAdminClient() {
   const supabase = getSupabaseAdmin();
@@ -135,8 +140,11 @@ export async function createRehabber(formData: FormData) {
     organization_name: asOptionalString(formData.get("organization_name")),
     public_email: asOptionalString(formData.get("public_email")),
     public_phone: asOptionalString(formData.get("public_phone")),
-    website_url: asOptionalString(formData.get("website_url")),
-    social_media_url: asOptionalString(formData.get("social_media_url")),
+    website_url: asOptionalUrl(formData.get("website_url")),
+    facebook_url: asOptionalUrl(formData.get("facebook_url")),
+    instagram_url: asOptionalUrl(formData.get("instagram_url")),
+    tiktok_url: asOptionalUrl(formData.get("tiktok_url")),
+    linkedin_url: asOptionalUrl(formData.get("linkedin_url")),
     service_area_text: getRequiredString(formData, "service_area_text"),
     public_location_text: asOptionalString(formData.get("public_location_text")),
     species_groups: cleanList(formData.get("species_groups")),
@@ -225,7 +233,7 @@ export async function createPartner(formData: FormData) {
     name,
     public_slug: slugify(asOptionalString(formData.get("public_slug")) || name),
     partner_type: getRequiredString(formData, "partner_type"),
-    website_url: asOptionalString(formData.get("website_url")),
+    website_url: asOptionalUrl(formData.get("website_url")),
     public_description: asOptionalString(formData.get("public_description")),
     county: asOptionalString(formData.get("county")),
     sponsor_tier: asOptionalString(formData.get("sponsor_tier")),

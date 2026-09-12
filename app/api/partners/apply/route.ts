@@ -38,7 +38,6 @@ export async function POST(request: Request) {
       ["Contact email", parsed.data.contact_email],
       ["Contact phone", parsed.data.contact_phone],
       ["Website", parsed.data.website_url],
-      ["Social media", parsed.data.social_media_url],
       ["County", parsed.data.county],
       ["Wildlife scenarios", parsed.data.wildlife_scenarios],
       ["Seeking Wildlife Compassionate Company certification", parsed.data.seeking_certification],

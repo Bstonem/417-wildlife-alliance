@@ -1,4 +1,18 @@
 import { z } from "zod";
+import { normalizeUrl } from "@/lib/utils";
+
+/** Accepts a bare domain like "wildlife.org" and normalizes it to a full URL before validating. */
+const optionalUrl = z.preprocess(
+  (value) => (typeof value === "string" && value.trim() ? normalizeUrl(value) : value),
+  z.string().url().optional().or(z.literal(""))
+);
+
+const socialLinkFields = {
+  facebook_url: optionalUrl,
+  instagram_url: optionalUrl,
+  tiktok_url: optionalUrl,
+  linkedin_url: optionalUrl
+};
 
 export const contactMethodSchema = z.enum(["phone", "email", "text", "any"]);
 
@@ -42,8 +56,7 @@ export const partnerApplicationSchema = z.object({
   contact_name: z.string().min(2),
   contact_email: z.string().email(),
   contact_phone: z.string().optional(),
-  website_url: z.string().url().optional().or(z.literal("")),
-  social_media_url: z.string().url().optional().or(z.literal("")),
+  website_url: optionalUrl,
   county: z.string().optional(),
   message: z.string().optional(),
   seeking_certification: z.boolean().default(false),
@@ -70,8 +83,8 @@ export const rehabberSelfServiceSchema = z.object({
   organization_name: z.string().optional(),
   public_email: z.string().email("Please include a valid email.").optional().or(z.literal("")),
   public_phone: z.string().optional(),
-  website_url: z.string().url().optional().or(z.literal("")),
-  social_media_url: z.string().url().optional().or(z.literal("")),
+  website_url: optionalUrl,
+  ...socialLinkFields,
   service_area_text: z.string().min(3, "Please describe your service area."),
   public_location_text: z.string().optional(),
   species_groups: z.array(z.string()).default([]),
@@ -91,8 +104,8 @@ export const rehabberSignupSchema = z.object({
   organization_name: z.string().optional(),
   public_email: z.string().email("Please include a valid email.").optional().or(z.literal("")),
   public_phone: z.string().optional(),
-  website_url: z.string().url().optional().or(z.literal("")),
-  social_media_url: z.string().url().optional().or(z.literal("")),
+  website_url: optionalUrl,
+  ...socialLinkFields,
   service_area_text: z.string().min(3, "Please describe the counties or communities you serve."),
   public_location_text: z.string().optional(),
   species_groups: z.array(z.string()).min(1, "Please list at least one species or animal group."),

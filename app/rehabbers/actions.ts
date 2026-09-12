@@ -128,7 +128,10 @@ export async function updateOwnRehabberListing(formData: FormData) {
     public_email: asOptionalString(formData.get("public_email")) || "",
     public_phone: asOptionalString(formData.get("public_phone")),
     website_url: asOptionalString(formData.get("website_url")) || "",
-    social_media_url: asOptionalString(formData.get("social_media_url")) || "",
+    facebook_url: asOptionalString(formData.get("facebook_url")) || "",
+    instagram_url: asOptionalString(formData.get("instagram_url")) || "",
+    tiktok_url: asOptionalString(formData.get("tiktok_url")) || "",
+    linkedin_url: asOptionalString(formData.get("linkedin_url")) || "",
     service_area_text: asOptionalString(formData.get("service_area_text")) || "",
     public_location_text: asOptionalString(formData.get("public_location_text")),
     species_groups: cleanList(formData.get("species_groups")),
@@ -151,7 +154,10 @@ export async function updateOwnRehabberListing(formData: FormData) {
       ...parsed.data,
       public_email: parsed.data.public_email || null,
       website_url: parsed.data.website_url || null,
-      social_media_url: parsed.data.social_media_url || null,
+      facebook_url: parsed.data.facebook_url || null,
+      instagram_url: parsed.data.instagram_url || null,
+      tiktok_url: parsed.data.tiktok_url || null,
+      linkedin_url: parsed.data.linkedin_url || null,
       updated_at: new Date().toISOString()
     })
     .eq("user_id", session.userId)
