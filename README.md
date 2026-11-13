@@ -26,7 +26,9 @@ copy .env.example .env.local
 - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
 - `SUPABASE_SERVICE_ROLE_KEY`
 - `ADMIN_EMAILS` as a comma-separated allowlist for Supabase Auth users who can open `/admin`.
-- `NEXT_PUBLIC_SITE_URL` with the production URL before launch, so canonical tags, Open Graph URLs, robots, and the sitemap point at the live domain instead of a local or deploy-preview URL.
+- `NEXT_PUBLIC_SITE_URL`: leave as `http://localhost:3000` locally. Production (Netlify) uses `https://417wildlifealliance.org`, so canonical tags, Open Graph URLs, robots, and the sitemap point at the live domain.
+
+The live site is https://417wildlifealliance.org. The older `417-wildlife-alliance.netlify.app` address serves an outdated build; don't use it to check what is live.
 
 4. Run the development server:
 

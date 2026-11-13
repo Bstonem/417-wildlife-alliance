@@ -18,8 +18,15 @@ This repository is the Next.js website and lightweight operations platform for 4
 - Admin authentication is enforced by `proxy.ts`, `lib/supabase-proxy.ts`, `lib/supabase-session.ts`, and `lib/admin-auth.ts`.
 - `ADMIN_EMAILS` is a comma-separated allowlist. A Supabase Auth user must also exist or use the magic-link bootstrap on `/admin/login`.
 - Stripe donations and admin-notification emails (sent via Google Workspace SMTP, see `lib/email.ts`) are optional. The site must degrade safely when they are absent.
-- `NEXT_PUBLIC_SITE_URL` controls canonical URLs, Open Graph URLs, `robots.txt`, and `sitemap.xml`.
+- `NEXT_PUBLIC_SITE_URL` controls canonical URLs, Open Graph URLs, `robots.txt`, and `sitemap.xml`. `SITE_LAUNCHED=true` turns on search indexing; it is intentionally off until launch.
 - Netlify build settings are in `netlify.toml`.
+
+## Live site
+
+- **Production is https://417wildlifealliance.org** and deploys from GitHub `main`.
+- **Never use `417-wildlife-alliance.netlify.app`.** It serves an outdated build (likely a separate, abandoned Netlify site). Do not use it for screenshots, links, QR codes, or to check what is live.
+- Before claiming the live site differs from the code, search the repo (`git grep`) for what you see on the page. Compare against the code, not against older screenshots or docs.
+- Dated status lines in `docs/` can go stale. If a doc conflicts with the live site or the code, trust the live site and code, and update the doc.
 
 ## Safety and quality rules
 
@@ -27,8 +34,8 @@ This repository is the Next.js website and lightweight operations platform for 4
 - Keep admin/operational tables private and preserve row-level security.
 - Do not make `/directory` indexable until real, verified directory records are connected.
 - Do not edit `next-env.d.ts`; Next.js generates it.
-- Do not deploy or change production environment variables unless Matt explicitly asks and the target Netlify project is confirmed as `417-wildlife-alliance`.
-- Do not run `netlify deploy` until `netlify status` shows the correct project.
+- Do not deploy or change production environment variables unless Matt explicitly asks and the target Netlify project is confirmed as the one serving `417wildlifealliance.org` (check its Domain management; the project name alone is not proof).
+- Do not run `netlify deploy` until `netlify status` shows that project. Prefer Git-connected deploys from `main`.
 - Prefer small commits. Include the commands used to verify each change in the handoff summary.
 
 ## Normal workflow
@@ -45,4 +52,4 @@ npm run build
 git status --short
 ```
 
-The authoritative ownership/setup checklist is `docs/OWNER_HANDOFF.md` (note: its GitHub-transfer step is already complete; remaining steps concern Netlify, Supabase, and the domain). Product direction is in `docs/PRD.md`; business context is in `docs/BUSINESS_PLAN.md`. `docs/GRANT_AND_PARTNER_RESEARCH.md` and `docs/SEO_AUDIT.md` hold supporting research.
+The authoritative ownership/setup checklist is `docs/OWNER_HANDOFF.md` (GitHub transfer, Netlify, Supabase, and the domain are done; remaining items are listed there). Product direction is in `docs/PRD.md`; business context is in `docs/BUSINESS_PLAN.md`. `docs/GRANT_AND_PARTNER_RESEARCH.md` and `docs/SEO_AUDIT.md` hold supporting research.

@@ -2,15 +2,32 @@
 
 This guide moves 417 Wildlife Alliance off Ryan's accounts and computer and into accounts Matt controls. Do not send passwords or secret keys by email or commit them to GitHub.
 
+## The live site: use 417wildlifealliance.org
+
+**Production site: https://417wildlifealliance.org.** `www.417wildlifealliance.org` redirects to it.
+
+**Do not use `https://417-wildlife-alliance.netlify.app`.** As of November 13, 2026 that address serves an outdated build from before August 29, 2026 (it predates the `robots.txt` added then). It is most likely a separate, abandoned Netlify site. Never use it for screenshots, links, QR codes, or to check whether a change is live. (Next step for Matt: in Netlify, confirm which project lists `417wildlifealliance.org` under Domain management, then delete or redirect the old project.)
+
+To check what is actually live, without guessing:
+
+```bash
+# Which address does production think it is? Should print https://417wildlifealliance.org
+curl -s https://417wildlifealliance.org/ | grep -o '<link rel="canonical"[^>]*>'
+# Is a specific feature in the code? Search the repo before concluding the live site differs from GitHub.
+git grep -n "text you can see on the live page"
+```
+
 ## What exists today
 
-As of August 19, 2026:
+As of November 13, 2026 (items marked *verified* were checked against the live site that day):
 
 - Source repository: `https://github.com/Bstonem/417-wildlife-alliance` — GitHub ownership has already transferred to Matt's account (`origin` confirmed via `git remote -v`).
-- Netlify: the project is under Matt's own team (`blystonem's team`) and connected to GitHub for auto-deploy from `main`. The team has used up its monthly credits and is now running on a separate "operational credits" reserve, which Netlify explicitly does not allow spending on new production deploys — the already-published site stays live and reachable, but new deploys are blocked until the monthly credit cycle resets or the team plan is upgraded (Netlify → Usage & billing shows the exact reset date and remaining balance). No custom domain is attached yet.
-- Whether Matt's Supabase environment variables (below) have been added to Netlify's own environment-variable settings is still unconfirmed — verify before assuming production has database/admin features working.
+- Netlify: the project is under Matt's own team (`blystonem's team`) and connected to GitHub for auto-deploy from `main`. *Verified:* 417wildlifealliance.org serves the latest `main` (Sep 12, 2026 commit `23df238`), so deploys are working. The earlier build-credit shortage (July–August 2026) is resolved; if deploys stop, check Netlify → Usage & billing.
+- Domain: `417wildlifealliance.org` is attached and live. *Verified:* `NEXT_PUBLIC_SITE_URL` is set in production (canonical and Open Graph URLs use the .org domain).
+- Search indexing is intentionally **off** until launch. *Verified:* `robots.txt` blocks all crawlers because `SITE_LAUNCHED` is not `true`. Set `SITE_LAUNCHED=true` in Netlify only when ready for public launch.
 - Supabase: a new project has been created under Matt's account and `supabase/schema.sql` has been applied (including later additions — rehabber self-service accounts, license-upload storage, and the `social_media_url` column). Admin login and the rehabber signup/login flows have been verified working locally against it. The old Ryan-era Supabase project hostname no longer resolves and is not in use.
-- Stripe is optional and not yet configured. Resend is optional; `RESEND_API_KEY`/`ADMIN_NOTIFICATION_EMAIL` are not yet set, so admin notification emails currently degrade safely (no error, just no email sent). Supabase Auth's own emails (magic links, signup confirmation) still use Supabase's shared, rate-limited default mailer — setting up custom SMTP is still pending and needs a domain first.
+- Admin notification emails are sent through Google Workspace SMTP (`lib/email.ts`), from `info@417wildlifealliance.org` by default. Whether `SMTP_USER`, `SMTP_APP_PASSWORD`, and `ADMIN_NOTIFICATION_EMAIL` are set in Netlify is unconfirmed; without them emails are skipped safely. Supabase Auth's own emails (magic links, signup confirmation) may still use Supabase's shared, rate-limited default mailer — now that the domain exists, configuring custom SMTP in Supabase is unblocked.
+- Stripe is optional and not yet configured.
 - The repository contains a complete fresh-project Supabase schema and works in demo mode without third-party credentials.
 
 ## Recommended ownership model
@@ -20,11 +37,11 @@ Matt should own each production account. Ryan can remain a temporary collaborato
 | Asset | Recommended owner action |
 | --- | --- |
 | GitHub | Done — the repository already lives at `Bstonem/417-wildlife-alliance`. |
-| Netlify | Done — the project is under Matt's account and connected to GitHub. Currently paused on a free-tier build-minute limit; resumes on reset or upgrade. |
-| Supabase | Done — a Matt-owned project exists and `supabase/schema.sql` has been applied. |
-| Domain/DNS | Not started. Still needed for a production URL and for setting up custom SMTP (Supabase's default email sender is rate-limited). |
+| Netlify | Done — the project is under Matt's account, connected to GitHub, and deploying. Remaining: remove the old site behind `417-wildlife-alliance.netlify.app` if it is a separate project. |
+| Supabase | Done — a Matt-owned project exists and `supabase/schema.sql` has been applied. Remaining: custom SMTP for Supabase Auth emails. |
+| Domain/DNS | Done — `417wildlifealliance.org` is live; `www` redirects to it. Confirm the registrar account is Matt's. |
 | Stripe | If donations are enabled, use an organization-controlled Stripe account with Matt as owner. |
-| Resend/email | If notifications are enabled, use a Matt-controlled sending domain and account. |
+| Email | Google Workspace SMTP on the `417wildlifealliance.org` domain. Use an App Password for a Matt-controlled Workspace account. |
 
 ## Ryan's transfer checklist
 
@@ -33,7 +50,7 @@ Matt must first provide his preferred admin email and either his Netlify team na
 1. ~~In GitHub, transfer the private repository to Matt.~~ Done — the repository is now `Bstonem/417-wildlife-alliance`.
 2. ~~In Netlify, open the `417-wildlife-alliance` project and transfer it to Matt's team.~~ Done — the project is under Matt's account and connected to GitHub.
 3. ~~Do not copy the obsolete values from Ryan's `.env.local`. Matt should create fresh Supabase credentials.~~ Done — Matt's own Supabase project and credentials are in use.
-4. After Matt's site is verified live in production (once Netlify's build limit resets), remove Ryan's Netlify and Supabase access and delete Ryan's local `.env.local` copy.
+4. Matt's site is now live at https://417wildlifealliance.org. After completing the verification list below, remove Ryan's Netlify and Supabase access and delete Ryan's local `.env.local` copy.
 5. If any secret was ever shared outside an account's encrypted environment-variable manager, rotate it.
 
 Git history was preserved through the GitHub transfer; `origin` already points at `Bstonem/417-wildlife-alliance`.
@@ -77,9 +94,9 @@ Claude Desktop can also use a trusted local-files desktop extension. Restrict it
 
 1. In Matt's Supabase account, create a new project.
 2. Open its SQL Editor and run `supabase/schema.sql` once.
-3. In Authentication URL Configuration, set the Site URL to the production Netlify URL and add these redirect URLs:
+3. In Authentication URL Configuration, set the Site URL to `https://417wildlifealliance.org` and add these redirect URLs:
    - `http://localhost:3000/auth/callback`
-   - `https://YOUR_PRODUCTION_DOMAIN/auth/callback`
+   - `https://417wildlifealliance.org/auth/callback`
 4. Copy `.env.example` to `.env.local` and set:
    - `NEXT_PUBLIC_SUPABASE_URL`
    - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
@@ -93,7 +110,7 @@ The schema creates the database tables, row-level-security policies, and private
 
 ## Configure Netlify
 
-**Status: connected and deploying from `main`.** Currently paused on a free-tier build-minute limit (resumes on reset or plan upgrade). Whether every environment variable below has actually been entered in Netlify is still unconfirmed — check Netlify's Site/Team settings before assuming production has full database/admin/email functionality.
+**Status: connected and deploying from `main` to https://417wildlifealliance.org.** `NEXT_PUBLIC_SITE_URL` is confirmed set; whether every other variable below has been entered in Netlify is unconfirmed — check Netlify's project settings before assuming production has full database/admin/email functionality.
 
 Connect the Matt-owned Netlify project to the transferred GitHub repository and deploy from `main`. Netlify reads `netlify.toml`, which runs `npm run build` and publishes `.next`.
 
@@ -105,11 +122,16 @@ Required for database/admin features:
 - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
 - `SUPABASE_SERVICE_ROLE_KEY`
 - `ADMIN_EMAILS`
-- `NEXT_PUBLIC_SITE_URL`
+- `NEXT_PUBLIC_SITE_URL` = `https://417wildlifealliance.org`
 
-Optional email notifications:
+Launch switch:
 
-- `RESEND_API_KEY`
+- `SITE_LAUNCHED` — leave unset until public launch; `true` lets search engines index the site.
+
+Optional email notifications (Google Workspace SMTP):
+
+- `SMTP_USER`
+- `SMTP_APP_PASSWORD` (a Google App Password; secret)
 - `ADMIN_NOTIFICATION_EMAIL`
 - `FROM_EMAIL`
 
@@ -118,19 +140,19 @@ Optional Stripe donations:
 - `STRIPE_SECRET_KEY`
 - `STRIPE_WEBHOOK_SECRET`
 
-Before every CLI deploy, run `netlify status` and confirm the project name is exactly `417-wildlife-alliance`. Prefer Git-connected deploys from `main` so production has an auditable commit.
+Prefer Git-connected deploys from `main` so production has an auditable commit. Before any CLI deploy, run `netlify status` and confirm the linked project is the one that lists `417wildlifealliance.org` under Domain management. Do not trust the project name alone: the old `417-wildlife-alliance.netlify.app` address serves an outdated build.
 
 ## Optional Stripe and email setup
 
 Leave Stripe variables empty until the organization is legally and operationally ready to accept donations. When enabled, add a Stripe webhook for:
 
 ```text
-https://YOUR_PRODUCTION_DOMAIN/api/stripe/webhook
+https://417wildlifealliance.org/api/stripe/webhook
 ```
 
 Subscribe it to `checkout.session.completed`, then store its signing secret as `STRIPE_WEBHOOK_SECRET`.
 
-For Resend, verify a domain Matt controls, set `FROM_EMAIL` to an address on that domain, and set `ADMIN_NOTIFICATION_EMAIL` to the inbox that should receive form notifications.
+For email, create a Google App Password for the Workspace account in `SMTP_USER` (requires 2-Step Verification), keep `FROM_EMAIL` on the `417wildlifealliance.org` domain, and set `ADMIN_NOTIFICATION_EMAIL` to the inbox that should receive form notifications.
 
 ## Verification before Ryan steps away
 
@@ -141,7 +163,7 @@ npm run typecheck
 npm run build
 ```
 
-Then verify:
+Then verify on https://417wildlifealliance.org (not the `.netlify.app` address):
 
 - `/`, `/found-animal`, `/directory`, `/donate`, and `/contact` load.
 - `/robots.txt` and `/sitemap.xml` use the production domain.
@@ -166,12 +188,15 @@ npm run build
 git status --short
 ```
 
-Use a branch and pull request for non-trivial work. Keep `.env.local`, Netlify secrets, Supabase service-role keys, Stripe keys, and Resend keys out of Git.
+Use a branch and pull request for non-trivial work. Keep `.env.local`, Netlify secrets, Supabase service-role keys, Stripe keys, and the SMTP App Password out of Git.
+
+When a document here and the live site disagree, check the live site and the code (`git grep`), then update the document. Dated status lines in this file go stale.
 
 ## Recovery notes
 
 - If the public site works but forms do not save, check Netlify's Supabase environment variables and the Supabase project status.
 - If admin login loops, check Supabase Site URL/redirect URLs, `ADMIN_EMAILS`, and that the user email matches exactly.
 - If canonical URLs point to localhost or a Netlify preview, correct `NEXT_PUBLIC_SITE_URL` and redeploy.
-- If the CLI shows another Netlify project, stop. Link the current folder to `417-wildlife-alliance` before any deploy.
+- If the CLI shows a Netlify project that does not list `417wildlifealliance.org` under Domain management, stop and link the correct project before any deploy.
+- If the site looks out of date, make sure you are on https://417wildlifealliance.org and not `417-wildlife-alliance.netlify.app`.
 - If the old Supabase hostname `chumvlrvasbsopajxlot.supabase.co` appears anywhere in Matt's configuration, replace it with Matt's new project URL.

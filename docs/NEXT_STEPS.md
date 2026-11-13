@@ -13,5 +13,5 @@ Near-term action items, roughly in order. Strategy and context live in [`docs/BU
 6. **File IRS Form 1023 (or 1023-EZ if eligible)** for federal tax-exempt recognition.
 7. **Register with the Missouri Attorney General** if soliciting donations before 501(c)(3) status is confirmed and no fiscal sponsor covers the solicitation.
 8. **Finish donation readiness on the site:** EIN/tax-status copy, receipt emails, refund policy, privacy/terms pages, and a donation admin export.
-9. **Confirm Netlify, Supabase, and domain/DNS are fully on Matt's own accounts** (see `docs/OWNER_HANDOFF.md` for current status).
+9. **Finish the account cleanup.** Netlify, Supabase, and the `417wildlifealliance.org` domain are in place. Remaining: delete or redirect the outdated `417-wildlife-alliance.netlify.app` site, confirm the domain registrar account is Matt's, and set up custom SMTP for Supabase Auth emails (see `docs/OWNER_HANDOFF.md`).
 10. **Line up 2-3 founding sponsors and the first round of verified rehabber directory listings** before a public launch push.

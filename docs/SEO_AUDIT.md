@@ -30,7 +30,8 @@ The strongest local search cluster is southwest Missouri wildlife help, especial
 
 ## Remaining Launch Items
 
-- Set `NEXT_PUBLIC_SITE_URL` to the real production domain before launch.
+- ~~Set `NEXT_PUBLIC_SITE_URL` to the real production domain before launch.~~ Done: production uses `https://417wildlifealliance.org` (verified 2026-11-13).
+- Set `SITE_LAUNCHED=true` in Netlify at public launch; until then `robots.txt` blocks all crawlers.
 - Connect verified Supabase directory data before indexing the directory page broadly. The page now noindexes when admin Supabase config is missing.
 - Add a real logo/icon asset and include it in organization metadata once available.
 - Add verified organization details when known: nonprofit status, EIN if applicable, public contact email, and social profiles.
