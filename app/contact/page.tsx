@@ -21,8 +21,8 @@ export default function ContactPage() {
         eyebrow="Contact"
         title="Reach the 417 Wildlife Alliance team."
         text="Send questions, listing updates, donor inquiries, partnership ideas, or wildlife stories. If an animal is in urgent danger, also contact a licensed rehabilitator or the appropriate local authority directly."
-        imageSrc="/assets/matt-and-squirrel.jpg"
-        imagePosition="center"
+        imageSrc="/assets/crow-banner.jpg"
+        imagePosition="85% 18%"
         primary={{ href: "/found-animal", label: "Animal needs help" }}
         secondary={{ href: "/partners", label: "Partner with us" }}
       />
