@@ -3,7 +3,7 @@ import { notifyAdmin, renderFieldsHtml } from "@/lib/email";
 import { getRehabberListings, matchRehabbers } from "@/lib/rehabbers";
 import { getSupabaseAdmin, hasSupabaseAdminConfig } from "@/lib/supabase";
 import { animalCaseSchema } from "@/lib/validation";
-import { asBoolean, asOptionalString, makeCaseNumber } from "@/lib/utils";
+import { asBoolean, asOptionalBoolean, asOptionalString, makeCaseNumber } from "@/lib/utils";
 
 export async function POST(request: Request) {
   const formData = await request.formData();
@@ -19,6 +19,7 @@ export async function POST(request: Request) {
     location_text: asOptionalString(formData.get("location_text")),
     county: asOptionalString(formData.get("county")),
     currently_contained: asBoolean(formData.get("currently_contained")),
+    food_or_fluids_given: asOptionalBoolean(formData.get("food_or_fluids_given")),
     immediate_danger: asBoolean(formData.get("immediate_danger")),
     visible_injury: asBoolean(formData.get("visible_injury")),
     displacement_context: asOptionalString(formData.get("displacement_context")),
@@ -108,6 +109,7 @@ export async function POST(request: Request) {
       ["Approximate age", parsed.data.approximate_age],
       ["Condition", parsed.data.condition],
       ["Currently contained", parsed.data.currently_contained],
+      ["Given food or fluids", parsed.data.food_or_fluids_given],
       ["Immediate danger", parsed.data.immediate_danger],
       ["Visible injury", parsed.data.visible_injury],
       ["What may have displaced the animal", parsed.data.displacement_context],

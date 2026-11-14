@@ -30,7 +30,7 @@ async function getCasesData() {
   const [cases, rehabbers] = await Promise.all([
     supabase
       .from("animal_cases")
-      .select("id, public_case_number, finder_name, finder_phone, finder_email, preferred_contact_method, animal_type, approximate_age, condition, description, location_text, county, currently_contained, immediate_danger, visible_injury, displacement_context, consent_to_share, status, assigned_rehabber_id, internal_notes, created_at")
+      .select("id, public_case_number, finder_name, finder_phone, finder_email, preferred_contact_method, animal_type, approximate_age, condition, description, location_text, county, currently_contained, food_or_fluids_given, immediate_danger, visible_injury, displacement_context, consent_to_share, status, assigned_rehabber_id, internal_notes, created_at")
       .order("created_at", { ascending: false })
       .limit(40),
     supabase.from("rehabbers").select("id, display_name").order("display_name")
@@ -71,6 +71,7 @@ export default async function AdminCasesPage() {
                     <Badge variant={animalCase.immediate_danger ? "clay" : "secondary"}>{animalCase.status}</Badge>
                     {animalCase.visible_injury ? <Badge variant="clay">Visible injury</Badge> : null}
                     {animalCase.currently_contained ? <Badge variant="blue">Contained</Badge> : null}
+                    {animalCase.food_or_fluids_given ? <Badge variant="clay">Given food or fluids</Badge> : null}
                     {animalCase.consent_to_share ? <Badge variant="outline">Story consent</Badge> : null}
                   </div>
                   <CardTitle className="mt-3">

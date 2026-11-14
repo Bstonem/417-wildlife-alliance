@@ -18,6 +18,10 @@ export function asBoolean(value: FormDataEntryValue | null) {
   return value === "on" || value === "true" || value === "yes";
 }
 
+export function asOptionalBoolean(value: FormDataEntryValue | null) {
+  return value === null ? undefined : asBoolean(value);
+}
+
 export function makeCaseNumber() {
   const date = new Date();
   const y = date.getFullYear();

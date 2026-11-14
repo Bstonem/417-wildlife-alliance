@@ -93,6 +93,7 @@ export function FoundAnimalForm() {
     immediate_danger: false,
     visible_injury: false
   });
+  const [foodOrFluidsGiven, setFoodOrFluidsGiven] = useState<boolean | undefined>(undefined);
 
   const selectedGuidance = animalGuidance[animalType] || animalGuidance.Unknown;
   const urgent = riskFlags.immediate_danger || riskFlags.visible_injury || condition === "injured" || condition === "trapped";
@@ -127,6 +128,7 @@ export function FoundAnimalForm() {
       immediate_danger: false,
       visible_injury: false
     });
+    setFoodOrFluidsGiven(undefined);
     setState({
       status: "success",
       message: `${result.message} Reference number: ${result.caseNumber}.`,
@@ -313,6 +315,30 @@ export function FoundAnimalForm() {
           />
           <span>The animal is currently contained.</span>
         </label>
+        <div>
+          <p>Has the animal been given any food or fluids?</p>
+          <div className="mt-2 flex items-center gap-6">
+            <label className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                checked={foodOrFluidsGiven === true}
+                onChange={() => setFoodOrFluidsGiven((current) => (current === true ? undefined : true))}
+              />
+              <span>Yes</span>
+            </label>
+            <label className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                checked={foodOrFluidsGiven === false}
+                onChange={() => setFoodOrFluidsGiven((current) => (current === false ? undefined : false))}
+              />
+              <span>No</span>
+            </label>
+          </div>
+          {foodOrFluidsGiven !== undefined ? (
+            <input type="hidden" name="food_or_fluids_given" value={foodOrFluidsGiven ? "true" : "false"} />
+          ) : null}
+        </div>
         <label className="flex items-start gap-3">
           <input
             name="immediate_danger"
@@ -347,6 +373,11 @@ export function FoundAnimalForm() {
         <input name="consent_to_share" type="checkbox" required className="mt-1" />
         <span>I consent to 417 Wildlife Alliance sharing this information with appropriate licensed or permitted wildlife care contacts.</span>
       </label>
+
+      <p className="flex items-start gap-2 text-sm font-bold leading-6 text-clay-strong">
+        <AlertTriangle className="mt-0.5 shrink-0" size={18} aria-hidden="true" />
+        If you have been bitten or scratched, it is highly recommended to contact a healthcare professional.
+      </p>
 
       <Button
         type="submit"

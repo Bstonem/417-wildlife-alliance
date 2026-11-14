@@ -28,6 +28,7 @@ export const animalCaseSchema = z.object({
   location_text: z.string().min(3, "Please include a location or cross streets."),
   county: z.string().optional(),
   currently_contained: z.boolean().default(false),
+  food_or_fluids_given: z.boolean().optional(),
   immediate_danger: z.boolean().default(false),
   visible_injury: z.boolean().default(false),
   displacement_context: z.string().optional(),

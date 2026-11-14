@@ -16,6 +16,7 @@ create table if not exists public.animal_cases (
   latitude numeric,
   longitude numeric,
   currently_contained boolean not null default false,
+  food_or_fluids_given boolean,
   immediate_danger boolean not null default false,
   visible_injury boolean not null default false,
   displacement_context text,
@@ -409,6 +410,10 @@ alter table public.rehabber_private_details
   add column if not exists license_storage_path text,
   add column if not exists license_content_type text,
   add column if not exists license_uploaded_at timestamptz;
+
+-- Found-animal form: whether food or fluids were already given
+alter table public.animal_cases
+  add column if not exists food_or_fluids_given boolean;
 
 insert into storage.buckets (id, name, public)
 values ('rehabber-license-documents', 'rehabber-license-documents', false)
