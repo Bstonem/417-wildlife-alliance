@@ -14,7 +14,18 @@ const team = [
       "Matthew is also the founder of Theta Wellness Center in Springfield, MO, where his eye for unmet community needs led him to a new mission — building the support system that the 417 area's rehabbers and wildlife have never had."
     ]
   },
-  { name: "KJ Hosman", title: "Founder" }
+  {
+    name: "KJ Hosman",
+    title: "Founder",
+    photo: "/assets/kj-hosman.jpg",
+    photoAspect: "4 / 5",
+    photoWidth: "80%",
+    photoPosition: "50% 60%",
+    bio: [
+      "KJ Hosman’s love for animals started at a very young age. By eight, she knew her path would include helping animals. Throughout her life, she has always rescued animals, whether they were domestic or wildlife. She has been rehabbing for the last 5 years and has been a IWRC Certified Wildlife Rehabber (CWR) for 3 years. She has worked and trained with every animal group but loves birds and herps.",
+      "She helped form 417 Wildlife Alliance because she believes that humans should be part of the solution. She has a passion for getting wildlife back to the wild and an appreciation of the people who help that happen."
+    ]
+  }
 ];
 
 export const metadata: Metadata = createMetadata({
@@ -32,8 +43,8 @@ export default function AboutPage() {
         eyebrow="Who we are"
         title="A local alliance for wildlife care, rehabber support, and public education."
         text="417 Wildlife Alliance exists because rehabbers cannot do this work alone. Animals need skilled care, and skilled caregivers need community behind them."
-        imageSrc="/assets/matt-and-squirrel.jpg"
-        imagePosition="center"
+        imageSrc="/assets/box-turtle.jpg"
+        imagePosition="65% 42%"
         primary={{ href: "/help", label: "Get involved" }}
         secondary={{ href: "/stories", label: "See stories" }}
       />
@@ -51,7 +62,13 @@ export default function AboutPage() {
                 <img
                   src={member.photo}
                   alt={member.name}
-                  className="aspect-[4/3] w-full rounded-md border border-border object-cover"
+                  className="rounded-md border border-border object-cover"
+                  style={{
+                    width: member.photoWidth ?? "100%",
+                    justifySelf: imageFirst ? "start" : "end",
+                    aspectRatio: member.photoAspect ?? "4 / 3",
+                    objectPosition: member.photoPosition
+                  }}
                 />
               ) : (
                 <div className="flex aspect-[4/3] items-center justify-center rounded-md border border-border bg-surface text-muted-foreground">
